@@ -1,7 +1,8 @@
 from fastapi import APIRouter
-from app.db.database import db
+from app.services import task_service
 from app.schemas.task import Task
 from fastapi import HTTPException
+
 
 router = APIRouter()
 
@@ -11,42 +12,20 @@ def home():
 
 @router.get("/tasks")
 def get_tasks():
-    return db
+    return task_service.get_all_tasks()
 
 @router.get("/tasks/{task_id}")
-def get_task(task_id: int):
-    for t in db:
-        if t["id"] == task_id:
-            return t
-
-    raise HTTPException(status_code=404, detail="Task not found")
+def get_task_id(task_id: int):
+    return task_service.get_task_by_id(task_id)
 
 @router.post("/tasks")
-def create_task(task: Task):
-    new_id = len(db) + 1
-    new_task = {
-        "id": new_id,
-        "title": task.title,
-        "status": task.status,
-        "description": task.description,
-    }
-    db.append(new_task)
-    return new_task
+def post_task(task: Task):
+    return task_service.create_task(task)
 
 @router.patch("/tasks/{task_id}")
-def patch_title(task_id: int, task: Task):
-    for t in db:
-        if t["id"] == task_id:
-            t["title"] = task.title
-            return t
-
-    raise HTTPException(status_code=404, detail="Task not found")
+def patch(task_id: int, task: Task):
+    return task_service.patch_task(task_id, task)
 
 @router.delete("/tasks/{task_id}")
-def tasks_delete(task_id: int):
-    for t in db:
-        if t["id"] == task_id:
-            db.remove(t)
-            return {"message": "Task deleted successfully"}
-
-    raise HTTPException(status_code=404, detail="Task not found")
+def delete(task_id: int):
+    return task_service.delete_task(task_id)
