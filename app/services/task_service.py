@@ -1,48 +1,66 @@
-from app.db.database import db
+from app.db.database import conn, cursor
 from fastapi import HTTPException
 from app.schemas.task import Task
+#TUPLE into DICT function
+def task_to_dict(task):
+    return{
+        "id": task[0],
+        "title": task[1],
+        "status": task[2],
+        "description": task[3],
+    }
 
 
 #Get all tasks
 def get_all_tasks():
-    return db
+    cursor.execute("""
+    SELECT * FROM tasks
+""")
+    tasks = cursor.fetchall()
+    return [task_to_dict(t) for t in tasks]
 
 #Get tasks by id
 def get_task_by_id(task_id: int):
-    for t in db:
-        if t["id"] == task_id:
-            return t
-        
-    raise HTTPException(status_code=404, detail="Task not found")
+    cursor.execute("""
+    SELECT * FROM tasks
+    WHERE id = ?
+""", (task_id,))
+    task = cursor.fetchone()
+    if task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task_to_dict(task)
 
 #Create a new task
 def create_task(task: Task):
-    new_id = len(db) + 1
-    new_task = {
-        "id": new_id,
+    cursor.execute("""
+    INSERT INTO tasks(title, status, description)
+    VALUES (?, ?, ?)
+""", (task.title, task.status, task.description))
+    conn.commit()
+    return {
         "title": task.title,
-        "status": task.status,
+        "status":task.status,
         "description": task.description,
     }
-    db.append(new_task)
-    return new_task
 
 #Patch an existed task
 def patch_task(task_id: int, task: Task):
-    for t in db:
-        if t["id"] == task_id:
-            t["title"] = task.title
-            t["status"] = task.status
-            t["description"] = task.description
-            return t
-    
-    raise HTTPException(status_code=404, detail="Task not found")
+    cursor.execute("""
+    UPDATE tasks 
+    SET title = ?, status = ?, description =?
+    WHERE id = ?
+""", (task.title, task.status, task.description, task_id))
+    conn.commit()
+    if cursor.rowcount == 0:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return {"message": "Task updated successfully"}
 
 #Delete tasks
 def delete_task(task_id: int):
-    for t in db:
-        if t["id"] == task_id:
-            db.remove(t)
-            return {"message": "Task deleted sucessfully"}
-        
-    raise HTTPException(status_code=404, detail="Task not found")
+    cursor.execute("""
+    DELETE FROM tasks WHERE id = ?
+""", (task_id,))
+    conn.commit()
+    if cursor.rowcount == 0:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return {"message": "Task deleted successfully"}

@@ -1,5 +1,18 @@
-db = [
-    {'id': 1, 'title': 'Learn FastAPI', 'status': 'not_started', 'description': 'Introducing API and studiyng them till i can work with them.'},
-    {'id': 2, 'title': 'Make my first API', 'status': 'in_progress', 'description': 'Make my own first api that can envolve to a great SaaS'},
-    {'id': 3, 'title': 'Get a job', 'status': 'finished', 'description': 'Later use my own saas to go for a job interview'},
-]
+import sqlite3
+
+conn = sqlite3.connect(
+    "app/db/taskflow.db",
+    check_same_thread=False
+)
+cursor = conn.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    status TEXT NOT NULL,
+    description TEXT
+)
+""")
+
+conn.commit()
+
