@@ -1,6 +1,9 @@
 from app.db.database import conn, cursor
 from fastapi import HTTPException
-from app.schemas.task import Task
+from app.schemas.task import New_Task
+from app.schemas.task import Patch_Task
+
+
 #TUPLE into DICT function
 def task_to_dict(task):
     return{
@@ -31,29 +34,38 @@ def get_task_by_id(task_id: int):
     return task_to_dict(task)
 
 #Create a new task
-def create_task(task: Task):
+def create_task(task: New_Task):
     cursor.execute("""
     INSERT INTO tasks(title, status, description)
     VALUES (?, ?, ?)
-""", (task.title, task.status, task.description))
+""", (task.title, task.status.value, task.description))
+    new_id = cursor.lastrowid
     conn.commit()
     return {
+        "id": new_id,
         "title": task.title,
         "status":task.status,
         "description": task.description,
     }
 
 #Patch an existed task
-def patch_task(task_id: int, task: Task):
+def patch_task(task_id: int, task: Patch_Task):
     cursor.execute("""
-    UPDATE tasks 
-    SET title = ?, status = ?, description =?
-    WHERE id = ?
-""", (task.title, task.status, task.description, task_id))
-    conn.commit()
-    if cursor.rowcount == 0:
+    SELECT * FROM tasks where id = ?
+""",(task_id,))
+    old_task = cursor.fetchone()
+    if old_task is None:
         raise HTTPException(status_code=404, detail="Task not found")
-    return {"message": "Task updated successfully"}
+    old = task_to_dict(old_task)
+    new_title = task.title if task.title is not None else old["title"]
+    new_status = task.status.value if task.status is not None else old["status"]
+    new_description = task.description if task.description is not None else old["description"]
+    cursor.execute("""
+    Update tasks SET title = ?, status = ?, description = ?
+    WHERE id = ?
+""", (new_title, new_status, new_description, task_id,))
+    conn.commit()
+    return { "id": task_id, "title": new_title, "status": new_status, "description": new_description, }
 
 #Delete tasks
 def delete_task(task_id: int):
