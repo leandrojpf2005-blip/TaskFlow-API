@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        button {
+            margin: 2px;
+            padding: 5px 8px;
+            cursor: pointer;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 4px;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>TaskFlow</h1>
+
+    <!-- CREATE TASK -->
+    <div class="card">
+        <h2>Create Task</h2>
+
+        <form id="task-form">
+
+            <label>Title</label>
+            <input type="text" id="title">
+
+            <label>Description</label>
+            <textarea id="description"></textarea>
+
+            <label>Status</label>
+            <select id="status">
+                <option value="not_started">Not Started</option>
+                <option value="in_progress">In Progress</option>
+                <option value="finished">Finished</option>
+            </select>
+
+            <button type="submit">Create Task</button>
+
+        </form>
+    </div>
+
+    <!-- TASK TABLE -->
+    <div class="card">
+        <h2>Tasks</h2>
+
+        <table border="1" width="100%">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="tasks-table"></tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+// =====================
+// LOAD TASKS
+// =====================
+async function loadTasks() {
+    const response = await fetch("http://127.0.0.1:8000/tasks");
+    const tasks = await response.json();
+
+    const table = document.getElementById("tasks-table");
+    table.innerHTML = "";
+
+    tasks.forEach(task => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${task.title}</td>
+            <td>${task.status}</td>
+            <td>${task.description}</td>
+            <td>
+                <button onclick="enableEdit(this, ${task.id})">✏️</button>
+                <button onclick="confirmDelete(${task.id})">🗑️</button>
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+// =====================
+// CREATE TASK
+// =====================
+document.getElementById("task-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const status = document.getElementById("status").value;
+
+    if (!title.trim() || !description.trim()) {
+        alert("Title and description cannot be empty");
+        return;
+    }
+
+    await fetch("http://127.0.0.1:8000/tasks", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title,
+            description,
+            status
+        })
+    });
+
+    loadTasks();
+});
+
+// =====================
+// DELETE CONFIRM
+// =====================
+async function confirmDelete(id) {
+    const ok = confirm("Are you sure you want to delete this task?");
+    if (!ok) return;
+
+    await fetch(`http://127.0.0.1:8000/tasks/${id}`, {
+        method: "DELETE"
+    });
+
+    loadTasks();
+}
+
+// =====================
+// INLINE EDIT
+// =====================
+function enableEdit(button, id) {
+    const row = button.closest("tr");
+
+    const title = row.children[0].innerText;
+    const status = row.children[1].innerText;
+    const description = row.children[2].innerText;
+
+    row.children[0].innerHTML = `<input value="${title}">`;
+
+    row.children[1].innerHTML = `
+        <select>
+            <option value="not_started" ${status === "not_started" ? "selected" : ""}>Not Started</option>
+            <option value="in_progress" ${status === "in_progress" ? "selected" : ""}>In Progress</option>
+            <option value="finished" ${status === "finished" ? "selected" : ""}>Finished</option>
+        </select>
+    `;
+
+    row.children[2].innerHTML = `<input value="${description}">`;
+
+    row.children[3].innerHTML = `
+        <button onclick="saveEdit(${id}, this)">✔</button>
+        <button onclick="loadTasks()">❌</button>
+    `;
+}
+
+// =====================
+// SAVE EDIT (PATCH)
+// =====================
+async function saveEdit(id, button) {
+    const row = button.closest("tr");
+
+    const title = row.children[0].children[0].value;
+    const status = row.children[1].children[0].value;
+    const description = row.children[2].children[0].value;
+
+    await fetch(`http://127.0.0.1:8000/tasks/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            title,
+            status,
+            description
+        })
+    });
+
+    loadTasks();
+}
+
+// =====================
+// INIT
+// =====================
+loadTasks();
+
+</script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from enum import Enum
 from typing import Optional
 
@@ -15,8 +15,8 @@ class Priority(Enum):
     VERY_HIGH = "very_high_priority"
 
 class New_Task(BaseModel):
-    title: str
-    description: str
+    title: str = Field(min_length=1)
+    description: str = Field(min_length=1)
     status: Status
 
 class Patch_Task(BaseModel):
