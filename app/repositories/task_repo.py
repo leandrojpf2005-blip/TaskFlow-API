@@ -27,7 +27,7 @@ def get_task_id(task_id: int):
         return None
     return task_to_dict(task)
 
-def create_task(title, status, description, priority):
+def new_task(title, status, description, priority):
     cursor.execute("""
     INSERT INTO tasks(title, status, description, priority)
     VALUES (?, ?, ?, ?)
@@ -43,7 +43,7 @@ def create_task(title, status, description, priority):
     conn.commit()
     return new_task
 
-def patch_task(task_id: int, task: Patch_Task):
+def update_task(task_id: int, task: Patch_Task):
     cursor.execute("""
     SELECT * FROM tasks
     WHERE id = ?
@@ -62,7 +62,7 @@ def patch_task(task_id: int, task: Patch_Task):
 """, (new_title, new_status, new_description, new_priority, task_id,))
     return { "id": task_id, "title": new_title, "status": new_status, "description": new_description, "priority": new_priority }
 
-def delete_task(task_id: int):
+def eliminate_task(task_id: int):
     cursor.execute("""
     DELETE FROM tasks WHERE id = ?
 """, (task_id,))
