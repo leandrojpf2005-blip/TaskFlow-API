@@ -11,10 +11,10 @@ def task_to_dict(task):
         "title": task[1],
         "status": task[2],
         "description": task[3],
+        "priority": task[4],
     }
 
 
-#Get all tasks
 def get_all_tasks():
     cursor.execute("""
     SELECT * FROM tasks
@@ -36,9 +36,9 @@ def get_task_by_id(task_id: int):
 #Create a new task
 def create_task(task: New_Task):
     cursor.execute("""
-    INSERT INTO tasks(title, status, description)
-    VALUES (?, ?, ?)
-""", (task.title, task.status.value, task.description))
+    INSERT INTO tasks(title, status, description, priority)
+    VALUES (?, ?, ?, ?)
+""", (task.title, task.status.value, task.description, task.priority.value))
     new_id = cursor.lastrowid
     conn.commit()
     return {
@@ -46,6 +46,7 @@ def create_task(task: New_Task):
         "title": task.title,
         "status":task.status,
         "description": task.description,
+        "priority": task.priority,
     }
 
 #Patch an existed task
@@ -60,12 +61,13 @@ def patch_task(task_id: int, task: Patch_Task):
     new_title = task.title if task.title is not None else old["title"]
     new_status = task.status.value if task.status is not None else old["status"]
     new_description = task.description if task.description is not None else old["description"]
+    new_priority = task.priority.value if task.priority is not None else old["priority"]
     cursor.execute("""
-    Update tasks SET title = ?, status = ?, description = ?
+    Update tasks SET title = ?, status = ?, description = ?, priority = ?
     WHERE id = ?
-""", (new_title, new_status, new_description, task_id,))
+""", (new_title, new_status, new_description,new_priority, task_id,))
     conn.commit()
-    return { "id": task_id, "title": new_title, "status": new_status, "description": new_description, }
+    return { "id": task_id, "title": new_title, "status": new_status, "description": new_description, "priority": new_priority,}
 
 #Delete tasks
 def delete_task(task_id: int):

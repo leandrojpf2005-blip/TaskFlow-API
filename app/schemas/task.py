@@ -18,8 +18,10 @@ class New_Task(BaseModel):
     title: str = Field(min_length=1)
     description: str = Field(min_length=1)
     status: Status
+    priority: Priority
 
 class Patch_Task(BaseModel):
     title: Optional[str]
     description: Optional[str]
     status: Optional[Status]
+    priority: Optional[Priority]

@@ -5,23 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TaskFlow</title>
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        button {
-            margin: 2px;
-            padding: 5px 8px;
-            cursor: pointer;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 4px;
-        }
-
-        td {
-            vertical-align: middle;
-        }
-    </style>
 </head>
 
 <body>
@@ -49,6 +32,16 @@
                 <option value="finished">Finished</option>
             </select>
 
+            <!-- FIXED: PRIORITY ADDED -->
+            <label>Priority</label>
+            <select id="priority">
+                <option value="no_priority">None</option>
+                <option value="low_priority">Low</option>
+                <option value="normal_priority">Normal</option>
+                <option value="high_priority">High</option>
+                <option value="very_high_priority">Very High</option>
+            </select>
+
             <button type="submit">Create Task</button>
 
         </form>
@@ -64,6 +57,7 @@
                     <th>Title</th>
                     <th>Status</th>
                     <th>Description</th>
+                    <th>Priority</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -94,6 +88,7 @@ async function loadTasks() {
             <td>${task.title}</td>
             <td>${task.status}</td>
             <td>${task.description}</td>
+            <td>${task.priority}</td>
             <td>
                 <button onclick="enableEdit(this, ${task.id})">✏️</button>
                 <button onclick="confirmDelete(${task.id})">🗑️</button>
@@ -113,6 +108,7 @@ document.getElementById("task-form").addEventListener("submit", async (e) => {
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
     const status = document.getElementById("status").value;
+    const priority = document.getElementById("priority").value;
 
     if (!title.trim() || !description.trim()) {
         alert("Title and description cannot be empty");
@@ -127,7 +123,8 @@ document.getElementById("task-form").addEventListener("submit", async (e) => {
         body: JSON.stringify({
             title,
             description,
-            status
+            status,
+            priority
         })
     });
 
@@ -157,6 +154,7 @@ function enableEdit(button, id) {
     const title = row.children[0].innerText;
     const status = row.children[1].innerText;
     const description = row.children[2].innerText;
+    const priority = row.children[3].innerText;
 
     row.children[0].innerHTML = `<input value="${title}">`;
 
@@ -170,14 +168,25 @@ function enableEdit(button, id) {
 
     row.children[2].innerHTML = `<input value="${description}">`;
 
+    // FIXED: PRIORITY (was broken before)
     row.children[3].innerHTML = `
+        <select>
+            <option value="no_priority" ${priority === "no_priority" ? "selected" : ""}>None</option>
+            <option value="low_priority" ${priority === "low_priority" ? "selected" : ""}>Low</option>
+            <option value="normal_priority" ${priority === "normal_priority" ? "selected" : ""}>Normal</option>
+            <option value="high_priority" ${priority === "high_priority" ? "selected" : ""}>High</option>
+            <option value="very_high_priority" ${priority === "very_high_priority" ? "selected" : ""}>Very High</option>
+        </select>
+    `;
+
+    row.children[4].innerHTML = `
         <button onclick="saveEdit(${id}, this)">✔</button>
         <button onclick="loadTasks()">❌</button>
     `;
 }
 
 // =====================
-// SAVE EDIT (PATCH)
+// SAVE EDIT
 // =====================
 async function saveEdit(id, button) {
     const row = button.closest("tr");
@@ -185,6 +194,7 @@ async function saveEdit(id, button) {
     const title = row.children[0].children[0].value;
     const status = row.children[1].children[0].value;
     const description = row.children[2].children[0].value;
+    const priority = row.children[3].children[0].value;
 
     await fetch(`http://127.0.0.1:8000/tasks/${id}`, {
         method: "PATCH",
@@ -194,16 +204,15 @@ async function saveEdit(id, button) {
         body: JSON.stringify({
             title,
             status,
-            description
+            description,
+            priority
         })
     });
 
     loadTasks();
 }
 
-// =====================
 // INIT
-// =====================
 loadTasks();
 
 </script>
