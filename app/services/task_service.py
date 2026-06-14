@@ -42,7 +42,9 @@ def patch_task(task_id, task):
     
     if old_task["status"] == "not_started" and status == "finished":
         raise HTTPException(status_code=400, detail="You cannot finish a not started task")
+    
     return task_repo.update_task(task_id, title, status, description, priority)
+
 
 def delete_task(task_id: int):
     return task_repo.eliminate_task(task_id)
