@@ -1,22 +1,14 @@
 from app.db.database import conn, cursor
+import psycopg2.extras
 
-# TUPLE into DICT function
-def task_to_dict(task):
-    return {
-        "id": task[0],
-        "title": task[1],
-        "status": task[2],
-        "description": task[3],
-        "priority": task[4],
-    }
-
+cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 def get_tasks():
     cursor.execute("""
         SELECT * FROM tasks
     """)
     tasks = cursor.fetchall()
-    return [task_to_dict(t) for t in tasks]
+    return tasks
 
 
 def get_task_id(task_id: int):
@@ -30,17 +22,17 @@ def get_task_id(task_id: int):
     if task is None:
         return None
 
-    return task_to_dict(task)
+    return task
 
 
-def new_task(title, status, description, priority):
+def new_task(title, status, description, priority, due_date):
     cursor.execute("""
-        INSERT INTO tasks(title, status, description, priority)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO tasks(title, status, description, priority, due_date)
+        VALUES (%s, %s, %s, %s, %s)
         RETURNING id
-    """, (title, status, description, priority))
+    """, (title, status, description, priority, due_date))
 
-    new_id = cursor.fetchone()[0]
+    new_id = cursor.fetchone()["id"]
 
     conn.commit()
 
@@ -50,18 +42,20 @@ def new_task(title, status, description, priority):
         "status": status,
         "description": description,
         "priority": priority,
+        "due_date": due_date,
     }
 
 
-def update_task(task_id, title, status, description, priority):
+def update_task(task_id, title, status, description, priority, due_date):
     cursor.execute("""
         UPDATE tasks
         SET title = %s,
             status = %s,
             description = %s,
-            priority = %s
+            priority = %s,
+            due_date = %s
         WHERE id = %s
-    """, (title, status, description, priority, task_id))
+    """, (title, status, description, priority, due_date, task_id))
 
     conn.commit()
 
