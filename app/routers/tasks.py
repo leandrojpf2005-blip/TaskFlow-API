@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.services import task_service
-from app.schemas.task import New_Task   
+from app.schemas.task import NewTask   
 from fastapi import HTTPException
 
 
@@ -19,11 +19,11 @@ def get_task_id(task_id: int):
     return task_service.get_task_by_id(task_id)
 
 @router.post("/tasks")
-def post_task(task: New_Task):
+def post_task(task: NewTask):
     return task_service.create_task(task)
 
 @router.patch("/tasks/{task_id}")
-def patch(task_id: int, task: New_Task):
+def patch(task_id: int, task: NewTask):
     return task_service.patch_task(task_id, task)
 
 @router.delete("/tasks/{task_id}")

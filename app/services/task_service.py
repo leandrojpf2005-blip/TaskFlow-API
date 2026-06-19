@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from app.schemas.task import New_Task
+from app.schemas.task import NewTask
 from app.schemas.task import Patch_Task
 from app.repositories import task_repo
 
@@ -17,7 +17,7 @@ def get_task_by_id(task_id: int):
     return task
 
 
-def create_task(task: New_Task):
+def create_task(task: NewTask):
     return task_repo.new_task(
         task.title,
         task.status.value,

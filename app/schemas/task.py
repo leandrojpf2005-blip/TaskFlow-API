@@ -26,7 +26,7 @@ class NewTask(BaseModel):
     due_date: Optional[datetime] = None
 
 
-class PatchTask(BaseModel):
+class Patch_Task(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     status: Optional[Status] = None
