@@ -25,7 +25,9 @@ def get_task_id(task_id: int):
     return task
 
 
-def new_task(title, status, description, priority, due_date):
+def new_task(title, description, priority, due_date):
+    status = "not_started"
+
     cursor.execute("""
         INSERT INTO tasks(title, status, description, priority, due_date)
         VALUES (%s, %s, %s, %s, %s)
@@ -33,7 +35,6 @@ def new_task(title, status, description, priority, due_date):
     """, (title, status, description, priority, due_date))
 
     new_id = cursor.fetchone()["id"]
-
     conn.commit()
 
     return {

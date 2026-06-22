@@ -8,6 +8,7 @@ class Status(str, Enum):
     NOT_STARTED = "not_started"
     IN_PROGRESS = "in_progress"
     FINISHED = "finished"
+    PAUSED ="paused"
 
 
 class Priority(str, Enum):
