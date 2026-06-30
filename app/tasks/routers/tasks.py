@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from app.services import task_service
-from app.schemas.task import NewTask, Patch_Task   
+from app.tasks.services import task_service
+from app.tasks.schemas.task_schemas import NewTask, Patch_Task   
 from fastapi import HTTPException
 
 

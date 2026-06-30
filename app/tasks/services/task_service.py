@@ -1,7 +1,7 @@
 from fastapi import HTTPException
-from app.schemas.task import NewTask
-from app.schemas.task import Patch_Task
-from app.repositories import task_repo
+from app.tasks.schemas.task_schemas import NewTask
+from app.tasks.schemas.task_schemas import Patch_Task
+from app.tasks.repositories import task_repo
 
 
 def get_all_tasks():
