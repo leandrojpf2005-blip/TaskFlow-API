@@ -22,9 +22,10 @@ class Priority(str, Enum):
 class NewTask(BaseModel):
     title: str = Field(min_length=1)
     description: str = Field(min_length=1)
-    status: Status
+    status: Status = Status.NOT_STARTED
     priority: Priority
     due_date: Optional[datetime] = None
+    workspace_id: int
 
 
 class Patch_Task(BaseModel):
@@ -33,3 +34,4 @@ class Patch_Task(BaseModel):
     status: Optional[Status] = None
     priority: Optional[Priority] = None
     due_date: Optional[datetime] = None
+    workspace_id: Optional[int] = None

@@ -4,8 +4,8 @@ from app.tasks.schemas.task_schemas import Patch_Task
 from app.tasks.repositories import task_repo
 
 
-def get_all_tasks():
-    return task_repo.get_tasks()
+def get_all_tasks(workspace_id: int):
+    return task_repo.get_tasks(workspace_id)
 
 
 def get_task_by_id(task_id: int):

@@ -3,9 +3,10 @@ import psycopg2.extras
 
 cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-def get_tasks():
+def get_tasks(workspace_id: int):
     cursor.execute("""
         SELECT * FROM tasks
+        WHERE workspace_id = %s
     """)
     tasks = cursor.fetchall()
     return tasks

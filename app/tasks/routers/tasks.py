@@ -11,8 +11,8 @@ def home():
     return {"message": "TaskFlow API is running"}
 
 @router.get("/tasks")
-def get_tasks():
-    return task_service.get_all_tasks()
+def get_tasks(workspace_id: int):
+    return task_service.get_all_tasks(workspace_id)
 
 @router.get("/tasks/{task_id}")
 def get_task_id(task_id: int):
