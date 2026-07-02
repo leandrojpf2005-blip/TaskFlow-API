@@ -7,7 +7,8 @@ def get_tasks(workspace_id: int):
     cursor.execute("""
         SELECT * FROM tasks
         WHERE workspace_id = %s
-    """)
+        ORDER BY id DESC
+    """, (workspace_id,))
     tasks = cursor.fetchall()
     return tasks
 
@@ -26,14 +27,14 @@ def get_task_id(task_id: int):
     return task
 
 
-def new_task(title, description, priority, due_date):
+def new_task(title, description, priority, due_date, workspace_id):
     status = "not_started"
 
     cursor.execute("""
-        INSERT INTO tasks(title, status, description, priority, due_date)
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO tasks(title, status, description, priority, due_date, workspace_id)
+        VALUES (%s, %s, %s, %s, %s, %s)
         RETURNING id
-    """, (title, status, description, priority, due_date))
+    """, (title, status, description, priority, due_date, workspace_id))
 
     new_id = cursor.fetchone()["id"]
     conn.commit()
@@ -45,6 +46,7 @@ def new_task(title, description, priority, due_date):
         "description": description,
         "priority": priority,
         "due_date": due_date,
+        "workspace_id": workspace_id,
     }
 
 

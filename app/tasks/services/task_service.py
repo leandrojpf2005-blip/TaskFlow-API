@@ -20,10 +20,10 @@ def get_task_by_id(task_id: int):
 def create_task(task: NewTask):
     return task_repo.new_task(
         task.title,
-        task.status.value,
         task.description,
         task.priority.value,
         task.due_date,
+        task.workspace_id,
     )
 
 
