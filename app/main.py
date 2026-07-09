@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.tasks.routers import tasks
-from app.workspaces.routers import workspace
+from app.macros.routers import macros
 
 app = FastAPI()
 
@@ -14,5 +13,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(tasks.router)
-app.include_router(workspace.router)
+app.include_router(macros.router)
