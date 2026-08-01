@@ -12,6 +12,14 @@ interface MealSectionProps {
   onEdit: (entry: FoodEntry) => void;
 }
 
+// Emoji accent per default meal, falls back to a plate for custom meals.
+const MEAL_ICON: Record<string, string> = {
+  Breakfast: "🌅",
+  Lunch: "🥗",
+  Snack: "🍎",
+  Dinner: "🌙",
+};
+
 export function MealSection({ meal, entries, onAdd, onDelete, onEdit }: MealSectionProps) {
   const [adding, setAdding] = useState(false);
   const totals = sumEntries(entries);
@@ -22,16 +30,19 @@ export function MealSection({ meal, entries, onAdd, onDelete, onEdit }: MealSect
   };
 
   return (
-    <section className="meal card">
-      <header className="meal-head">
-        <h3 className="meal-title">{meal.name}</h3>
-        <span className="meal-cal">{totals.calories} kcal</span>
+    <section className="mealcard">
+      <header className="mealcard-head">
+        <div className="mealcard-title">
+          <span className="mealcard-icon" aria-hidden>
+            {MEAL_ICON[meal.name] ?? "🍽"}
+          </span>
+          <h3>{meal.name}</h3>
+        </div>
+        <span className="mealcard-cal">{totals.calories} kcal</span>
       </header>
 
-      <div className="meal-body">
-        {entries.length === 0 && !adding && (
-          <p className="meal-empty">Nothing logged yet.</p>
-        )}
+      <div className="mealcard-body">
+        {entries.length === 0 && !adding && <p className="mealcard-empty">Nothing logged</p>}
 
         {entries.map((entry) => (
           <FoodEntryRow key={entry.id} entry={entry} onDelete={onDelete} onEdit={onEdit} />
@@ -40,8 +51,8 @@ export function MealSection({ meal, entries, onAdd, onDelete, onEdit }: MealSect
         {adding ? (
           <AddFoodForm mealId={meal.id} onAdd={handleAdd} onCancel={() => setAdding(false)} />
         ) : (
-          <button className="meal-add" onClick={() => setAdding(true)}>
-            + Add food
+          <button className="mealcard-add" onClick={() => setAdding(true)}>
+            <span aria-hidden>＋</span> Add food
           </button>
         )}
       </div>

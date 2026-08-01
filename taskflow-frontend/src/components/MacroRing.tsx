@@ -1,45 +1,49 @@
-// A circular progress ring for calories consumed vs. target.
+import type { ReactNode } from "react";
+
+// Generic circular progress ring, reused for the big calorie ring and the
+// small per-macro rings.
 
 interface MacroRingProps {
-  consumed: number;
+  value: number;
   target: number;
+  size: number;
+  stroke: number;
+  color: string;
+  center?: ReactNode;
 }
 
-export function MacroRing({ consumed, target }: MacroRingProps) {
-  const radius = 62;
+export function MacroRing({ value, target, size, stroke, color, center }: MacroRingProps) {
+  const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
-  const pct = target > 0 ? Math.min(consumed / target, 1) : 0;
+  const pct = target > 0 ? Math.min(value / target, 1) : 0;
   const dash = circumference * pct;
-  const remaining = Math.max(target - consumed, 0);
-  const over = consumed > target;
+  const over = value > target;
 
   return (
-    <div className="ring">
-      <svg width="150" height="150" viewBox="0 0 150 150">
+    <div className="ring" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <circle
           className="ring-track"
-          cx="75"
-          cy="75"
+          cx={size / 2}
+          cy={size / 2}
           r={radius}
           fill="none"
-          strokeWidth="12"
+          strokeWidth={stroke}
         />
         <circle
-          className={`ring-value ${over ? "ring-value--over" : ""}`}
-          cx="75"
-          cy="75"
+          cx={size / 2}
+          cy={size / 2}
           r={radius}
           fill="none"
-          strokeWidth="12"
+          strokeWidth={stroke}
           strokeLinecap="round"
+          stroke={over ? "var(--danger)" : color}
           strokeDasharray={`${dash} ${circumference}`}
-          transform="rotate(-90 75 75)"
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          style={{ transition: "stroke-dasharray 0.5s ease" }}
         />
       </svg>
-      <div className="ring-center">
-        <strong className="ring-number">{remaining}</strong>
-        <span className="ring-caption">{over ? "over" : "kcal left"}</span>
-      </div>
+      {center && <div className="ring-center">{center}</div>}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { FoodEntry } from "../types/macros";
+import { round1 } from "../lib/format";
 
 interface FoodEntryRowProps {
   entry: FoodEntry;
@@ -9,29 +10,27 @@ interface FoodEntryRowProps {
 export function FoodEntryRow({ entry, onDelete, onEdit }: FoodEntryRowProps) {
   return (
     <div className="foodrow">
-      <div className="foodrow-main">
+      <button className="foodrow-body" onClick={() => onEdit(entry)}>
         <span className="foodrow-name">{entry.food_name}</span>
         <div className="foodrow-macros">
-          <span className="macro-pill macro-pill--protein">P {entry.protein ?? 0}</span>
-          <span className="macro-pill macro-pill--carbs">C {entry.carbs ?? 0}</span>
-          <span className="macro-pill macro-pill--fat">F {entry.fat ?? 0}</span>
+          <span className="dot dot--protein" /> {round1(entry.protein ?? 0)}p
+          <span className="dot dot--carbs" /> {round1(entry.carbs ?? 0)}c
+          <span className="dot dot--fat" /> {round1(entry.fat ?? 0)}f
         </div>
-      </div>
+      </button>
 
-      <span className="foodrow-cal">{entry.calories ?? 0}</span>
+      <span className="foodrow-cal">
+        {entry.calories ?? 0}
+        <span className="foodrow-cal-unit">kcal</span>
+      </span>
 
-      <div className="foodrow-actions">
-        <button className="icon-btn" onClick={() => onEdit(entry)} aria-label="Edit entry">
-          ✎
-        </button>
-        <button
-          className="icon-btn icon-btn--danger"
-          onClick={() => onDelete(entry.id)}
-          aria-label="Delete entry"
-        >
-          ✕
-        </button>
-      </div>
+      <button
+        className="foodrow-del"
+        onClick={() => onDelete(entry.id)}
+        aria-label={`Delete ${entry.food_name}`}
+      >
+        ✕
+      </button>
     </div>
   );
 }

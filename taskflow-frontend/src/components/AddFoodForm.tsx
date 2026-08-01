@@ -32,24 +32,26 @@ export function AddFoodForm({ mealId, onAdd, onCancel }: AddFoodFormProps) {
   };
 
   return (
-    <form className="addfood" onSubmit={submit}>
+    <form className="quickadd" onSubmit={submit}>
       <input
-        className="addfood-name"
-        placeholder="Food name"
+        className="quickadd-name"
+        placeholder="What did you eat?"
         value={form.food_name}
         onChange={set("food_name")}
         autoFocus
       />
-      <input className="addfood-num" placeholder="kcal" inputMode="numeric" value={form.calories} onChange={set("calories")} />
-      <input className="addfood-num" placeholder="P" inputMode="numeric" value={form.protein} onChange={set("protein")} />
-      <input className="addfood-num" placeholder="C" inputMode="numeric" value={form.carbs} onChange={set("carbs")} />
-      <input className="addfood-num" placeholder="F" inputMode="numeric" value={form.fat} onChange={set("fat")} />
-      <div className="addfood-actions">
-        <button type="submit" className="btn btn--primary btn--sm">
-          Add
-        </button>
+      <div className="quickadd-nums">
+        <input className="quickadd-num" placeholder="kcal" inputMode="numeric" value={form.calories} onChange={set("calories")} />
+        <input className="quickadd-num" placeholder="P" inputMode="numeric" value={form.protein} onChange={set("protein")} />
+        <input className="quickadd-num" placeholder="C" inputMode="numeric" value={form.carbs} onChange={set("carbs")} />
+        <input className="quickadd-num" placeholder="F" inputMode="numeric" value={form.fat} onChange={set("fat")} />
+      </div>
+      <div className="quickadd-actions">
         <button type="button" className="btn btn--ghost btn--sm" onClick={onCancel}>
           Cancel
+        </button>
+        <button type="submit" className="btn btn--primary btn--sm">
+          Add
         </button>
       </div>
     </form>

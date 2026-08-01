@@ -10,29 +10,20 @@ export function DateNav({ date, onChange }: DateNavProps) {
 
   return (
     <div className="datenav">
-      <button
-        className="datenav-arrow"
-        onClick={() => onChange(addDays(date, -1))}
-        aria-label="Previous day"
-      >
+      <button className="datenav-arrow" onClick={() => onChange(addDays(date, -1))} aria-label="Previous day">
         ‹
       </button>
 
-      <div className="datenav-label">
-        <span className="datenav-day">{today ? "Today" : formatLong(date)}</span>
-        {today && <span className="datenav-sub">{formatLong(date)}</span>}
-        {!today && (
-          <button className="datenav-today" onClick={() => onChange(todayISO())}>
-            Jump to today
-          </button>
-        )}
-      </div>
-
       <button
-        className="datenav-arrow"
-        onClick={() => onChange(addDays(date, 1))}
-        aria-label="Next day"
+        className={`datenav-pill ${today ? "datenav-pill--today" : ""}`}
+        onClick={() => onChange(todayISO())}
+        title={today ? "Today" : "Jump to today"}
       >
+        <span className="datenav-dot" aria-hidden />
+        {today ? "Today" : formatLong(date)}
+      </button>
+
+      <button className="datenav-arrow" onClick={() => onChange(addDays(date, 1))} aria-label="Next day">
         ›
       </button>
     </div>

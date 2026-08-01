@@ -34,10 +34,10 @@ export function EditFoodModal({ entry, onSave, onClose }: EditFoodModalProps) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal card" onClick={(e) => e.stopPropagation()}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <header className="modal-head">
           <h3>Edit food</h3>
-          <button className="icon-btn" onClick={onClose} aria-label="Close">
+          <button className="modal-close" onClick={onClose} aria-label="Close">
             ✕
           </button>
         </header>
