@@ -1,12 +1,45 @@
 from fastapi import HTTPException
-from app.macros.schemas.macro_schemas import NewFoodEntry, UpdateFoodEntry
+from app.macros.schemas.macro_schemas import NewFoodEntry, UpdateFoodEntry, NewMeal, UpdateMeal
 from app.macros.repositories import macro_repo
 
-def get_day(entry_date):
-    return macro_repo.get_macros(entry_date)
 
-def create_food_entry(entry: NewFoodEntry):
+def get_meals(user_id):
+    return macro_repo.get_meals(user_id)
+
+def create_meal(entry: NewMeal, user_id):
+    return macro_repo.new_meal(
+        user_id,
+        entry.name,
+        entry.position,
+        entry.target_calories,
+    )
+
+def delete_meal(entry_id, user_id):
+    deleted = macro_repo.delete_meal(entry_id, user_id)
+    if deleted == 0:
+        raise HTTPException(status_code=404, detail="Meal not found")
+    return {"message": "Meal deleted"}
+
+def update_meal(entry_id: int, changes: UpdateMeal, user_id):
+    existing = macro_repo.get_meal_id(entry_id, user_id)
+
+    if existing is None:
+        raise HTTPException(status_code=404, detail="Meal not found")
+
+    data = changes.model_dump(exclude_unset=True)
+
+    name = data.get("name", existing["name"])
+    position = data.get("position", existing["position"])
+    target_calories = data.get("target_calories", existing["target_calories"])
+
+    return macro_repo.update_meal(entry_id, user_id, name, position, target_calories)
+
+def get_day(entry_date, user_id):
+    return macro_repo.get_macros(user_id, entry_date)
+
+def create_food_entry(entry: NewFoodEntry, user_id):
     return macro_repo.new_food_entry(
+        user_id,
         entry.meal_id,
         entry.food_name,
         entry.calories,
@@ -16,20 +49,20 @@ def create_food_entry(entry: NewFoodEntry):
         entry_date=entry.date,
     )
 
-def delete_food_entry(entry_id: int):
-    deleted = macro_repo.delete_food_entry(entry_id)
+def delete_food_entry(entry_id: int, user_id):
+    deleted = macro_repo.delete_food_entry(entry_id, user_id)
     if deleted == 0:
         raise HTTPException(status_code=404, detail="Food entry not found")
     return {"message": "Food entry deleted"}
 
-def update_food_entry(entry_id: int, changes: UpdateFoodEntry):
-    existing = macro_repo.get_food_entry(entry_id)
+def update_food_entry(entry_id: int, changes: UpdateFoodEntry, user_id):
+    existing = macro_repo.get_food_entry(entry_id, user_id)
 
     if existing is None:
         raise HTTPException(status_code=404, detail="Entry not found")
-    
+
     data = changes.model_dump(exclude_unset=True)
-    
+
     meal_id = data.get("meal_id", existing["meal_id"])
     food_name = data.get("food_name", existing["food_name"])
     calories = data.get("calories", existing["calories"])
@@ -37,4 +70,4 @@ def update_food_entry(entry_id: int, changes: UpdateFoodEntry):
     carbs = data.get("carbs", existing["carbs"])
     fat = data.get("fat", existing["fat"])
 
-    return macro_repo.update_food_entry(entry_id, meal_id, food_name, calories, protein, carbs, fat)
+    return macro_repo.update_food_entry(entry_id, user_id, meal_id, food_name, calories, protein, carbs, fat)

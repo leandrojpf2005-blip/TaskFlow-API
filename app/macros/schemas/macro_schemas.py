@@ -5,11 +5,18 @@ import datetime
 class NewMeal(BaseModel):
     name: str
     position: int
+    target_calories: int
+
+class UpdateMeal(BaseModel):
+    name: str | None = None
+    position: int | None = None
+    target_calories: int | None = None
 
 class MealOut(BaseModel):
     id: int
     name: str
     position: int
+    target_calories: int | None
 
 
 

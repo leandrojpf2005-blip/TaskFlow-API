@@ -1,40 +1,38 @@
-from app.db.database import conn, cursor
-import psycopg2.extras
+from app.db.database import get_cursor
 
-cursor = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 def get_workspaces():
-    cursor.execute("""
-        SELECT * FROM workspace
-""")
-    workspaces = cursor.fetchall()
-    return workspaces
+    with get_cursor() as cur:
+        cur.execute("""
+            SELECT * FROM workspace
+        """)
+        return cur.fetchall()
+
 
 def get_workspace_by_id(workspace_id):
-    cursor.execute("""
-        SELECT * FROM workspace WHERE id = %s
-    """, (workspace_id,))
+    with get_cursor() as cur:
+        cur.execute("""
+            SELECT * FROM workspace WHERE id = %s
+        """, (workspace_id,))
+        return cur.fetchone()
 
-    return cursor.fetchone()
 
 def new_workspace(name):
-    cursor.execute("""
-        INSERT INTO workspace(name)
-        VALUES (%s)
-        RETURNING id
-""", (name,))
-    
-    new_id = cursor.fetchone()["id"]
-    conn.commit()
+    with get_cursor() as cur:
+        cur.execute("""
+            INSERT INTO workspace(name)
+            VALUES (%s)
+            RETURNING id
+        """, (name,))
+        new_id = cur.fetchone()["id"]
+        return {
+            "id": new_id,
+            "name": name,
+        }
 
-    return {
-        "id": new_id,
-        "name": name,
-    }
 
 def delete_workspace(workspace_id):
-    cursor.execute("""
-        DELETE FROM workspace WHERE id = %s
-    """, (workspace_id,))
-
-    conn.commit()
+    with get_cursor() as cur:
+        cur.execute("""
+            DELETE FROM workspace WHERE id = %s
+        """, (workspace_id,))

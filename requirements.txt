@@ -1,0 +1,14 @@
+# Web framework + ASGI server
+fastapi==0.136.1
+uvicorn==0.47.0
+
+# Validation (used directly via BaseModel; also a FastAPI dependency)
+pydantic==2.13.4
+
+# PostgreSQL driver
+psycopg2-binary==2.9.12
+
+# --- Auth ---
+python-multipart==0.0.32   # REQUIRED for the OAuth2 login form (form data parsing)
+pyjwt==2.13.0              # create/verify JWT tokens
+pwdlib[argon2]==0.3.0      # password hashing (Argon2)
