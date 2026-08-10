@@ -45,7 +45,14 @@ USECOLS = [
     "saturated-fat_100g",   
     "sugars_100g",          
     "fiber_100g",           
-    "sodium_100g",          
+    "sodium_100g",
+    "monounsaturated-fat_100g",
+    "polyunsaturated-fat_100g",
+    "trans-fat_100g",
+    "potassium_100g",
+    "calcium_100g",
+    "iron_100g",
+    "cholesterol_100g",
 ]
 
 
@@ -61,6 +68,13 @@ def clean_chunk(df):
     df["sugars_100g"] = pd.to_numeric(df["sugars_100g"], errors="coerce")
     df["fiber_100g"] = pd.to_numeric(df["fiber_100g"], errors="coerce")
     df["sodium_100g"] = pd.to_numeric(df["sodium_100g"], errors="coerce")
+    df["monounsaturated-fat_100g"] = pd.to_numeric(df["monounsaturated-fat_100g"], errors="coerce")
+    df["polyunsaturated-fat_100g"] = pd.to_numeric(df["polyunsaturated-fat_100g"], errors="coerce")
+    df["trans-fat_100g"] = pd.to_numeric(df["trans-fat_100g"], errors="coerce")
+    df["potassium_100g"] = pd.to_numeric(df["potassium_100g"], errors="coerce")
+    df["calcium_100g"] = pd.to_numeric(df["calcium_100g"], errors="coerce")
+    df["iron_100g"] = pd.to_numeric(df["iron_100g"], errors="coerce")
+    df["cholesterol_100g"] = pd.to_numeric(df["cholesterol_100g"], errors="coerce")
 
     core = ["energy-kcal_100g", "proteins_100g", "carbohydrates_100g", "fat_100g"]
     df = df[df["product_name"].notna()]
@@ -69,27 +83,35 @@ def clean_chunk(df):
     df = df[df["energy-kcal_100g"].isna() | (df["energy-kcal_100g"] <= 900)]
     df = df.drop_duplicates(subset="code")
     df["sodium_100g"] = df["sodium_100g"] * 1000
-    
+    df["potassium_100g"] = df["potassium_100g"] * 1000
+    df["calcium_100g"] = df["calcium_100g"] * 1000
+    df["iron_100g"] = df["iron_100g"] * 1000
+    df["cholesterol_100g"] = df["cholesterol_100g"] * 1000
+
     return df
 
 # ============================================================================
 # STAGE 4 — DEDUPE BRANDS : brand names -> company table   (leave for later)
 # ============================================================================
 
-def load_brands(cur, df):
-    """Dedupe brand names into `company`, return a {brand_name: brand_id} map."""
-    # TODO: later
-    return {}
-
 
 # ============================================================================
 # STAGE 5 — BULK INSERT : cleaned chunk -> food table   (leave for later)
 # ============================================================================
 
+SRC_COLS = ["product_name", "code", "energy-kcal_100g", "proteins_100g", "carbohydrates_100g", "fat_100g", "saturated-fat_100g", "monounsaturated-fat_100g", "polyunsaturated-fat_100g",
+            "trans-fat_100g", "fiber_100g", "sugars_100g", "sodium_100g", "potassium_100g", "calcium_100g", "iron_100g", "cholesterol_100g"]
+
 def insert_foods(cur, df):
-    """Bulk-insert a cleaned chunk into `food` with psycopg2 execute_values."""
-    # TODO: later
-    pass
+    values = [
+    tuple(None if pd.isna(v) else v for v in row)
+    for row in df[SRC_COLS].itertuples(index=False, name=None)
+    ]
+    psycopg2.extras.execute_values(
+        cur, """INSERT INTO food (name, barcode, calories, protein_g, carbs_g, fat_g, sat_fat_g, mono_fat_g, poly_fat_g, trans_fat_g, fiber_g, sugar_g, sodium_mg, potassium_mg, calcium_mg, iron_mg, cholesterol_mg)
+                VALUES %s
+                ON CONFLICT (barcode) DO NOTHING
+            """, values)
 
 
 # ============================================================================
@@ -97,25 +119,27 @@ def insert_foods(cur, df):
 # ============================================================================
 
 def main():
-    # DEV MODE: STAGE 1 + 2 read just a 1000-row sample so iterating is instant.
-    df = pd.read_csv(
-        OFF_FILE, sep="\t", usecols=USECOLS,        # stage 1 (stream) + 2 (select)
-        nrows=4000000, dtype=str, on_bad_lines="skip",
+    conn = psycopg2.connect(dbname = "taskflow", user="postgres", password="352", host="localhost", port="5432")
+    cur = conn.cursor()
+    reader = pd.read_csv(
+        OFF_FILE, sep="\t", usecols=USECOLS,
+        chunksize=100_000, dtype=str, on_bad_lines="skip",
     )
-    print(f"read {len(df)} raw rows\n")
+    for i, chunk in enumerate(reader):
+        cleaned = clean_chunk(chunk)
+        insert_foods(cur, cleaned)
+        conn.commit()
+        print(f" Inserted {cur.rowcount} foods into the catalog (from chunk {i}")
+    
 
-    cleaned = clean_chunk(df)                        # stage 3 (clean)
+    cur.close()
+    conn.close()
 
-    print(cleaned.head(20))
-    print(f"\n{len(cleaned)} rows left after cleaning (from {len(df)} raw)")
 
-    # --- THE REAL RUN (uncomment once clean_chunk + insert_foods work) -------
-    # conn = psycopg2.connect(dbname="taskflow", user="postgres",
-    #                         password="352", host="localhost", port="5432")
-    # cur = conn.cursor()
-    #
-    # reader = pd.read_csv(OFF_FILE, sep="\t", usecols=USECOLS,   # stage 1 + 2
-    #                      chunksize=CHUNK_SIZE, dtype=str, on_bad_lines="skip")
+
+
+    
+
     # for i, chunk in enumerate(reader):
     #     cleaned = clean_chunk(chunk)                # stage 3
     #     load_brands(cur, cleaned)                   # stage 4
