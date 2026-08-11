@@ -5,6 +5,7 @@ from app.macros.routers import macros
 from app.users.routers import auth
 from app.profile.routers import profile
 from app.measurements.routers import measurements
+from app.foods.routers import foods
 
 app = FastAPI()
 
@@ -20,3 +21,4 @@ app.include_router(macros.router)
 app.include_router(auth.router)
 app.include_router(profile.router)
 app.include_router(measurements.router)
+app.include_router(foods.router)
