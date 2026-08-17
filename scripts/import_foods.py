@@ -136,20 +136,5 @@ def main():
     conn.close()
 
 
-
-
-    
-
-    # for i, chunk in enumerate(reader):
-    #     cleaned = clean_chunk(chunk)                # stage 3
-    #     load_brands(cur, cleaned)                   # stage 4
-    #     insert_foods(cur, cleaned)                  # stage 5
-    #     conn.commit()
-    #     print(f"chunk {i}: inserted {len(cleaned)} rows")
-    #
-    # cur.close()
-    # conn.close()
-
-
 if __name__ == "__main__":
     main()
