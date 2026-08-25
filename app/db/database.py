@@ -1,3 +1,4 @@
+import os
 import psycopg2
 from psycopg2 import pool
 import psycopg2.extras
@@ -6,8 +7,11 @@ from contextlib import contextmanager
 connection_pool = pool.ThreadedConnectionPool(
     minconn=1,
     maxconn=40,
-    dbname="taskflow", user="postgres", password="352",
-    host="localhost", port="5432",
+    dbname=os.environ.get("DB_NAME", "taskflow"),
+    user=os.environ.get("DB_USER", "postgres"),
+    password=os.environ["DB_PASSWORD"],
+    host=os.environ.get("DB_HOST", "db"),
+    port=os.environ.get("DB_PORT", "5432"),
 )
 
 @contextmanager

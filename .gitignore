@@ -3,3 +3,11 @@ __pycache__/
 venv/
 .env
 *.pyc
+
+# database dumps — never commit (backup.sql is ~245MB of data)
+backup.sql
+*.dump
+
+# test / drill artifacts
+.pytest_cache/
+tests/.progress_pristine.py

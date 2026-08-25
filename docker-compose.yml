@@ -1,0 +1,41 @@
+# Runs two containers together: your Postgres DB and your FastAPI app.
+# Compose auto-reads a .env file in this folder for the ${...} values below,
+# so your existing .env (DB_PASSWORD, JWT_SECRET) is reused — no duplication.
+
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: taskflow
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      # Named volume = your data survives container restarts/rebuilds.
+      # postgres:18+ wants the mount at /var/lib/postgresql (not /data).
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5433:5432"          # exposes DB to your host (so you can psql into it)
+    healthcheck:
+      # Don't let the app start until Postgres is actually ACCEPTING connections.
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .                 # build the image from the Dockerfile in this folder
+    environment:
+      DB_NAME: taskflow
+      DB_USER: postgres
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db            # <-- the SERVICE NAME, not localhost! (see note below)
+      DB_PORT: 5432
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8000:8000"          # your app reachable at http://localhost:8000
+    depends_on:
+      db:
+        condition: service_healthy   # waits for the healthcheck above to pass
+
+volumes:
+  pgdata:

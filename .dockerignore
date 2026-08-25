@@ -1,0 +1,12 @@
+# Keep the build context small + never bake secrets/junk into the image.
+venv/
+.env
+.git/
+.gitignore
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+*.md
+scripts/
+tests/
