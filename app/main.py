@@ -10,6 +10,7 @@ from app.profile.routers import profile
 from app.measurements.routers import measurements
 from app.foods.routers import foods
 from app.recipes.routers import recipes
+from app.exercises.routers import exercises
 
 app = FastAPI()
 
@@ -27,3 +28,4 @@ app.include_router(profile.router)
 app.include_router(measurements.router)
 app.include_router(foods.router)
 app.include_router(recipes.router)
+app.include_router(exercises.router)

@@ -53,23 +53,12 @@ def test_macro_split():
 # ============================================================
 
 def test_tdee():
-    # tdee(bmr, activity) = bmr * ACTIVITY[activity]
-    # ACTIVITY["moderate"] = 1.55  ->  1805 * 1.55 = 2797.75
+
     assert tdee(1805, "moderate") == pytest.approx(2797.75)
 
-# def test_target_calories():
-#     # target_calories(2000, -0.5)  =  2000 + (-0.5 * 7700 / 7)  =  ?
-#     assert target_calories(2000, -0.5) == ???
 
 def test_target_calories():
     assert target_calories(2000, -0.5) == pytest.approx(1450)
-
-# def test_make_plan():
-#     # make_plan(80, 180, 25, "male", "moderate", -0.5) returns a dict with
-#     # keys: calories, protein_g, carbs_g, fat_g.  Work out the numbers and
-#     # assert a couple of them (use pytest.approx for the decimals).
-#     plan = make_plan(80, 180, 25, "male", "moderate", -0.5)
-#     assert plan["protein_g"] == ???
 
 def test_make_plan():
     plan = make_plan(80, 180, 25, "male", "moderate", -0.5)

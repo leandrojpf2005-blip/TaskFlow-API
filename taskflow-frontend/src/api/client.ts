@@ -6,7 +6,7 @@
 //   (not thread-safe — concurrent queries can cross results). Collapsing
 //   duplicate GETs keeps mount-time traffic strictly sequential.
 
-export const API_BASE_URL = "http://127.0.0.1:8000";
+export const API_BASE_URL = "http://100.104.119.82:8000";
 
 // Error carrying the HTTP status, so callers can branch on it (e.g. 404).
 export class ApiError extends Error {
