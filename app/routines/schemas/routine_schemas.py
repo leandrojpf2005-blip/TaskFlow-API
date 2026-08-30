@@ -7,3 +7,13 @@ class RoutineItemIn(BaseModel):
 class NewRoutine(BaseModel):
     name: str
     items: list[RoutineItemIn]
+
+class RoutineOut(BaseModel):
+    id: int
+    name: str
+
+class RoutineExerciseOut(BaseModel):
+    id: int
+    name: str
+    sets: int
+    exercise_id: int

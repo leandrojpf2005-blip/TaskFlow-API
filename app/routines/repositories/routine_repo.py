@@ -26,18 +26,20 @@ def get_routines(user_id):
         """, (user_id, ))
         return cur.fetchall()
 
-def get_routine(user_id, id):
+def get_routine(id, user_id):
     with get_cursor() as cur:
         cur.execute("""
-            SELECT * FROM routine
-            WHERE user_id = %s AND id = %s
-        """, (user_id, id))
-    return cur.fetchone()
+            SELECT exercise.name, routine_exercise.sets FROM routine_exercise
+            JOIN exercise ON exercise.id = routine_exercise.exercise_id
+            JOIN routine ON routine.id = routine_exercise.routine_id
+            WHERE routine_exercise.routine_id = %s and routine.user_id = %s
+        """, (id, user_id))
+        return cur.fetchall()
 
 def delete_routine(user_id, id):
     with get_cursor() as cur:
         cur.execute("""
-            DELETE * FROM routine
+            DELETE FROM routine
             WHERE user_id = %s AND id = %s
         """, (user_id, id))
-        return cur.rowcount()
+        return cur.rowcount
