@@ -38,7 +38,7 @@ def get_workout(id, user_id):
 def get_workout_volume(id):
     with get_cursor() as cur:
         cur.execute("""
-            SELECT SUM(reps*weight) FROM workout_set
+            SELECT SUM(reps*weight) AS volume FROM workout_set
             WHERE workout_id = %s
         """, (id, ))
         volume = cur.fetchone()["volume"]
@@ -53,3 +53,11 @@ def get_workout_sets(id, user_id):
             WHERE workout_set.workout_id = %s and workout.user_id = %s
         """, (id, user_id))
         return cur.fetchall()
+
+def delete_workout(user_id, id):
+    with get_cursor() as cur:
+        cur.execute("""
+            DELETE FROM workout
+            WHERE user_id = %s and id = %s
+        """, (user_id, id))
+        return cur.rowcount

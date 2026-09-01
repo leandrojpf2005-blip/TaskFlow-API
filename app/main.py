@@ -12,6 +12,7 @@ from app.foods.routers import foods
 from app.recipes.routers import recipes
 from app.exercises.routers import exercises
 from app.routines.routers import routines
+from app.workouts.routers import workouts
 
 app = FastAPI()
 
@@ -31,3 +32,4 @@ app.include_router(foods.router)
 app.include_router(recipes.router)
 app.include_router(exercises.router)
 app.include_router(routines.router)
+app.include_router(workouts.router)
