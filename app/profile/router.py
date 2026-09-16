@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.profile.services import profile_service
-from app.profile.schemas.profile_schemas import ProfileIn, ProfileOut
+from app.profile import service as profile_service
+from app.profile.schemas import ProfileIn, ProfileOut
 from app.users.dependencies import get_current_user
 
 router = APIRouter(prefix="/profile", tags=["profile"])

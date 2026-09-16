@@ -1,8 +1,8 @@
 from fastapi import HTTPException
-from app.users.schemas.user_schemas import UserCreate
-from app.users.repositories import user_repo
+from app.users.schemas import UserCreate
+from app.users import repository as user_repo
 from app.users import security
-from app.macros.repositories import macro_repo
+from app.macros import repository as macro_repo
 
 DEFAULT_MEALS = [
     ("Breakfast", 1),

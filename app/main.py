@@ -4,15 +4,15 @@ load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.macros.routers import macros
-from app.users.routers import auth
-from app.profile.routers import profile
-from app.measurements.routers import measurements
-from app.foods.routers import foods
-from app.recipes.routers import recipes
-from app.exercises.routers import exercises
-from app.routines.routers import routines
-from app.workouts.routers import workouts
+from app.macros import router as macros
+from app.users import router as auth
+from app.profile import router as profile
+from app.measurements import router as measurements
+from app.foods import router as foods
+from app.recipes import router as recipes
+from app.exercises import router as exercises
+from app.routines import router as routines
+from app.workouts import router as workouts
 
 app = FastAPI()
 

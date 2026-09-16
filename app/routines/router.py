@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.routines.services import routine_service
+from app.routines import service as routine_service
 from app.users.dependencies import get_current_user
-from app.routines.schemas.routine_schemas import NewRoutine, RoutineOut, RoutineExerciseOut
+from app.routines.schemas import NewRoutine, RoutineOut, RoutineExerciseOut
 
 router = APIRouter(prefix="/routines", tags=["routine"])
 

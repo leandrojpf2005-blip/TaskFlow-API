@@ -1,5 +1,5 @@
-from app.exercises.repositories import exercise_repo
-from app.exercises.schemas.exercise_schemas import NewExercise
+from app.exercises import repository as exercise_repo
+from app.exercises.schemas import NewExercise
 
 def get_exercises(q=None):
     return exercise_repo.get_exercises(q)

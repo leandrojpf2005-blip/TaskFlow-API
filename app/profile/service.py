@@ -1,5 +1,5 @@
-from app.profile.repositories import profile_repo
-from app.profile.schemas.profile_schemas import ProfileIn
+from app.profile import repository as profile_repo
+from app.profile.schemas import ProfileIn
 from app.nutrition import make_plan
 
 

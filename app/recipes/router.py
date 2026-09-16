@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from app.recipes.services import recipe_service
-from app.recipes.schemas.recipe_schemas import NewRecipe
+from app.recipes import service as recipe_service
+from app.recipes.schemas import NewRecipe
 from app.users.dependencies import get_current_user
 
 router = APIRouter(prefix="/recipes", tags=["recipes"])
