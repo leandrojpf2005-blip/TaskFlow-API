@@ -1,5 +1,5 @@
-from app.workouts.repositories import workout_repo
-from app.workouts.schemas.workout_schemas import NewWorkout
+from app.workouts import repository as workout_repo
+from app.workouts.schemas import NewWorkout
 
 def new_workout(user_id, workout: NewWorkout):
     return workout_repo.new_workout(

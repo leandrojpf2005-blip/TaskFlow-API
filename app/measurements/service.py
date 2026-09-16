@@ -1,5 +1,5 @@
-from app.measurements.repositories import measurement_repo
-from app.measurements.schemas.measurement_schemas import MeasurementIn
+from app.measurements import repository as measurement_repo
+from app.measurements.schemas import MeasurementIn
 
 
 def get_measurements(user_id):

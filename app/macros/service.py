@@ -1,6 +1,6 @@
 from fastapi import HTTPException
-from app.macros.schemas.macro_schemas import NewFoodEntry, UpdateFoodEntry, NewMeal, UpdateMeal
-from app.macros.repositories import macro_repo
+from app.macros.schemas import NewFoodEntry, UpdateFoodEntry, NewMeal, UpdateMeal
+from app.macros import repository as macro_repo
 
 
 def get_meals(user_id):

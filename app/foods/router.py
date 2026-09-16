@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
-from app.foods.services import food_service
+from app.foods import service as food_service
 from app.users.dependencies import get_current_user
-from app.foods.schemas.food_schemas import FoodOut, NewFood
+from app.foods.schemas import FoodOut, NewFood
 
 router = APIRouter(prefix="/foods", tags=["foods"])
 

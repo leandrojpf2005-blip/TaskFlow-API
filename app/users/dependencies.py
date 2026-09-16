@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 import jwt
 
 from app.users import security
-from app.users.repositories import user_repo
+from app.users import repository as user_repo
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 

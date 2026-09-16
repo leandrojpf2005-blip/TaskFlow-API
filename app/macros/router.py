@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from app.macros.services import macro_service
-from app.macros.schemas.macro_schemas import NewFoodEntry, UpdateFoodEntry, NewMeal, UpdateMeal
+from app.macros import service as macro_service
+from app.macros.schemas import NewFoodEntry, UpdateFoodEntry, NewMeal, UpdateMeal
 from app.users.dependencies import get_current_user
 from datetime import date
 

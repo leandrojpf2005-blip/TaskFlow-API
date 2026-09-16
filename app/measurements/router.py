@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
-from app.measurements.schemas.measurement_schemas import MeasurementIn, MeasurementOut
-from app.measurements.services import measurement_service
+from app.measurements.schemas import MeasurementIn, MeasurementOut
+from app.measurements import service as measurement_service
 from app.users.dependencies import get_current_user
 
 

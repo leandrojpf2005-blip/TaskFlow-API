@@ -1,5 +1,5 @@
-from app.foods.repositories import food_repo
-from app.foods.schemas.food_schemas import NewFood
+from app.foods import repository as food_repo
+from app.foods.schemas import NewFood
 
 def search_foods(q):
     return food_repo.search_foods(q)

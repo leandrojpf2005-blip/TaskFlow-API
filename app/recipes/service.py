@@ -1,5 +1,5 @@
-from app.recipes.repositories import recipe_repo
-from app.recipes.schemas.recipe_schemas import NewRecipe
+from app.recipes import repository as recipe_repo
+from app.recipes.schemas import NewRecipe
 
 def new_recipe(recipe: NewRecipe, user_id):
     return recipe_repo.create_recipe(user_id, recipe.name, recipe.servings, recipe.items)

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.users.schemas.user_schemas import UserCreate, UserLogin, UserOut, Token
-from app.users.services import user_service
+from app.users.schemas import UserCreate, UserLogin, UserOut, Token
+from app.users import service as user_service
 from app.users import security
 from app.users.dependencies import get_current_user
 

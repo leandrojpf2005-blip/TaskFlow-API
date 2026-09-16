@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.workouts.services import workout_service
+from app.workouts import service as workout_service
 from app.users.dependencies import get_current_user
-from app.workouts.schemas.workout_schemas import NewWorkout, WorkoutOut, WorkoutSetOut
+from app.workouts.schemas import NewWorkout, WorkoutOut, WorkoutSetOut
 
 router = APIRouter(prefix="/workouts", tags=["workout"])
 
