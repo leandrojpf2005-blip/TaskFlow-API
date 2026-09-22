@@ -6,6 +6,7 @@ def new_workout(user_id, workout: NewWorkout):
         user_id,
         workout.routine_id,
         workout.duration,
+        workout.date,
         workout.sets
     )
 
