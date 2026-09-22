@@ -38,10 +38,10 @@ def get_recipe_macros(recipe_id):
     with get_cursor() as cur:
         cur.execute("""
             SELECT
-                SUM(food.calories * recipe_item.grams / 100) AS calories,
-                SUM(food.protein_g * recipe_item.grams / 100) AS protein_g,
-                SUM(food.carbs_g * recipe_item.grams / 100) AS carbs_g,
-                SUM(food.fat_g * recipe_item.grams / 100) AS fat_g
+                ROUND(SUM(food.calories  * recipe_item.grams / 100))      AS calories,
+                ROUND(SUM(food.protein_g * recipe_item.grams / 100), 1)   AS protein_g,
+                ROUND(SUM(food.carbs_g   * recipe_item.grams / 100), 1)   AS carbs_g,
+                ROUND(SUM(food.fat_g     * recipe_item.grams / 100), 1)   AS fat_g
             FROM recipe_item
             JOIN food ON food.id = recipe_item.food_id
             WHERE recipe_item.recipe_id = %s
