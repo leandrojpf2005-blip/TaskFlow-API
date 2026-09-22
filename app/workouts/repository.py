@@ -1,12 +1,12 @@
 from app.db.database import get_cursor
 
-def new_workout(user_id, routine_id, duration, sets):
+def new_workout(user_id, routine_id, duration, date,  sets):
     with get_cursor() as cur:
         cur.execute("""
-            INSERT INTO workout (user_id, routine_id, duration)
-            VALUES (%s, %s, %s)
+            INSERT INTO workout (user_id, routine_id, duration, date)
+            VALUES (%s, %s, %s, COALESCE(%s, now()))
             RETURNING id
-        """, (user_id, routine_id, duration))
+        """, (user_id, routine_id, duration, date))
         workout_id = cur.fetchone()["id"]
 
         for item in sets:
@@ -42,7 +42,7 @@ def get_workout_volume(id):
             WHERE workout_id = %s
         """, (id, ))
         volume = cur.fetchone()["volume"]
-        return {"volume": volume}
+        return volume
 
 def get_workout_sets(id, user_id):
     with get_cursor() as cur:
