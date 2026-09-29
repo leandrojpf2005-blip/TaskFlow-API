@@ -20,10 +20,17 @@ def new_workout(user_id, routine_id, duration, date,  sets):
 def get_workouts(user_id):
     with get_cursor() as cur:
         cur.execute("""
-            SELECT * FROM workout
-            WHERE user_id = %s
-            ORDER BY date DESC
-        """, (user_id, ))
+            SELECT w.id, w.date, w.duration, w.routine_id, r.name,
+                COUNT(DISTINCT ws.exercise_id) AS exercise_count,
+                COUNT(ws.id)                   AS set_count,
+                ROUND(COALESCE(SUM(ws.reps * ws.weight), 0)) AS volume
+            FROM workout w
+            LEFT JOIN routine r ON r.id = w.routine_id
+            LEFT JOIN workout_set ws ON ws.workout_id = w.id
+            WHERE w.user_id = %s
+            GROUP BY w.id, r.name
+            ORDER BY w.date DESC
+            """, (user_id, ))
         return cur.fetchall()
 
 def get_workout(id, user_id):

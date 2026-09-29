@@ -26,5 +26,9 @@ class NewWorkout(BaseModel):
 class WorkoutOut(BaseModel):
     id: int
     routine_id: int | None = None
+    name: str | None = None
     date: datetime
     duration: int | None = None
+    volume: float
+    set_count: int
+    exercise_count: int
