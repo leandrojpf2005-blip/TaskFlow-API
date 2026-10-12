@@ -29,7 +29,7 @@ def get_routines(user_id):
 def get_routine(id, user_id):
     with get_cursor() as cur:
         cur.execute("""
-            SELECT exercise.name, routine_exercise.sets FROM routine_exercise
+            SELECT routine_exercise.exercise_id, exercise.name, routine_exercise.sets FROM routine_exercise
             JOIN exercise ON exercise.id = routine_exercise.exercise_id
             JOIN routine ON routine.id = routine_exercise.routine_id
             WHERE routine_exercise.routine_id = %s and routine.user_id = %s

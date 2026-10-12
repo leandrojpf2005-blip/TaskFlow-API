@@ -10,7 +10,7 @@ def get_routines(user=Depends(get_current_user)):
     return routine_service.get_routines(user["id"])
 
 @router.get("/{id}", response_model=list[RoutineExerciseOut])
-def get_routine(id, user=Depends(get_current_user)):
+def get_routine(id: int, user=Depends(get_current_user)):
     routine = routine_service.get_routine(id, user["id"])
     if not routine:
             raise HTTPException(status_code=404, detail="Routine not found")

@@ -26,5 +26,19 @@ class NewWorkout(BaseModel):
 class WorkoutOut(BaseModel):
     id: int
     routine_id: int | None = None
+    name: str | None = None
     date: datetime
     duration: int | None = None
+    volume: float
+    set_count: int
+    exercise_count: int
+
+class LastSetOut(BaseModel):
+    set_number: int
+    reps: int
+    weight: float
+
+class LastPerformanceOut(BaseModel):
+    exercise_id: int
+    date: datetime
+    sets: list[LastSetOut]

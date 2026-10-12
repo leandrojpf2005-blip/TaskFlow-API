@@ -13,5 +13,6 @@ class RoutineOut(BaseModel):
     name: str
 
 class RoutineExerciseOut(BaseModel):
+    exercise_id: int
     name: str
     sets: int

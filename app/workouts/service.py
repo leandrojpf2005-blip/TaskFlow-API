@@ -23,3 +23,19 @@ def get_workout(id, user_id):
 
 def delete_workout(user_id, id):
     return workout_repo.delete_workout(user_id, id)
+
+def get_last_performance(user_id, exercise_ids):
+    rows = workout_repo.get_last_performance(user_id, exercise_ids)
+    result = {}
+    for i in rows:
+        entry = result.setdefault(i["exercise_id"],{
+            "exercise_id": i["exercise_id"],
+            "date": i["date"],
+            "sets": []
+        })
+        entry["sets"].append({
+            "set_number": i["set_number"],
+            "reps": i["reps"],
+            "weight": i["weight"]
+        })
+    return result
