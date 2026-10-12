@@ -61,6 +61,26 @@ def get_workout_sets(id, user_id):
         """, (id, user_id))
         return cur.fetchall()
 
+def get_last_performance(user_id, exercise_ids):
+    with get_cursor() as cur:
+        cur.execute("""
+            WITH last_session AS (
+                SELECT DISTINCT ON (workout_set.exercise_id)
+                    workout_set.exercise_id, workout.id AS workout_id, workout.date
+                FROM workout_set
+                JOIN workout ON workout.id = workout_set.workout_id
+                WHERE workout.user_id = %s AND workout_set.exercise_id = ANY(%s)
+                ORDER BY workout_set.exercise_id, workout.date DESC
+            )
+            SELECT last_session.exercise_id, last_session.date,
+                   workout_set.set_number, workout_set.reps, workout_set.weight
+            FROM last_session
+            JOIN workout_set ON workout_set.workout_id = last_session.workout_id
+                            AND workout_set.exercise_id = last_session.exercise_id
+            ORDER BY last_session.exercise_id, workout_set.set_number
+        """, (user_id, exercise_ids))
+        return cur.fetchall()
+
 def delete_workout(user_id, id):
     with get_cursor() as cur:
         cur.execute("""

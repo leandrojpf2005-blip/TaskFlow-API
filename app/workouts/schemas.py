@@ -32,3 +32,13 @@ class WorkoutOut(BaseModel):
     volume: float
     set_count: int
     exercise_count: int
+
+class LastSetOut(BaseModel):
+    set_number: int
+    reps: int
+    weight: float
+
+class LastPerformanceOut(BaseModel):
+    exercise_id: int
+    date: datetime
+    sets: list[LastSetOut]

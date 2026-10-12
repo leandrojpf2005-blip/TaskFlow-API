@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from app.workouts import service as workout_service
 from app.users.dependencies import get_current_user
-from app.workouts.schemas import NewWorkout, WorkoutOut, WorkoutSetOut
+from app.workouts.schemas import NewWorkout, WorkoutOut, WorkoutSetOut, LastPerformanceOut
 
 router = APIRouter(prefix="/workouts", tags=["workout"])
 
@@ -10,8 +10,14 @@ def get_workouts(user=Depends(get_current_user)):
     return workout_service.get_workouts(user["id"])
 
 
+# must stay above /{id} — FastAPI matches routes top to bottom
+@router.get("/last-performance", response_model=dict[int, LastPerformanceOut])
+def get_last_performance(exercise_ids: list[int] = Query(...), user=Depends(get_current_user)):
+    return workout_service.get_last_performance(user["id"], exercise_ids)
+
+
 @router.get("/{id}")
-def get_workout(id, user=Depends(get_current_user)):
+def get_workout(id: int, user=Depends(get_current_user)):
     workout = workout_service.get_workout(id, user["id"])
     if workout is None:
         raise HTTPException(status_code=404, detail="Workout not found")
