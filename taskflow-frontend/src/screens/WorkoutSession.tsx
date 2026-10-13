@@ -1,13 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import * as api from "../api/workouts";
-import type { NewWorkout, NewWorkoutSet, Exercise } from "../types/workouts";
+import type {
+  NewWorkout,
+  NewWorkoutSet,
+  Exercise,
+  LastPerformanceMap,
+} from "../types/workouts";
 import { ExerciseSearchSheet } from "../components/ExerciseSearchSheet";
 import { IconChevronLeft } from "../components/icons";
+import { useT } from "../lib/langHooks";
+import type { Translate } from "../lib/i18n";
 
 export interface SessionSet {
   reps: number;
   weight: number;
   done: boolean;
+  /** Set once the user edits the row, so prefilling never overwrites them. */
+  touched?: boolean;
 }
 export interface SessionExercise {
   exerciseId: number;
@@ -22,6 +31,20 @@ export interface SessionInit {
 
 const clock = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
+/** Weights arrive as Decimal-backed numbers; drop the trailing ".0". */
+const fmtKg = (w: number) => `${Number(w)}kg`;
+
+function lastWhen(iso: string, t: Translate): string {
+  const days = Math.round(
+    (new Date().setHours(0, 0, 0, 0) - new Date(iso).setHours(0, 0, 0, 0)) / 86400000,
+  );
+  if (days <= 0) return t("common.today").toLowerCase();
+  if (days === 1) return t("common.yesterday").toLowerCase();
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.round(days / 7)}w ago`;
+  return new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+}
+
 export function WorkoutSession({
   init,
   onExit,
@@ -31,6 +54,7 @@ export function WorkoutSession({
   onExit: () => void;
   onSaved: () => void;
 }) {
+  const t = useT();
   const [exercises, setExercises] = useState<SessionExercise[]>(init.exercises);
   const startRef = useRef<number>(0);
   const [elapsed, setElapsed] = useState(0);
@@ -38,6 +62,44 @@ export function WorkoutSession({
   const [picking, setPicking] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // What was lifted the last time each exercise was trained, so every set row
+  // can show something to beat. Fetched for all exercises in one request, and
+  // topped up when an exercise is added mid-session.
+  const [lastPerf, setLastPerf] = useState<LastPerformanceMap>({});
+
+  const fetchLastPerf = (ids: number[]) => {
+    const missing = ids.filter((id) => !(String(id) in lastPerf));
+    if (missing.length === 0) return;
+    api
+      .getLastPerformance(missing)
+      .then((map) => {
+        setLastPerf((prev) => ({ ...prev, ...map }));
+        // Seed each untouched set with what was lifted last time, so the common
+        // case is "same again" and only the sets that changed need editing.
+        setExercises((prev) =>
+          prev.map((ex) => {
+            const was = map[String(ex.exerciseId)];
+            if (!was) return ex;
+            return {
+              ...ex,
+              sets: ex.sets.map((s, i) => {
+                const match = was.sets[i];
+                if (!match || s.done || s.touched) return s;
+                return { ...s, reps: match.reps, weight: Number(match.weight) };
+              }),
+            };
+          }),
+        );
+      })
+      // History is a nicety — a failure here must not break the session.
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    fetchLastPerf(init.exercises.map((e) => e.exerciseId));
+    // Only on mount: later exercises are fetched as they are added.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     startRef.current = Date.now();
@@ -85,6 +147,7 @@ export function WorkoutSession({
       ...prev,
       { exerciseId: ex.id, name: ex.name, sets: [{ reps: 10, weight: 20, done: false }] },
     ]);
+    fetchLastPerf([ex.id]);
     setPicking(false);
   };
 
@@ -98,7 +161,7 @@ export function WorkoutSession({
       }
     }
     if (!sets.length) {
-      setError("Complete at least one set (tap ✓).");
+      setError(t("session.needOneSet"));
       return;
     }
     setSaving(true);
@@ -107,7 +170,7 @@ export function WorkoutSession({
       await api.createWorkout(body);
       onSaved();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to save workout");
+      setError(e instanceof Error ? e.message : t("session.saveFailed"));
       setSaving(false);
     }
   };
@@ -127,7 +190,7 @@ export function WorkoutSession({
           </small>
           <b>{clock(elapsed)}</b>
         </div>
-        <span className="active">● Active</span>
+        <span className="active">● {t("session.active")}</span>
       </div>
 
       {error && (
@@ -140,63 +203,82 @@ export function WorkoutSession({
       )}
 
       {exercises.length === 0 && (
-        <div className="emptystate">Empty workout. Add an exercise to begin.</div>
+        <div className="emptystate">{t("session.empty")}</div>
       )}
 
-      {exercises.map((ex, ei) => (
+      {exercises.map((ex, ei) => {
+        const prev = lastPerf[String(ex.exerciseId)];
+        return (
         <div className="exblock" key={ei}>
           <div className="exname">{ex.name}</div>
+          {prev && (
+            <p className="lastperf">
+              {t("session.lastTime")} · {lastWhen(prev.date, t)} ·{" "}
+              {prev.sets.map((s) => `${fmtKg(s.weight)}×${s.reps}`).join(", ")}
+            </p>
+          )}
           <div className="setgrid thead">
-            <span>Set</span>
-            <span>Kg</span>
-            <span>Reps</span>
+            <span>{t("session.set")}</span>
+            <span>{t("session.kg")}</span>
+            <span>{t("session.reps")}</span>
             <span></span>
           </div>
-          {ex.sets.map((s, si) => (
+          {ex.sets.map((s, si) => {
+            const was = prev?.sets.find((p) => p.set_number === si + 1);
+            return (
             <div className={"setgrid setrow" + (s.done ? " done" : "")} key={si}>
-              <span className="setnum">{si + 1}</span>
+              <span className="setnum">
+                {si + 1}
+                {was && (
+                  <small className="prevhint" title="Last time">
+                    {fmtKg(was.weight)}×{was.reps}
+                  </small>
+                )}
+              </span>
               <input
                 className="setinput"
                 type="number"
                 inputMode="decimal"
                 value={s.weight}
-                onChange={(e) => update(ei, si, { weight: Number(e.target.value) })}
+                onChange={(e) => update(ei, si, { weight: Number(e.target.value), touched: true })}
               />
               <input
                 className="setinput"
                 type="number"
                 inputMode="numeric"
                 value={s.reps}
-                onChange={(e) => update(ei, si, { reps: Number(e.target.value) })}
+                onChange={(e) => update(ei, si, { reps: Number(e.target.value), touched: true })}
               />
               <button className="setchk" onClick={() => toggle(ei, si)} aria-label="Complete set">
                 ✓
               </button>
             </div>
-          ))}
+            );
+          })}
           <button className="addset" onClick={() => addSet(ei)}>
-            ＋ Add set
+            ＋ {t("session.addSet")}
           </button>
         </div>
-      ))}
+        );
+      })}
 
       <button className="addex" onClick={() => setPicking(true)}>
-        ＋ Add exercise
+        ＋ {t("session.addExercise")}
       </button>
       <button className="btn" onClick={finish} disabled={saving}>
-        {saving ? "Saving…" : "Finish workout"}
+        {saving ? t("common.saving") : t("session.finish")}
       </button>
 
       {resting && (
         <div className="restbar">
           <div className="rt">
             {clock(rest)}
-            <small>Rest timer</small>
+            <small>{t("session.rest")}</small>
           </div>
           <button onClick={() => setRest((r) => Math.max(0, r - 15))}>−15s</button>
           <button onClick={() => setRest((r) => r + 15)}>+15s</button>
           <button className="skip" onClick={() => setRest(0)}>
-            Skip
+            {t("session.skip")}
           </button>
         </div>
       )}

@@ -11,6 +11,7 @@ import { Onboarding } from "./screens/Onboarding";
 import { Home } from "./screens/Home";
 import { Diary } from "./screens/Diary";
 import { Workouts } from "./screens/Workouts";
+import { Progress } from "./screens/Progress";
 import { ProfileScreen } from "./screens/ProfileScreen";
 import { TabBar, type Tab } from "./components/TabBar";
 
@@ -60,6 +61,9 @@ function Authed({
   const [profile, setProfile] = useState<Profile | null | undefined>(undefined);
   const [tab, setTab] = useState<Tab>("home");
   const [addSignal, setAddSignal] = useState(0);
+  // The diary is reached through the centre Log button rather than a tab of its
+  // own, so it lives outside the tab state and takes over the screen when open.
+  const [diaryOpen, setDiaryOpen] = useState(false);
 
   useEffect(() => {
     profileApi
@@ -74,24 +78,33 @@ function Authed({
   return (
     <div className="app-shell">
       <div className="screen">
-        {tab === "home" && <Home user={user} profile={profile} />}
-        {tab === "diary" && <Diary profile={profile} addSignal={addSignal} />}
-        {tab === "workouts" && <Workouts />}
-        {tab === "profile" && (
-          <ProfileScreen
-            user={user}
-            profile={profile}
-            theme={theme}
-            onThemeChange={onThemeChange}
-            onLogout={onLogout}
-          />
+        {diaryOpen ? (
+          <Diary profile={profile} addSignal={addSignal} />
+        ) : (
+          <>
+            {tab === "home" && <Home user={user} profile={profile} />}
+            {tab === "workouts" && <Workouts />}
+            {tab === "progress" && <Progress user={user} />}
+            {tab === "more" && (
+              <ProfileScreen
+                user={user}
+                profile={profile}
+                theme={theme}
+                onThemeChange={onThemeChange}
+                onLogout={onLogout}
+              />
+            )}
+          </>
         )}
       </div>
       <TabBar
         tab={tab}
-        onTab={setTab}
+        onTab={(t) => {
+          setDiaryOpen(false);
+          setTab(t);
+        }}
         onAdd={() => {
-          setTab("diary");
+          setDiaryOpen(true);
           setAddSignal((n) => n + 1);
         }}
       />

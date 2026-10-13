@@ -2,6 +2,8 @@ import type { CSSProperties } from "react";
 import type { ThemeKey } from "../lib/theme";
 import type { Profile } from "../types/profile";
 import type { User } from "../api/auth";
+import { useLang } from "../lib/langHooks";
+import { LANGS } from "../lib/i18n";
 
 const rowStyle: CSSProperties = {
   display: "flex",
@@ -26,6 +28,7 @@ export function ProfileScreen({
   onThemeChange: (t: ThemeKey) => void;
   onLogout: () => void;
 }) {
+  const { lang, setLang, t } = useLang();
   const goal = (n: number | null) => (n ?? 0).toLocaleString();
 
   return (
@@ -33,7 +36,7 @@ export function ProfileScreen({
       <div className="appbar">
         <div>
           <p className="hi">Account</p>
-          <p className="who">Profile</p>
+          <p className="who">{t("more.title")}</p>
         </div>
       </div>
 
@@ -65,6 +68,23 @@ export function ProfileScreen({
           <span>Fat</span>
           <b>{goal(profile.target_fat_g)} g</b>
         </div>
+      </div>
+
+      <div className="sechead">
+        <b>{t("more.language")}</b>
+      </div>
+      <div className="lang-grid">
+        {LANGS.map((l) => (
+          <button
+            key={l.key}
+            className={`lang-opt${lang === l.key ? " on" : ""}`}
+            onClick={() => setLang(l.key)}
+            aria-pressed={lang === l.key}
+          >
+            <span className="lang-flag">{l.flag}</span>
+            <span>{l.label}</span>
+          </button>
+        ))}
       </div>
 
       <div className="sechead">
@@ -103,7 +123,7 @@ export function ProfileScreen({
       </div>
 
       <button className="btn" style={{ background: "var(--wcard)", color: "var(--wcard-fg)" }} onClick={onLogout}>
-        Sign out
+        {t("more.logout")}
       </button>
     </>
   );

@@ -44,3 +44,16 @@ export const IconChevronRight = () => (
     <path d="M9 5l7 7-7 7" {...s} strokeWidth={2.2} />
   </svg>
 );
+export const IconTrend = () => (
+  <svg viewBox="0 0 24 24">
+    <path d="M4 16.5l5-5 3.5 3.5L20 8" {...s} />
+    <path d="M15.5 8H20v4.5" {...s} />
+  </svg>
+);
+export const IconMore = () => (
+  <svg viewBox="0 0 24 24">
+    <circle cx="5.5" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    <circle cx="18.5" cy="12" r="1.4" fill="currentColor" stroke="none" />
+  </svg>
+);

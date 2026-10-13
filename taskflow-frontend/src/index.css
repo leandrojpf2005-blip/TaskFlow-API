@@ -4,48 +4,54 @@
    ============================================================ */
 
 :root {
-  --bg: #f6f5f1;
-  --fg: #14181f;
-  --muted: #6b7280;
+  --bg: #f8f7f2;
+  --fg: #1a1f1c;
+  --muted: #6f7a73;
   --card: #ffffff;
-  --line: #f0eee9;
-  --line-strong: #e4e2db;
-  --soft: #fff1ea;
-  --accent: #e8501a;
-  --accent-2: #ff7a3d;
-  --track: #eceae4;
-  --wcard: #14181f;
+  --line: #efede6;
+  --line-strong: #e3ded1;
+  --soft: #e3ede7;
+  --accent: #5b9279;
+  --accent-2: #6ea98d;
+  --track: #eae5d9;
+  --wcard: #5b9279;
   --wcard-fg: #ffffff;
   --nav: #ffffff;
-  --nav-line: #f0eee9;
+  --nav-line: #efede6;
   --sheet: #ffffff;
-  --danger: #d84a4a;
-  --p-color: #e8501a;
-  --c-color: #3b82f6;
-  --f-color: #f2a83b;
-  --shadow: 0 1px 2px rgba(20, 24, 31, 0.05), 0 8px 24px rgba(20, 24, 31, 0.06);
+  --danger: #c0564e;
+  --p-color: #4a90e2;
+  --c-color: #f28c28;
+  --f-color: #d9a921;
+  --p-track: #e3edfb;
+  --c-track: #fbeedf;
+  --f-track: #fbf3dc;
+  --shadow: 0 1px 2px rgba(26, 31, 28, 0.04), 0 8px 24px rgba(26, 31, 28, 0.05);
 }
 
 :root[data-theme="dark"] {
-  --bg: #0f1319;
-  --fg: #edeef0;
-  --muted: #8a909c;
-  --card: #171c25;
-  --line: #232b37;
-  --line-strong: #2a3342;
-  --soft: #241811;
-  --accent: #ff7a3d;
-  --accent-2: #ff9152;
-  --track: #262e3a;
-  --wcard: #1b212c;
+  --bg: #121614;
+  --fg: #e9ece9;
+  --muted: #8a9690;
+  --card: #1a201d;
+  --line: #262e2a;
+  --line-strong: #2f3833;
+  --soft: #1e2b24;
+  --accent: #6ea98d;
+  --accent-2: #86bda3;
+  --track: #2a322d;
+  --wcard: #2f5c47;
   --wcard-fg: #ffffff;
-  --nav: #0f1319;
-  --nav-line: #1e2531;
-  --sheet: #141922;
-  --danger: #f0736f;
-  --p-color: #ff7a3d;
-  --c-color: #6ea8ff;
-  --f-color: #f5b95c;
+  --nav: #121614;
+  --nav-line: #222a26;
+  --sheet: #171d1a;
+  --danger: #e0817a;
+  --p-color: #6aa6ec;
+  --c-color: #f5a152;
+  --f-color: #e3bb49;
+  --p-track: #1f2c3a;
+  --c-track: #342618;
+  --f-track: #332d16;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -513,18 +519,19 @@ button {
   width: 100%;
   max-width: 460px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 10px 24px calc(14px + env(safe-area-inset-bottom, 0px));
+  padding: 9px 18px calc(10px + env(safe-area-inset-bottom, 0px));
   background: var(--nav);
   border-top: 1px solid var(--nav-line);
   z-index: 20;
 }
 .tabbar button {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   color: var(--muted);
   background: none;
   border: none;
@@ -534,23 +541,49 @@ button {
   color: var(--accent);
 }
 .tabbar button svg {
-  width: 23px;
-  height: 23px;
+  width: 22px;
+  height: 22px;
+}
+.tab-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.tab-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+}
+.tabbar button.on .tab-dot {
+  opacity: 1;
+}
+/* centre action: circular FAB lifted above the bar, label aligned with the rest */
+.tabbar .fab-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--muted);
 }
 .tabbar .fab {
-  width: 50px;
-  height: 50px;
-  border-radius: 17px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--accent);
   color: #fff;
   display: grid;
   place-items: center;
-  margin-top: -24px;
-  box-shadow: 0 10px 20px rgba(232, 80, 26, 0.4);
+  margin-top: -26px;
+  box-shadow: 0 8px 18px rgba(91, 146, 121, 0.45);
 }
 .tabbar .fab svg {
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
 }
 
 /* ---- welcome / auth ---- */
@@ -1153,4 +1186,587 @@ button {
   color: var(--muted);
   opacity: 0.5;
   font-size: 13px;
+}
+
+/* ============================================================
+   Redesign primitives (2026-10) — shared by the rebuilt screens.
+   Older screens still use the first-generation classes above;
+   they migrate across one screen at a time.
+   ============================================================ */
+
+.pad {
+  padding: 16px 16px 96px;
+}
+.screen-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 4px 2px 14px;
+}
+.screen-head h1 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.sub {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.muted {
+  color: var(--muted);
+}
+.err {
+  background: color-mix(in srgb, var(--danger) 12%, var(--card));
+  color: var(--danger);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.empty {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  padding: 18px 8px;
+  margin: 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 18px 2px 10px;
+}
+
+/* big single figure, e.g. current weight */
+.stat-hero {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.stat-hero-value {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.stat-hero-unit {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.chip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--track);
+  color: var(--fg);
+  white-space: nowrap;
+}
+.chip-good {
+  background: var(--soft);
+  color: var(--accent);
+}
+.chip-warn {
+  background: var(--c-track);
+  color: var(--c-color);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 13px 18px;
+  font-size: 14.5px;
+  font-weight: 700;
+  transition: filter 0.15s;
+}
+.btn-primary:disabled {
+  filter: saturate(0.5) opacity(0.7);
+}
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+}
+
+/* inline "log a value" form inside a card */
+.inline-form {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+.inline-form label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.inline-form label > span:first-child {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 54px;
+}
+.inline-form input {
+  flex: 1;
+  border: none;
+  background: none;
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
+  min-width: 0;
+}
+.inline-form input:focus {
+  outline: none;
+}
+.inline-form .unit {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.inline-form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 14px;
+  font-size: 14px;
+}
+.list-row strong {
+  font-weight: 700;
+}
+
+/* segmented control */
+.seg-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 4px;
+  margin-bottom: 14px;
+}
+.seg-tabs button {
+  flex: 1;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 6px;
+  border-radius: 11px;
+  transition: background 0.15s, color 0.15s;
+}
+.seg-tabs button.on {
+  background: var(--accent);
+  color: #fff;
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.card-head b {
+  font-size: 15px;
+  font-weight: 800;
+}
+.card.center {
+  text-align: center;
+}
+.card-badge {
+  width: 56px;
+  height: 56px;
+  margin: 2px auto 10px;
+  border-radius: 50%;
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+.card-title {
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+.small {
+  font-size: 13px;
+}
+.accent-text {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* week strip of day circles */
+.week-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin: 14px 0 12px;
+}
+.day-dot {
+  flex: 1;
+  aspect-ratio: 1;
+  max-width: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+}
+.day-dot.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.day-dot.today:not(.done) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--soft);
+}
+
+.bar {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--track);
+  overflow: hidden;
+}
+.bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+/* three-up stat tiles inside a card */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+.stat-cell {
+  background: var(--bg);
+  border-radius: 13px;
+  padding: 11px 6px;
+  text-align: center;
+}
+.stat-value {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.stat-value small {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-left: 2px;
+}
+.stat-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.btn-soft {
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.btn-soft:disabled {
+  opacity: 0.5;
+}
+button.list-row {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+/* "last time" history inside an active session */
+.lastperf {
+  margin: -2px 0 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--soft);
+  border-radius: 9px;
+  padding: 6px 9px;
+}
+.setnum .prevhint {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: -0.01em;
+}
+
+/* language picker */
+.lang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 0 0 4px;
+}
+.lang-opt {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: 13px;
+  padding: 12px 13px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+  text-align: left;
+}
+.lang-opt.on {
+  border-color: var(--accent);
+  background: var(--soft);
+  color: var(--accent);
+}
+.lang-flag {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ---- home ---- */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+.calorie-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+.calorie-row .ring-center b {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  display: block;
+  line-height: 1.05;
+}
+.calorie-row .ring-center small {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  display: block;
+}
+.legend {
+  display: grid;
+  gap: 12px;
+  flex: 1;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 9px 11px;
+}
+.legend-row p {
+  margin: 0;
+}
+.legend-row b {
+  font-size: 16px;
+  font-weight: 800;
+}
+.legend-row b small {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.macro-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.macro-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 11px 10px;
+}
+.macro-label {
+  margin: 0 0 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.macro-value {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.macro-value span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.macro-left {
+  margin: 7px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.mdot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+}
+.bar > span.over {
+  background: var(--danger);
+}
+
+.meal-card .bar {
+  margin: 10px 0 2px;
+}
+.meal-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.meal-head p {
+  margin: 1px 0 0;
+}
+.meal-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--soft);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex: none;
+}
+.meal-empty {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+.entry-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.entry-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+.entry-main strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+.macro-dots {
+  margin: 3px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.entry-kcal {
+  text-align: right;
+  flex: none;
+}
+.entry-kcal b {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+}
+.entry-kcal small {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 600;
 }

@@ -1,21 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getDay } from "../api/macros";
+import { getMeals } from "../api/meals";
 import { todayISO } from "../lib/date";
-import { sumEntries, EMPTY_TOTALS, type Totals } from "../lib/totals";
+import { sumEntries, type Totals } from "../lib/totals";
 import { round1 } from "../lib/format";
 import { MacroRing } from "../components/MacroRing";
+import { useT } from "../lib/langHooks";
+import type { Translate } from "../lib/i18n";
+import type { Meal, FoodEntry } from "../types/macros";
 import type { Profile } from "../types/profile";
 import type { User } from "../api/auth";
 
+// Home = today at a glance: the calorie ring, the three macro bars, and the
+// day's meals. Totals are summed from the entries the diary already returns,
+// so this screen needs no aggregate endpoint of its own.
+
 export function Home({ user, profile }: { user: User; profile: Profile }) {
-  const [totals, setTotals] = useState<Totals>(EMPTY_TOTALS);
+  const t = useT();
+  const [entries, setEntries] = useState<FoodEntry[]>([]);
+  const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    getDay(todayISO())
-      .then((day) => {
-        if (!cancelled) setTotals(sumEntries(day));
+    Promise.all([getDay(todayISO()), getMeals()])
+      .then(([day, m]) => {
+        if (cancelled) return;
+        setEntries(day);
+        setMeals(m);
       })
       .catch(() => {})
       .finally(() => {
@@ -26,107 +38,212 @@ export function Home({ user, profile }: { user: User; profile: Profile }) {
     };
   }, []);
 
-  const goal = profile.target_calories ?? 0;
-  const left = Math.max(goal - Math.round(totals.calories), 0);
-  const pG = profile.target_protein_g ?? 0;
-  const cG = profile.target_carbs_g ?? 0;
-  const fG = profile.target_fat_g ?? 0;
-  const pct = (v: number, g: number) => (g > 0 ? Math.round((v / g) * 100) : 0);
+  const totals: Totals = useMemo(() => sumEntries(entries), [entries]);
 
-  // Weekly chart: today's real value + sample history (wired fully in a later stage).
-  const week = [2410, 2680, 2180, 2590, 2750, 2300, Math.round(totals.calories)];
-  const max = Math.max(...week, goal || 1);
-  const days = ["M", "T", "W", "T", "F", "S", "S"];
-  const avg = Math.round(week.reduce((a, b) => a + b, 0) / week.length);
+  const byMeal = useMemo(() => {
+    const map = new Map<number, FoodEntry[]>();
+    for (const e of entries) {
+      const list = map.get(e.meal_id);
+      if (list) list.push(e);
+      else map.set(e.meal_id, [e]);
+    }
+    return map;
+  }, [entries]);
+
+  const goal = profile.target_calories ?? 0;
+  const eaten = Math.round(totals.calories);
+  const remaining = goal - eaten;
 
   return (
-    <>
-      <div className="appbar">
+    <div className="pad">
+      <header className="screen-head">
         <div>
-          <p className="hi">Good to see you</p>
-          <p className="who">{user.username} 👋</p>
+          <p className="sub">{t("home.greeting")}</p>
+          <h1>{user.username}</h1>
         </div>
         <div className="avatar">{user.username.charAt(0).toUpperCase()}</div>
-      </div>
+      </header>
 
-      <div className="hero">
-        <MacroRing
-          value={totals.calories}
-          target={goal || 1}
-          size={158}
-          stroke={13}
-          color="#fff"
-          center={
-            <>
-              <b>{loading ? "…" : left.toLocaleString()}</b>
-              <small>kcal left</small>
-            </>
-          }
-        />
-        <div className="herofoot">
-          <div className="hp">
-            <div className="l">Goal</div>
-            <div className="v">{goal.toLocaleString()}</div>
-          </div>
-          <div className="hp">
-            <div className="l">Food</div>
-            <div className="v">{Math.round(totals.calories).toLocaleString()}</div>
-          </div>
-          <div className="hp">
-            <div className="l">Left</div>
-            <div className="v">{left.toLocaleString()}</div>
-          </div>
+      <section className="card">
+        <div className="card-head">
+          <b>{t("home.dailyCalories")}</b>
         </div>
-      </div>
 
-      <div className="macro3">
-        <MacroCard lab="Protein" v={totals.protein} g={pG} color="var(--p-color)" pct={pct(totals.protein, pG)} />
-        <MacroCard lab="Carbs" v={totals.carbs} g={cG} color="var(--c-color)" pct={pct(totals.carbs, cG)} />
-        <MacroCard lab="Fat" v={totals.fat} g={fG} color="var(--f-color)" pct={pct(totals.fat, fG)} />
-      </div>
-
-      <div className="gcard">
-        <div className="gh">
-          <b>Calories · this week</b>
-          <span>avg {avg.toLocaleString()}</span>
-        </div>
-        <div className="chart">
-          {week.map((v, i) => (
-            <div key={i} className={"col" + (i === 6 ? " today" : "")}>
-              <i style={{ height: `${Math.round((v / max) * 100)}%` }} />
-              <small>{days[i]}</small>
+        {goal === 0 ? (
+          <p className="empty">{t("home.setGoal")}</p>
+        ) : (
+          <div className="calorie-row">
+            <MacroRing
+              value={eaten}
+              target={goal}
+              size={142}
+              stroke={13}
+              color="var(--accent)"
+              center={
+                <>
+                  <small>{remaining >= 0 ? t("home.remaining") : t("home.over")}</small>
+                  <b>{loading ? "…" : Math.abs(remaining).toLocaleString()}</b>
+                  <small>{t("home.kcalLeft")}</small>
+                </>
+              }
+            />
+            <div className="legend">
+              <LegendRow label={t("home.eaten")} value={eaten} unit="kcal" dot="var(--accent)" />
+              <LegendRow label={t("home.goal")} value={goal} unit="kcal" dot="var(--track)" />
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+      </section>
+
+      <h2 className="section-title">{t("home.macros")}</h2>
+      <div className="macro-grid">
+        <MacroCard
+          label={t("home.protein")}
+          value={totals.protein}
+          target={profile.target_protein_g ?? 0}
+          color="var(--p-color)"
+          track="var(--p-track)"
+          t={t}
+        />
+        <MacroCard
+          label={t("home.carbs")}
+          value={totals.carbs}
+          target={profile.target_carbs_g ?? 0}
+          color="var(--c-color)"
+          track="var(--c-track)"
+          t={t}
+        />
+        <MacroCard
+          label={t("home.fat")}
+          value={totals.fat}
+          target={profile.target_fat_g ?? 0}
+          color="var(--f-color)"
+          track="var(--f-track)"
+          t={t}
+        />
       </div>
-    </>
+
+      <h2 className="section-title">{t("home.meals")}</h2>
+      {meals.length === 0 ? (
+        <p className="empty">{t("home.noMeals")}</p>
+      ) : (
+        meals.map((meal) => {
+          const items = byMeal.get(meal.id) ?? [];
+          const kcal = Math.round(sumEntries(items).calories);
+          const target = meal.target_calories ?? 0;
+          const over = target > 0 && kcal > target;
+          return (
+            <section className="card meal-card" key={meal.id}>
+              <div className="card-head">
+                <div className="meal-head">
+                  <span className="meal-badge">{meal.name.charAt(0).toUpperCase()}</span>
+                  <div>
+                    <b>{meal.name}</b>
+                    <p className="muted small">
+                      {kcal}
+                      {target > 0 ? ` / ${target}` : ""} kcal
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {target > 0 && (
+                <div className="bar">
+                  <span
+                    className={over ? "over" : ""}
+                    style={{ width: `${Math.min(100, (kcal / target) * 100)}%` }}
+                  />
+                </div>
+              )}
+
+              {items.length === 0 ? (
+                <p className="meal-empty">—</p>
+              ) : (
+                <ul className="entry-list">
+                  {items.map((e) => (
+                    <li key={e.id}>
+                      <div className="entry-main">
+                        <strong>{e.food_name}</strong>
+                        <p className="macro-dots">
+                          <Dot color="var(--p-color)" /> {round1(e.protein ?? 0)}g
+                          <Dot color="var(--c-color)" /> {round1(e.carbs ?? 0)}g
+                          <Dot color="var(--f-color)" /> {round1(e.fat ?? 0)}g
+                        </p>
+                      </div>
+                      <div className="entry-kcal">
+                        <b>{Math.round(e.calories ?? 0)}</b>
+                        <small>kcal</small>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          );
+        })
+      )}
+    </div>
   );
 }
 
-function MacroCard({
-  lab,
-  v,
-  g,
-  color,
-  pct,
+function LegendRow({
+  label,
+  value,
+  unit,
+  dot,
 }: {
-  lab: string;
-  v: number;
-  g: number;
-  color: string;
-  pct: number;
+  label: string;
+  value: number;
+  unit: string;
+  dot: string;
 }) {
   return (
-    <div className="m">
-      <div className="lab">{lab}</div>
-      <div className="val">
-        {round1(v)}
-        <span>/{g}g</span>
+    <div className="legend-row">
+      <span className="legend-dot" style={{ background: dot }} />
+      <div>
+        <p className="muted small">{label}</p>
+        <b>
+          {value.toLocaleString()} <small>{unit}</small>
+        </b>
       </div>
-      <div className="bar">
-        <i style={{ width: `${Math.min(pct, 100)}%`, background: color }} />
+    </div>
+  );
+}
+
+function Dot({ color }: { color: string }) {
+  return <i className="mdot" style={{ background: color }} />;
+}
+
+function MacroCard({
+  label,
+  value,
+  target,
+  color,
+  track,
+  t,
+}: {
+  label: string;
+  value: number;
+  target: number;
+  color: string;
+  track: string;
+  t: Translate;
+}) {
+  const pct = target > 0 ? Math.min(100, (value / target) * 100) : 0;
+  const left = Math.max(0, Math.round(target - value));
+  return (
+    <div className="macro-card">
+      <p className="macro-label">
+        <i className="mdot" style={{ background: color }} /> {label}
+      </p>
+      <p className="macro-value">
+        {round1(value)}
+        <span>/{target}g</span>
+      </p>
+      <div className="bar" style={{ background: track }}>
+        <span style={{ width: `${pct}%`, background: color }} />
       </div>
-      <div className="pct">{pct}% of goal</div>
+      <p className="macro-left">{t("home.left", { n: left })}</p>
     </div>
   );
 }

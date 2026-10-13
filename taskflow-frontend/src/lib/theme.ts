@@ -1,4 +1,4 @@
-// Theme = light / dark, Uplift "Momentum" look (orange accent).
+// Theme = light / dark, Uplift look (sage accent).
 // Stamped as data-theme on <html>; palettes live in index.css.
 
 export type ThemeKey = "light" | "dark";
@@ -12,8 +12,8 @@ export interface ThemeDef {
 }
 
 export const THEMES: ThemeDef[] = [
-  { key: "light", label: "Light", tagline: "Clean & bright", dots: ["#F6F5F1", "#E8501A", "#F2A83B"] },
-  { key: "dark", label: "Dark", tagline: "Easy on the eyes", dots: ["#0F1319", "#FF7A3D", "#F5B95C"] },
+  { key: "light", label: "Light", tagline: "Clean & bright", dots: ["#F8F7F2", "#5B9279", "#E3EDE7"] },
+  { key: "dark", label: "Dark", tagline: "Easy on the eyes", dots: ["#121614", "#6EA98D", "#1E2B24"] },
 ];
 
 const STORAGE_KEY = "uplift_theme";
