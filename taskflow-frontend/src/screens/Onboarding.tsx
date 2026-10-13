@@ -1,167 +1,98 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { Sparkles } from "lucide-react";
 import { saveProfile } from "../api/profile";
 import * as mealsApi from "../api/meals";
-import type { Profile, Sex, Activity } from "../types/profile";
+import { useLang } from "../lib/langHooks";
+import { parseNum } from "../lib/locale";
+import { usePrefs } from "../lib/prefs";
+import { toCm, toKg } from "../lib/units";
+import { ErrorBanner, ITile, errText } from "../components/ui";
+import { BodyForm, type BodyValues } from "./more/BodyForm";
+import type { Profile } from "../types/profile";
 
+// Stored in English; the UI translates these defaults for display, so the
+// names follow the user if they switch language later.
 const DEFAULT_MEALS = ["Breakfast", "Lunch", "Dinner", "Snacks"];
+const MEAL_SHARE = [0.25, 0.35, 0.3, 0.1];
+const PACES = [
+  { key: "lose", value: -0.5 },
+  { key: "maintain", value: 0 },
+  { key: "gain", value: 0.25 },
+] as const;
 
-const ACTIVITIES: { key: Activity; label: string }[] = [
-  { key: "sedentary", label: "Sedentary" },
-  { key: "light", label: "Light" },
-  { key: "moderate", label: "Moderate" },
-  { key: "active", label: "Active" },
-  { key: "very_active", label: "Very active" },
-];
-
-const GOALS: { label: string; value: number }[] = [
-  { label: "Lose", value: -0.5 },
-  { label: "Maintain", value: 0 },
-  { label: "Gain", value: 0.25 },
-];
-
-export function Onboarding({
-  username,
-  onDone,
-}: {
-  username: string;
-  onDone: (p: Profile) => void;
-}) {
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState<Sex>("male");
-  const [activity, setActivity] = useState<Activity>("moderate");
-  const [weekly, setWeekly] = useState(0);
+/** First run after sign-up: body data → calorie plan → default meals. */
+export function Onboarding({ username, onDone }: { username: string; onDone: (p: Profile) => void }) {
+  const { t } = useLang();
+  const { prefs } = usePrefs();
+  const [v, setV] = useState<BodyValues>({ weight: "", height: "", age: "", sex: "male", activity: "moderate" });
+  const [pace, setPace] = useState(-0.5);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError(null);
+  const submit = async () => {
+    const w = parseNum(v.weight);
+    const h = parseNum(v.height);
+    const a = parseNum(v.age);
+    if (!(w > 0 && h > 0 && a >= 10 && a < 120)) return setError(t("profile.invalid"));
     setBusy(true);
+    setError(null);
     try {
       const p = await saveProfile({
-        weight_kg: Number(weight),
-        height_cm: Number(height),
-        age: Number(age),
-        sex,
-        activity,
-        weekly_change_kg: weekly,
+        weight_kg: Math.round(toKg(w, prefs.weightUnit) * 10) / 10,
+        height_cm: Math.round(toCm(h, prefs.lengthUnit) * 10) / 10,
+        age: Math.round(a),
+        sex: v.sex,
+        activity: v.activity,
+        weekly_change_kg: pace,
       });
-      // Seed default meals so the diary is usable right away (a new user has none).
-      const per = Math.round((p.target_calories ?? 2000) / DEFAULT_MEALS.length);
+      // Seed meals so the diary is usable straight away (a new account has none).
+      const kcal = p.target_calories ?? 2000;
       for (let i = 0; i < DEFAULT_MEALS.length; i++) {
         try {
-          await mealsApi.createMeal({ name: DEFAULT_MEALS[i], position: i + 1, target_calories: per });
+          await mealsApi.createMeal({
+            name: DEFAULT_MEALS[i],
+            position: i + 1,
+            target_calories: Math.round((kcal * MEAL_SHARE[i]) / 10) * 10,
+          });
         } catch {
-          /* non-fatal: user can still proceed */
+          /* non-fatal: meals can be added later from More → Meals */
         }
       }
       onDone(p);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+    } catch (e) {
+      setError(errText(e, t));
       setBusy(false);
     }
   };
 
   return (
-    <form className="app-shell" onSubmit={submit}>
-      <div className="screen">
-        <div className="appbar">
-          <div>
-            <p className="hi">Welcome, {username}</p>
-            <p className="who">Set up your plan</p>
-          </div>
+    <div className="app">
+      <div className="page bare">
+        <div className="auth-brand" style={{ marginTop: 18 }}>
+          <ITile icon={Sparkles} tone="solid" size="lg" round />
+          <h1>{t("onboarding.title", { name: username })}</h1>
+          <p>{t("onboarding.subtitle")}</p>
         </div>
-
-        {error && <div className="banner">{error}</div>}
-
-        <div className="field">
-          <label>Weight (kg)</label>
-          <input
-            className="input"
-            type="number"
-            inputMode="decimal"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            required
-          />
-        </div>
-        <div className="field">
-          <label>Height (cm)</label>
-          <input
-            className="input"
-            type="number"
-            inputMode="decimal"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-            required
-          />
-        </div>
-        <div className="field">
-          <label>Age</label>
-          <input
-            className="input"
-            type="number"
-            inputMode="numeric"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="field">
-          <label>Sex</label>
-          <div className="seg">
-            {(["male", "female"] as Sex[]).map((s) => (
-              <button
-                type="button"
-                key={s}
-                className={sex === s ? "on" : ""}
-                onClick={() => setSex(s)}
-              >
-                {s === "male" ? "Male" : "Female"}
+        <ErrorBanner message={error} onClose={() => setError(null)} />
+        <section className="card">
+          <BodyForm v={v} onChange={(p) => setV((prev) => ({ ...prev, ...p }))} />
+        </section>
+        <section className="card">
+          <span className="card-title">{t("goals.pace")}</span>
+          <div className="seg-choice" style={{ marginTop: 10, gridTemplateColumns: "repeat(3, 1fr)" }}>
+            {PACES.map((p) => (
+              <button key={p.key} className={pace === p.value ? "on" : ""} onClick={() => setPace(p.value)}>
+                {t(`goals.pace.${p.key}`)}
               </button>
             ))}
           </div>
+        </section>
+        <div className="sticky-cta">
+          <button className="btn btn-primary" onClick={submit} disabled={busy}>
+            {busy ? t("auth.working") : t("onboarding.start")}
+          </button>
         </div>
-
-        <div className="field">
-          <label>Activity level</label>
-          <div className="seg">
-            {ACTIVITIES.map((a) => (
-              <button
-                type="button"
-                key={a.key}
-                className={activity === a.key ? "on" : ""}
-                onClick={() => setActivity(a.key)}
-              >
-                {a.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="field">
-          <label>Goal</label>
-          <div className="seg">
-            {GOALS.map((g) => (
-              <button
-                type="button"
-                key={g.label}
-                className={weekly === g.value ? "on" : ""}
-                onClick={() => setWeekly(g.value)}
-              >
-                {g.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <button className="btn" type="submit" disabled={busy}>
-          {busy ? "Building your plan…" : "Start tracking"}
-        </button>
       </div>
-    </form>
+    </div>
   );
 }

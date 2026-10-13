@@ -28,6 +28,10 @@ export interface NewFoodEntry {
   carbs?: number | null;
   fat?: number | null;
   date?: string | null; // omit to default to today (backend fills CURRENT_DATE)
+  // food_log_entry already has these columns; the POST schema doesn't accept
+  // them yet (backend ticket), and Pydantic ignores unknown fields meanwhile.
+  food_id?: number | null;
+  amount_g?: number | null;
 }
 
 export interface UpdateFoodEntry {

@@ -10,6 +10,11 @@ import type { Food, RecipeSummary, RecipeDetail, NewRecipe } from "../types/food
 
 export const searchFoods = (q: string) => request<Food[]>(`/foods?q=${encodeURIComponent(q)}`);
 
+// Barcode lookup. The repo function exists server-side; the route is a
+// backend ticket — until it ships this 404s and the UI says "not found".
+export const lookupBarcode = (code: string) =>
+  request<Food>(`/foods/barcode/${encodeURIComponent(code)}`);
+
 export const getRecipes = () => request<RecipeSummary[]>("/recipes");
 
 export const getRecipe = (id: number) => request<RecipeDetail>(`/recipes/${id}`);

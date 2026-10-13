@@ -1,24 +1,28 @@
 import { useEffect, useState } from "react";
-import { getSavedTheme, applyTheme, type ThemeKey } from "./lib/theme";
+import { Activity } from "lucide-react";
 import * as authApi from "./api/auth";
 import * as profileApi from "./api/profile";
 import { getAuthToken } from "./api/client";
 import type { User } from "./api/auth";
 import type { Profile } from "./types/profile";
-
+import { useLang } from "./lib/langHooks";
+import { PrefsProvider } from "./lib/prefs";
+import { AppDataProvider, useApp } from "./lib/appData";
+import { loadRecents } from "./lib/recents";
+import { SessionProvider, useSession, useTick } from "./lib/session";
+import { NavProvider, useNav } from "./lib/nav";
+import { TabBar } from "./components/TabBar";
 import { Welcome } from "./screens/Welcome";
 import { Onboarding } from "./screens/Onboarding";
 import { Home } from "./screens/Home";
-import { Diary } from "./screens/Diary";
-import { Workouts } from "./screens/Workouts";
-import { Progress } from "./screens/Progress";
-import { ProfileScreen } from "./screens/ProfileScreen";
-import { TabBar, type Tab } from "./components/TabBar";
+import { WorkoutTab } from "./screens/workout/WorkoutTab";
+import { Session } from "./screens/workout/Session";
+import { ProgressTab } from "./screens/progress/ProgressTab";
+import { MoreTab } from "./screens/more/MoreTab";
+import { LogHub } from "./screens/log/LogHub";
 
 export default function App() {
-  const [theme, setTheme] = useState<ThemeKey>(getSavedTheme());
-  useEffect(() => applyTheme(theme), [theme]);
-
+  const { t } = useLang();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(() => !!getAuthToken());
 
@@ -31,39 +35,25 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="splash">Loading…</div>;
+  if (loading) return <div className="splash">{t("common.loading")}</div>;
   if (!user) return <Welcome onAuthed={setUser} />;
 
   return (
-    <Authed
-      user={user}
-      theme={theme}
-      onThemeChange={setTheme}
-      onLogout={() => {
-        authApi.logout();
-        setUser(null);
-      }}
-    />
+    <PrefsProvider userId={user.id} key={user.id}>
+      <Authed
+        user={user}
+        onLogout={() => {
+          authApi.logout();
+          setUser(null);
+        }}
+      />
+    </PrefsProvider>
   );
 }
 
-function Authed({
-  user,
-  theme,
-  onThemeChange,
-  onLogout,
-}: {
-  user: User;
-  theme: ThemeKey;
-  onThemeChange: (t: ThemeKey) => void;
-  onLogout: () => void;
-}) {
+function Authed({ user, onLogout }: { user: User; onLogout: () => void }) {
+  const { t } = useLang();
   const [profile, setProfile] = useState<Profile | null | undefined>(undefined);
-  const [tab, setTab] = useState<Tab>("home");
-  const [addSignal, setAddSignal] = useState(0);
-  // The diary is reached through the centre Log button rather than a tab of its
-  // own, so it lives outside the tab state and takes over the screen when open.
-  const [diaryOpen, setDiaryOpen] = useState(false);
 
   useEffect(() => {
     profileApi
@@ -72,42 +62,83 @@ function Authed({
       .catch(() => setProfile(null));
   }, []);
 
-  if (profile === undefined) return <div className="splash">Loading…</div>;
+  if (profile === undefined) return <div className="splash">{t("common.loading")}</div>;
   if (profile === null) return <Onboarding username={user.username} onDone={setProfile} />;
 
   return (
-    <div className="app-shell">
-      <div className="screen">
-        {diaryOpen ? (
-          <Diary profile={profile} addSignal={addSignal} />
-        ) : (
-          <>
-            {tab === "home" && <Home user={user} profile={profile} />}
-            {tab === "workouts" && <Workouts />}
-            {tab === "progress" && <Progress user={user} />}
-            {tab === "more" && (
-              <ProfileScreen
-                user={user}
-                profile={profile}
-                theme={theme}
-                onThemeChange={onThemeChange}
-                onLogout={onLogout}
-              />
-            )}
-          </>
-        )}
+    <AppDataProvider user={user} profile={profile} onLogout={onLogout}>
+      <SessionProvider userId={user.id}>
+        <NavProvider>
+          <Shell />
+        </NavProvider>
+      </SessionProvider>
+    </AppDataProvider>
+  );
+}
+
+/** Tabs underneath, pushed screens on top, bottom bar and the live-workout pill. */
+function Shell() {
+  const nav = useNav();
+  const { version } = useApp();
+
+  // Warm the recent-foods cache once the first screen has loaded, so the Log
+  // flow opens with its list ready (it is derived from 14 days of diary).
+  useEffect(() => {
+    const id = window.setTimeout(() => void loadRecents(version.diary), 1500);
+    return () => window.clearTimeout(id);
+  }, [version.diary]);
+
+  const top = nav.stack[nav.stack.length - 1];
+  const showTabs = !top || top.chrome === "tabs";
+  const { session } = useSession();
+  const sessionOpen = nav.stack.some((e) => (e.node as { type?: unknown })?.type === Session);
+  const showMini = !!session && showTabs && !sessionOpen;
+
+  const openLog = () => {
+    nav.popToRoot();
+    nav.push(<LogHub />, "tabs");
+  };
+
+  return (
+    <div className={`app${showMini ? " has-mini" : ""}`}>
+      <div className={top ? "hidden" : ""}>
+        {nav.tab === "home" && <Home />}
+        {nav.tab === "workouts" && <WorkoutTab />}
+        {nav.tab === "progress" && <ProgressTab />}
+        {nav.tab === "more" && <MoreTab />}
       </div>
-      <TabBar
-        tab={tab}
-        onTab={(t) => {
-          setDiaryOpen(false);
-          setTab(t);
-        }}
-        onAdd={() => {
-          setDiaryOpen(true);
-          setAddSignal((n) => n + 1);
-        }}
-      />
+      {nav.stack.map((e, i) => (
+        <div key={e.id} className={i === nav.stack.length - 1 ? "" : "hidden"}>
+          {e.node}
+        </div>
+      ))}
+      {showMini && <MiniSession />}
+      {showTabs && <TabBar onLog={openLog} />}
     </div>
+  );
+}
+
+function MiniSession() {
+  const { t } = useLang();
+  const nav = useNav();
+  const { session } = useSession();
+  const now = useTick(!!session);
+  if (!session) return null;
+  const mins = Math.floor((now - session.startedAt) / 60000);
+  const done = session.exercises.reduce((a, e) => a + e.sets.filter((s) => s.done).length, 0);
+  return (
+    <button className="mini-session" onClick={() => nav.push(<Session />)}>
+      <i className="rec-dot" />
+      <span className="grow">
+        <b>{session.name}</b>
+        <small>
+          {t("workout.inProgress")} · {mins} min · {t("workout.setsCount", { n: done })}
+        </small>
+      </span>
+      <span className="go">
+        <Activity size={15} style={{ verticalAlign: "-2px", marginRight: 4 }} />
+        {t("workout.resume")}
+      </span>
+    </button>
   );
 }

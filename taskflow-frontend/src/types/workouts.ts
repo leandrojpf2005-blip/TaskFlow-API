@@ -54,6 +54,11 @@ export interface NewWorkoutSet {
   set_number: number;
 }
 
+export interface NewRoutine {
+  name: string;
+  items: { exercise_id: number; sets: number }[];
+}
+
 export interface NewWorkout {
   routine_id?: number | null;
   date?: string | null;

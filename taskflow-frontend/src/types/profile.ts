@@ -9,6 +9,8 @@ export interface ProfileInput {
   sex: Sex;
   activity: Activity;
   weekly_change_kg: number;
+  /** Backend ticket — only present once the profile table has the column. */
+  goal_weight_kg?: number | null;
 }
 
 // What comes back — inputs + the computed plan.

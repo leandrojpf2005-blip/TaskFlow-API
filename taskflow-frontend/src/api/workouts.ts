@@ -1,6 +1,8 @@
 // Workouts / routines / exercises API — wired to the FastAPI backend.
 //   GET  /routines            -> Routine[]
 //   GET  /routines/{id}       -> RoutineExercise[]
+//   POST /routines            -> { id }
+//   DELETE /routines/{id}     -> { deleted }
 //   GET  /exercises?q=        -> Exercise[]
 //   GET  /workouts            -> WorkoutSummary[]
 //   GET  /workouts/{id}       -> WorkoutDetail (sets + volume)
@@ -18,6 +20,7 @@ import type {
   WorkoutDetail,
   NewWorkout,
   LastPerformanceMap,
+  NewRoutine,
 } from "../types/workouts";
 
 export const getRoutines = () => request<Routine[]>("/routines");
@@ -44,3 +47,9 @@ export const getLastPerformance = (exerciseIds: number[]) => {
   const qs = exerciseIds.map((id) => `exercise_ids=${id}`).join("&");
   return request<LastPerformanceMap>(`/workouts/last-performance?${qs}`);
 };
+
+export const createRoutine = (r: NewRoutine) =>
+  request<{ id: number }>("/routines", { method: "POST", body: JSON.stringify(r) });
+
+export const deleteRoutine = (id: number) =>
+  request<{ deleted: number }>(`/routines/${id}`, { method: "DELETE" });

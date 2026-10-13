@@ -1,179 +1,290 @@
 import { useEffect, useMemo, useState } from "react";
+import { Bell, ChevronLeft, ChevronRight, Flame, Plus, Sparkles, UtensilsCrossed } from "lucide-react";
 import { getDay } from "../api/macros";
-import { getMeals } from "../api/meals";
-import { todayISO } from "../lib/date";
-import { sumEntries, type Totals } from "../lib/totals";
-import { round1 } from "../lib/format";
-import { MacroRing } from "../components/MacroRing";
-import { useT } from "../lib/langHooks";
-import type { Translate } from "../lib/i18n";
-import type { Meal, FoodEntry } from "../types/macros";
-import type { Profile } from "../types/profile";
-import type { User } from "../api/auth";
+import { getStreak, type Streak } from "../api/stats";
+import { useApp } from "../lib/appData";
+import { useNav } from "../lib/nav";
+import { useLang } from "../lib/langHooks";
+import { useFmt } from "../lib/useFmt";
+import { addDays, parseDay, todayIso } from "../lib/dates";
+import { mealLabel } from "../lib/mealNames";
+import { EmptyState, LetterBadge, MacroDots, PBar, Ring, SectionHead } from "../components/ui";
+import { EntrySheet } from "./log/EntrySheet";
+import { FoodSearch } from "./log/FoodSearch";
+import { Nutrition } from "./more/Nutrition";
+import { MealsScreen } from "./more/Meals";
+import { NotificationsSheet } from "./more/PickSheets";
+import type { FoodEntry } from "../types/macros";
 
-// Home = today at a glance: the calorie ring, the three macro bars, and the
-// day's meals. Totals are summed from the entries the diary already returns,
-// so this screen needs no aggregate endpoint of its own.
+const MEAL_TONES = ["green", "green", "coral", "coral"] as const;
 
-export function Home({ user, profile }: { user: User; profile: Profile }) {
-  const t = useT();
-  const [entries, setEntries] = useState<FoodEntry[]>([]);
-  const [meals, setMeals] = useState<Meal[]>([]);
-  const [loading, setLoading] = useState(true);
+export function Home() {
+  const { t, lang } = useLang();
+  const f = useFmt();
+  const nav = useNav();
+  const { user, profile, meals, date, setDate, version } = useApp();
+  // Keyed by what was fetched, so a stale day never shows under a new date.
+  const [loaded, setLoaded] = useState<{ key: string; entries: FoodEntry[] } | null>(null);
+  const [streak, setStreak] = useState<Streak | null>(null);
+  const [editing, setEditing] = useState<FoodEntry | null>(null);
+  const [bellOpen, setBellOpen] = useState(false);
+
+  const today = todayIso();
+
+  const dayKey = `${date}|${version.diary}`;
+  const entries = loaded?.key === dayKey ? loaded.entries : null;
 
   useEffect(() => {
-    let cancelled = false;
-    Promise.all([getDay(todayISO()), getMeals()])
-      .then(([day, m]) => {
-        if (cancelled) return;
-        setEntries(day);
-        setMeals(m);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+    let live = true;
+    getDay(date)
+      .then((e) => live && setLoaded({ key: dayKey, entries: e }))
+      .catch(() => live && setLoaded({ key: dayKey, entries: [] }));
     return () => {
-      cancelled = true;
+      live = false;
     };
-  }, []);
+  }, [date, dayKey]);
 
-  const totals: Totals = useMemo(() => sumEntries(entries), [entries]);
+  useEffect(() => {
+    let live = true;
+    getStreak().then((s) => live && setStreak(s));
+    return () => {
+      live = false;
+    };
+  }, [version.diary, version.workouts]);
+
+  const totals = useMemo(() => {
+    const sum = { calories: 0, protein: 0, carbs: 0, fat: 0 };
+    for (const e of entries ?? []) {
+      sum.calories += e.calories ?? 0;
+      sum.protein += Number(e.protein ?? 0);
+      sum.carbs += Number(e.carbs ?? 0);
+      sum.fat += Number(e.fat ?? 0);
+    }
+    return sum;
+  }, [entries]);
 
   const byMeal = useMemo(() => {
-    const map = new Map<number, FoodEntry[]>();
-    for (const e of entries) {
-      const list = map.get(e.meal_id);
-      if (list) list.push(e);
-      else map.set(e.meal_id, [e]);
-    }
-    return map;
+    const m = new Map<number, FoodEntry[]>();
+    for (const e of entries ?? []) m.set(e.meal_id, [...(m.get(e.meal_id) ?? []), e]);
+    return m;
   }, [entries]);
 
   const goal = profile.target_calories ?? 0;
   const eaten = Math.round(totals.calories);
   const remaining = goal - eaten;
+  const pct = goal > 0 ? Math.round((eaten / goal) * 100) : 0;
+  const nextMeal = meals.find((m) => !(byMeal.get(m.id)?.length ?? 0));
+
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? t("home.goodMorning") : hour < 19 ? t("home.goodAfternoon") : t("home.goodEvening");
+
+  // Seven-day strip: the selected day sits second from the right, with the
+  // following day after it (dashed when it is still in the future).
+  const anchor = date < today ? date : today;
+  const strip = Array.from({ length: 7 }, (_, i) => addDays(anchor, i - 5));
+  const sel = parseDay(date);
+  const dayTitle =
+    date === today ? t("common.today") : date === addDays(today, -1) ? t("common.yesterday") : f.date(sel, { weekday: "long" });
+  const daySub = `${f.weekdayShort(sel)}, ${f.dayMonth(sel)}`;
+
+  const openFood = (mealId?: number) =>
+    nav.push(<FoodSearch mealId={mealId ?? nextMeal?.id ?? meals[0]?.id} />, "tabs");
+
+  let insight: { text: string; coral?: boolean } | null = null;
+  if (goal > 0) {
+    if (eaten === 0) insight = { text: t("home.insight.start") };
+    else if (eaten > goal) insight = { text: t("home.insight.over", { n: f.kcal(eaten - goal) }), coral: true };
+    else if (pct >= 95) insight = { text: t("home.insight.done") };
+    else if (nextMeal)
+      insight = { text: t("home.insight.onTrackFor", { pct, meal: mealLabel(nextMeal.name, lang).toLowerCase() }) };
+    else insight = { text: t("home.insight.onTrack", { pct }) };
+  }
+
+  const proteinLeft = (profile.target_protein_g ?? 0) - totals.protein;
+  let tip: { title: string; hint: string } | null = null;
+  if (goal > 0 && date === today && entries) {
+    if (proteinLeft >= 10) tip = { title: t("home.tip.protein", { n: f.num(proteinLeft) }), hint: t("home.tip.proteinHint") };
+    else if (remaining > 150) tip = { title: t("home.tip.kcal", { n: f.kcal(remaining) }), hint: t("home.tip.kcalHint") };
+    else tip = { title: t("home.tip.done"), hint: t("home.tip.doneHint") };
+  }
 
   return (
-    <div className="pad">
-      <header className="screen-head">
-        <div>
-          <p className="sub">{t("home.greeting")}</p>
-          <h1>{user.username}</h1>
+    <div className="page">
+      <header className="home-head">
+        <span className="avatar">{user.username.charAt(0)}</span>
+        <div className="who">
+          <small>{greeting}</small>
+          <b>{user.username}</b>
         </div>
-        <div className="avatar">{user.username.charAt(0).toUpperCase()}</div>
+        {streak && streak.current > 0 && (
+          <span className="streak" title={t("home.streakDays", { n: streak.current })}>
+            <Flame />
+            {streak.current}
+          </span>
+        )}
+        <button className="round-btn" onClick={() => setBellOpen(true)} aria-label={t("more.notifications")}>
+          <Bell />
+        </button>
       </header>
 
+      <section className="card datecard">
+        <button className="nav" onClick={() => setDate(addDays(date, -1))} aria-label={t("common.previousDay")}>
+          <ChevronLeft />
+        </button>
+        <div className="mid">
+          <b>{dayTitle}</b>
+          <small>{daySub}</small>
+        </div>
+        <button
+          className="nav"
+          onClick={() => setDate(addDays(date, 1))}
+          disabled={date >= today}
+          aria-label={t("common.nextDay")}
+        >
+          <ChevronRight />
+        </button>
+      </section>
+
+      <div className="daystrip">
+        {strip.map((d) => {
+          const dd = parseDay(d);
+          const future = d > today;
+          return (
+            <button
+              key={d}
+              className={`${d === date ? "on" : ""}${future ? " future" : ""}`}
+              onClick={() => !future && setDate(d)}
+              disabled={future}
+              aria-pressed={d === date}
+              aria-label={f.date(dd, { weekday: "long", day: "numeric", month: "long" })}
+            >
+              {f.date(dd, { weekday: "narrow" })}
+              <b className="tnum">{dd.getDate()}</b>
+            </button>
+          );
+        })}
+      </div>
+
       <section className="card">
-        <div className="card-head">
-          <b>{t("home.dailyCalories")}</b>
+        <div className="card-row">
+          <span className="card-title">{t("home.dailyCalories")}</span>
+          <button className="link" onClick={() => nav.push(<Nutrition />)}>
+            {t("home.editGoal")}
+          </button>
         </div>
 
         {goal === 0 ? (
-          <p className="empty">{t("home.setGoal")}</p>
+          <EmptyState icon={Sparkles} title={t("home.noGoal")} />
         ) : (
-          <div className="calorie-row">
-            <MacroRing
-              value={eaten}
-              target={goal}
-              size={142}
-              stroke={13}
-              color="var(--accent)"
-              center={
-                <>
-                  <small>{remaining >= 0 ? t("home.remaining") : t("home.over")}</small>
-                  <b>{loading ? "…" : Math.abs(remaining).toLocaleString()}</b>
-                  <small>{t("home.kcalLeft")}</small>
-                </>
-              }
-            />
-            <div className="legend">
-              <LegendRow label={t("home.eaten")} value={eaten} unit="kcal" dot="var(--accent)" />
-              <LegendRow label={t("home.goal")} value={goal} unit="kcal" dot="var(--track)" />
+          <div className="cal-body">
+            <Ring value={eaten} max={goal} size={164} stroke={16}>
+              <small>{remaining >= 0 ? t("home.remaining") : t("home.over")}</small>
+              <b className="tnum">{entries ? f.kcal(Math.abs(remaining)) : "…"}</b>
+              <small>{remaining >= 0 ? t("home.kcalLeft") : t("home.kcalOver")}</small>
+            </Ring>
+            <div className="cal-side">
+              <div className="legend-tile">
+                <span className="sw">
+                  <i />
+                </span>
+                <div>
+                  <small>{t("home.eaten")}</small>
+                  <b className="tnum">
+                    {f.kcal(eaten)}
+                    <small>kcal</small>
+                  </b>
+                </div>
+              </div>
+              <div className="legend-tile">
+                <span className="sw grey">
+                  <i />
+                </span>
+                <div>
+                  <small>{t("home.dailyGoal")}</small>
+                  <b className="tnum">
+                    {f.kcal(goal)}
+                    <small>kcal</small>
+                  </b>
+                </div>
+              </div>
+              {insight && <div className={`insight-box${insight.coral ? " coral" : ""}`}>{insight.text}</div>}
             </div>
           </div>
         )}
       </section>
 
-      <h2 className="section-title">{t("home.macros")}</h2>
-      <div className="macro-grid">
-        <MacroCard
-          label={t("home.protein")}
-          value={totals.protein}
-          target={profile.target_protein_g ?? 0}
-          color="var(--p-color)"
-          track="var(--p-track)"
-          t={t}
-        />
-        <MacroCard
-          label={t("home.carbs")}
-          value={totals.carbs}
-          target={profile.target_carbs_g ?? 0}
-          color="var(--c-color)"
-          track="var(--c-track)"
-          t={t}
-        />
-        <MacroCard
-          label={t("home.fat")}
-          value={totals.fat}
-          target={profile.target_fat_g ?? 0}
-          color="var(--f-color)"
-          track="var(--f-track)"
-          t={t}
-        />
+      <SectionHead
+        title={t("home.macros")}
+        action={
+          <button className="link" onClick={() => nav.push(<Nutrition />)}>
+            {t("home.details")}
+          </button>
+        }
+      />
+      <div className="mcards">
+        <MacroCard name={t("home.protein")} value={totals.protein} target={profile.target_protein_g ?? 0} color="var(--p)" track="var(--p-soft)" />
+        <MacroCard name={t("home.carbs")} value={totals.carbs} target={profile.target_carbs_g ?? 0} color="var(--c)" track="var(--c-soft)" />
+        <MacroCard name={t("home.fat")} value={totals.fat} target={profile.target_fat_g ?? 0} color="var(--f)" track="var(--f-soft)" />
       </div>
 
-      <h2 className="section-title">{t("home.meals")}</h2>
+      <SectionHead title={t("home.meals")} />
       {meals.length === 0 ? (
-        <p className="empty">{t("home.noMeals")}</p>
+        <EmptyState
+          icon={UtensilsCrossed}
+          title={t("home.noMeals")}
+          action={
+            <button className="btn btn-primary" onClick={() => nav.push(<MealsScreen />)}>
+              {t("home.setupMeals")}
+            </button>
+          }
+        />
       ) : (
-        meals.map((meal) => {
+        meals.map((meal, i) => {
           const items = byMeal.get(meal.id) ?? [];
-          const kcal = Math.round(sumEntries(items).calories);
+          const kcal = items.reduce((a, e) => a + (e.calories ?? 0), 0);
           const target = meal.target_calories ?? 0;
-          const over = target > 0 && kcal > target;
+          const tone = MEAL_TONES[i % MEAL_TONES.length];
+          const label = mealLabel(meal.name, lang);
           return (
             <section className="card meal-card" key={meal.id}>
-              <div className="card-head">
-                <div className="meal-head">
-                  <span className="meal-badge">{meal.name.charAt(0).toUpperCase()}</span>
-                  <div>
-                    <b>{meal.name}</b>
-                    <p className="muted small">
-                      {kcal}
-                      {target > 0 ? ` / ${target}` : ""} kcal
-                    </p>
-                  </div>
+              <div className="meal-top">
+                <LetterBadge text={label} tone={tone} />
+                <div className="grow">
+                  <b>{label}</b>
+                  <small className="tnum">
+                    {target > 0 ? `${f.kcal(kcal)} / ${f.kcal(target)} kcal` : `${f.kcal(kcal)} kcal`}
+                  </small>
                 </div>
+                <button className="pill-btn" onClick={() => openFood(meal.id)}>
+                  <Plus />
+                  {t("home.addFood")}
+                </button>
               </div>
-
               {target > 0 && (
-                <div className="bar">
-                  <span
-                    className={over ? "over" : ""}
-                    style={{ width: `${Math.min(100, (kcal / target) * 100)}%` }}
-                  />
-                </div>
+                <PBar value={kcal} max={target} thin color={tone === "coral" || kcal > target ? "var(--coral)" : undefined} />
               )}
-
               {items.length === 0 ? (
-                <p className="meal-empty">—</p>
+                <div className="meal-empty">{t("home.noEntries")}</div>
               ) : (
-                <ul className="entry-list">
+                <ul className="entries">
                   {items.map((e) => (
                     <li key={e.id}>
-                      <div className="entry-main">
-                        <strong>{e.food_name}</strong>
-                        <p className="macro-dots">
-                          <Dot color="var(--p-color)" /> {round1(e.protein ?? 0)}g
-                          <Dot color="var(--c-color)" /> {round1(e.carbs ?? 0)}g
-                          <Dot color="var(--f-color)" /> {round1(e.fat ?? 0)}g
-                        </p>
-                      </div>
-                      <div className="entry-kcal">
-                        <b>{Math.round(e.calories ?? 0)}</b>
-                        <small>kcal</small>
-                      </div>
+                      <button className="entry" onClick={() => setEditing(e)}>
+                        <LetterBadge text={e.food_name} />
+                        <div className="grow">
+                          <b>{e.food_name}</b>
+                          <MacroDots
+                            protein={Number(e.protein ?? 0)}
+                            carbs={Number(e.carbs ?? 0)}
+                            fat={Number(e.fat ?? 0)}
+                            fmt={f.g}
+                          />
+                        </div>
+                        <div className="kcal-col">
+                          <b className="tnum">{f.kcal(e.calories ?? 0)}</b>
+                          <small>kcal</small>
+                        </div>
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -182,68 +293,54 @@ export function Home({ user, profile }: { user: User; profile: Profile }) {
           );
         })
       )}
+
+      {tip && (
+        <button className="tipcard" onClick={() => openFood()}>
+          <span className="itile glass">
+            <Sparkles />
+          </span>
+          <div className="grow">
+            <b>{tip.title}</b>
+            <small>{tip.hint}</small>
+          </div>
+          <ChevronRight />
+        </button>
+      )}
+
+      {editing && <EntrySheet entry={editing} onClose={() => setEditing(null)} />}
+      {bellOpen && <NotificationsSheet onClose={() => setBellOpen(false)} />}
     </div>
   );
-}
-
-function LegendRow({
-  label,
-  value,
-  unit,
-  dot,
-}: {
-  label: string;
-  value: number;
-  unit: string;
-  dot: string;
-}) {
-  return (
-    <div className="legend-row">
-      <span className="legend-dot" style={{ background: dot }} />
-      <div>
-        <p className="muted small">{label}</p>
-        <b>
-          {value.toLocaleString()} <small>{unit}</small>
-        </b>
-      </div>
-    </div>
-  );
-}
-
-function Dot({ color }: { color: string }) {
-  return <i className="mdot" style={{ background: color }} />;
 }
 
 function MacroCard({
-  label,
+  name,
   value,
   target,
   color,
   track,
-  t,
 }: {
-  label: string;
+  name: string;
   value: number;
   target: number;
   color: string;
   track: string;
-  t: Translate;
 }) {
-  const pct = target > 0 ? Math.min(100, (value / target) * 100) : 0;
-  const left = Math.max(0, Math.round(target - value));
+  const { t } = useLang();
+  const f = useFmt();
+  const left = target - value;
   return (
-    <div className="macro-card">
-      <p className="macro-label">
-        <i className="mdot" style={{ background: color }} /> {label}
-      </p>
-      <p className="macro-value">
-        {round1(value)}
-        <span>/{target}g</span>
-      </p>
-      <div className="bar" style={{ background: track }}>
-        <span style={{ width: `${pct}%`, background: color }} />
+    <div className="mcard">
+      <div className="name">
+        <i className="mdot" style={{ background: color }} />
+        {name}
       </div>
-      <p className="macro-left">{t("home.left", { n: left })}</p>
+      <div className="val tnum">
+        {f.num(value)}
+        <small>/{f.num(target)}g</small>
+      </div>
+      <PBar value={value} max={target} thin color={color} track={track} />
+      <div className="left">{left >= 0 ? t("home.gLeft", { n: f.num(left) }) : t("home.gOver", { n: f.num(-left) })}</div>
     </div>
   );
 }
