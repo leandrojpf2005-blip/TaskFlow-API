@@ -197,7 +197,7 @@ export function FoodSearch({ mealId }: { mealId?: number }) {
                       ) : null}
                     </span>
                     <span className="sub">
-                      {item.detail ?? (item.basis === "per100g" ? "100 g" : t("food.lastPortion"))}
+                      {[item.brand, item.basis === "per100g" ? "100 g" : t("food.lastPortion")].filter(Boolean).join(" · ")}
                     </span>
                   </span>
                   <span className="kcal-col">

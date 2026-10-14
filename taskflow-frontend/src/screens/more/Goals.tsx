@@ -45,7 +45,7 @@ export function Goals() {
         ...(goalSupported ? { goal_weight_kg: goal.trim() ? Math.round(toKg(g, prefs.weightUnit) * 10) / 10 : null } : {}),
       });
       setProfile(p);
-      toast(t("goals.saved", { kcal: f.kcal(p.target_calories ?? 0) }));
+      toast(t("goals.saved"));
       nav.pop();
     } catch (e) {
       setError(errText(e, t));

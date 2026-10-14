@@ -4,6 +4,8 @@
 export interface Food {
   id: number;
   name: string;
+  /** Brand from the company table; null until the brands import runs. */
+  brand?: string | null;
   barcode: string;
   calories: number | null;
   protein_g: number | null;

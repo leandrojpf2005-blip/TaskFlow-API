@@ -15,8 +15,8 @@ export interface Loggable extends Macros {
   /** What the macros above are measured per. */
   basis: "per100g" | "serving";
   foodId?: number;
-  /** Secondary line under the name, e.g. a brand or "100 g". */
-  detail?: string;
+  /** Brand, shown under the name ("Continente · 100 g"). */
+  brand?: string | null;
 }
 
 export const ZERO_MACROS: Macros = { calories: 0, protein: 0, carbs: 0, fat: 0 };
@@ -36,6 +36,7 @@ export const nameKey = (name: string) => `name:${name.trim().toLowerCase()}`;
 export function foodToLoggable(food: {
   id: number;
   name: string;
+  brand?: string | null;
   calories: number | null;
   protein_g: number | null;
   carbs_g: number | null;
@@ -46,6 +47,7 @@ export function foodToLoggable(food: {
     name: food.name,
     basis: "per100g",
     foodId: food.id,
+    brand: food.brand?.trim() || null,
     calories: Number(food.calories ?? 0),
     protein: Number(food.protein_g ?? 0),
     carbs: Number(food.carbs_g ?? 0),

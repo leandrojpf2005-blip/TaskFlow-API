@@ -106,7 +106,7 @@ export function Portion({ item, mealId: initialMealId }: { item: Loggable; mealI
         <LetterBadge text={item.name} tone="green" size="lg" />
         <div style={{ minWidth: 0 }}>
           <b>{item.name}</b>
-          <small>{item.detail ?? (perGram ? t("portion.catalogue") : t("food.lastPortion"))}</small>
+          <small>{item.brand || (perGram ? t("portion.catalogue") : t("food.lastPortion"))}</small>
           <span className="chip neutral tnum">{baseChip}</span>
         </div>
       </section>

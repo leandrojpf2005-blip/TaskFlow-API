@@ -569,7 +569,10 @@ function RecipeBuilder({ onCreated }: { onCreated: () => void }) {
                   setQ("");
                 }}
               >
-                <span>{food.name}</span>
+                <span>
+                  {food.name}
+                  {food.brand ? <small className="muted"> · {food.brand}</small> : null}
+                </span>
                 <small className="tnum">{f.kcal(Number(food.calories ?? 0))} kcal/100 g</small>
               </button>
             ))}
