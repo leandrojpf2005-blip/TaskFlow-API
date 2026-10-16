@@ -1,0 +1,3901 @@
+{
+  "version": 1,
+  "languages": [
+    "en",
+    "pt",
+    "es",
+    "fr"
+  ],
+  "note": "Uplift's curated exercise library. Upsert by slug. Photos: free-exercise-db (public domain).",
+  "exercises": [
+    {
+      "slug": "bench-press-barbell",
+      "names": {
+        "en": "Bench Press (Barbell)",
+        "pt": "Supino com barra",
+        "es": "Press de banca con barra",
+        "fr": "Développé couché à la barre"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Bench_Press_-_Medium_Grip/0.jpg",
+      "source_exercise_id": 44
+    },
+    {
+      "slug": "bench-press-dumbbell",
+      "names": {
+        "en": "Bench Press (Dumbbell)",
+        "pt": "Supino com halteres",
+        "es": "Press de banca con mancuernas",
+        "fr": "Développé couché aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg",
+      "source_exercise_id": 222
+    },
+    {
+      "slug": "bench-press-smith",
+      "names": {
+        "en": "Bench Press (Smith Machine)",
+        "pt": "Supino na Smith",
+        "es": "Press de banca en multipower",
+        "fr": "Développé couché à la Smith"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Bench_Press/0.jpg",
+      "source_exercise_id": 699
+    },
+    {
+      "slug": "incline-bench-press-barbell",
+      "names": {
+        "en": "Incline Bench Press (Barbell)",
+        "pt": "Supino inclinado com barra",
+        "es": "Press inclinado con barra",
+        "fr": "Développé incliné à la barre"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Incline_Bench_Press_-_Medium_Grip/0.jpg",
+      "source_exercise_id": 53
+    },
+    {
+      "slug": "incline-bench-press-dumbbell",
+      "names": {
+        "en": "Incline Bench Press (Dumbbell)",
+        "pt": "Supino inclinado com halteres",
+        "es": "Press inclinado con mancuernas",
+        "fr": "Développé incliné aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg",
+      "source_exercise_id": 344
+    },
+    {
+      "slug": "incline-bench-press-smith",
+      "names": {
+        "en": "Incline Bench Press (Smith Machine)",
+        "pt": "Supino inclinado na Smith",
+        "es": "Press inclinado en multipower",
+        "fr": "Développé incliné à la Smith"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Incline_Bench_Press/0.jpg",
+      "source_exercise_id": 706
+    },
+    {
+      "slug": "decline-bench-press-barbell",
+      "names": {
+        "en": "Decline Bench Press (Barbell)",
+        "pt": "Supino declinado com barra",
+        "es": "Press declinado con barra",
+        "fr": "Développé décliné à la barre"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Decline_Barbell_Bench_Press/0.jpg",
+      "source_exercise_id": 195
+    },
+    {
+      "slug": "decline-bench-press-dumbbell",
+      "names": {
+        "en": "Decline Bench Press (Dumbbell)",
+        "pt": "Supino declinado com halteres",
+        "es": "Press declinado con mancuernas",
+        "fr": "Développé décliné aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Decline_Dumbbell_Bench_Press/0.jpg",
+      "source_exercise_id": 198
+    },
+    {
+      "slug": "decline-bench-press-smith",
+      "names": {
+        "en": "Decline Bench Press (Smith Machine)",
+        "pt": "Supino declinado na Smith",
+        "es": "Press declinado en multipower",
+        "fr": "Développé décliné à la Smith"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Decline_Press/0.jpg",
+      "source_exercise_id": 703
+    },
+    {
+      "slug": "chest-press-machine",
+      "names": {
+        "en": "Chest Press (Machine)",
+        "pt": "Chest press na máquina",
+        "es": "Press de pecho en máquina",
+        "fr": "Presse pectorale à la machine"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Bench_Press/0.jpg",
+      "source_exercise_id": 456
+    },
+    {
+      "slug": "chest-fly-dumbbell",
+      "names": {
+        "en": "Chest Fly (Dumbbell)",
+        "pt": "Aberturas com halteres",
+        "es": "Aperturas con mancuernas",
+        "fr": "Écarté aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Flyes/0.jpg",
+      "source_exercise_id": 227
+    },
+    {
+      "slug": "chest-fly-machine",
+      "names": {
+        "en": "Chest Fly (Machine)",
+        "pt": "Aberturas na máquina",
+        "es": "Aperturas en máquina",
+        "fr": "Écarté à la machine"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Butterfly/0.jpg",
+      "source_exercise_id": 109
+    },
+    {
+      "slug": "chest-fly-cable",
+      "names": {
+        "en": "Chest Fly (Cable)",
+        "pt": "Aberturas na polia",
+        "es": "Aperturas en polea",
+        "fr": "Écarté à la poulie"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Flat_Bench_Cable_Flyes/0.jpg",
+      "source_exercise_id": 271
+    },
+    {
+      "slug": "incline-chest-fly-dumbbell",
+      "names": {
+        "en": "Incline Chest Fly (Dumbbell)",
+        "pt": "Aberturas inclinadas com halteres",
+        "es": "Aperturas inclinadas con mancuernas",
+        "fr": "Écarté incliné aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Flyes/0.jpg",
+      "source_exercise_id": 342
+    },
+    {
+      "slug": "incline-chest-fly-cable",
+      "names": {
+        "en": "Incline Chest Fly (Cable)",
+        "pt": "Aberturas inclinadas na polia",
+        "es": "Aperturas inclinadas en polea",
+        "fr": "Écarté incliné à la poulie"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Cable_Flye/0.jpg",
+      "source_exercise_id": 339
+    },
+    {
+      "slug": "cable-crossover",
+      "names": {
+        "en": "Cable Crossover",
+        "pt": "Cruzamento na polia",
+        "es": "Cruce de poleas",
+        "fr": "Écarté à la poulie vis-à-vis"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg",
+      "source_exercise_id": 111
+    },
+    {
+      "slug": "push-up",
+      "names": {
+        "en": "Push Up",
+        "pt": "Flexões",
+        "es": "Flexiones",
+        "fr": "Pompes"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pushups/0.jpg",
+      "source_exercise_id": 568
+    },
+    {
+      "slug": "incline-push-up",
+      "names": {
+        "en": "Incline Push Up",
+        "pt": "Flexões inclinadas",
+        "es": "Flexiones inclinadas",
+        "fr": "Pompes inclinées"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Push-Up_Medium/0.jpg",
+      "source_exercise_id": 350
+    },
+    {
+      "slug": "chest-dip-bodyweight",
+      "names": {
+        "en": "Chest Dip (Bodyweight)",
+        "pt": "Fundos para peito sem peso",
+        "es": "Fondos para pecho sin peso",
+        "fr": "Dips pectoraux au poids du corps"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/0.jpg",
+      "source_exercise_id": 209
+    },
+    {
+      "slug": "chest-dip-assisted",
+      "names": {
+        "en": "Chest Dip (Assisted)",
+        "pt": "Fundos para peito com assistência",
+        "es": "Fondos para pecho con asistencia",
+        "fr": "Dips pectoraux avec assistance"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "assisted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dip_Machine/0.jpg",
+      "source_exercise_id": 208
+    },
+    {
+      "slug": "chest-dip-weighted",
+      "names": {
+        "en": "Chest Dip (Weighted)",
+        "pt": "Fundos para peito com peso",
+        "es": "Fondos para pecho con lastre",
+        "fr": "Dips pectoraux avec lest"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "weighted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Chest_Version/0.jpg",
+      "source_exercise_id": 209
+    },
+    {
+      "slug": "pullover-dumbbell",
+      "names": {
+        "en": "Pullover (Dumbbell)",
+        "pt": "Pullover com halteres",
+        "es": "Pullover con mancuernas",
+        "fr": "Pull-over aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "lats"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Straight-Arm_Dumbbell_Pullover/0.jpg",
+      "source_exercise_id": 794
+    },
+    {
+      "slug": "floor-press-barbell",
+      "names": {
+        "en": "Floor Press (Barbell)",
+        "pt": "Supino no chão com barra",
+        "es": "Press en el suelo con barra",
+        "fr": "Floor press à la barre"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Floor_Press/0.jpg",
+      "source_exercise_id": 276
+    },
+    {
+      "slug": "floor-press-dumbbell",
+      "names": {
+        "en": "Floor Press (Dumbbell)",
+        "pt": "Supino no chão com halteres",
+        "es": "Press en el suelo con mancuernas",
+        "fr": "Floor press aux haltères"
+      },
+      "body_part": "chest",
+      "primary_muscles": [
+        "chest"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Floor_Press/0.jpg",
+      "source_exercise_id": 226
+    },
+    {
+      "slug": "deadlift-barbell",
+      "names": {
+        "en": "Deadlift (Barbell)",
+        "pt": "Peso morto com barra",
+        "es": "Peso muerto con barra",
+        "fr": "Soulevé de terre à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes",
+        "traps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Deadlift/0.jpg",
+      "source_exercise_id": 47
+    },
+    {
+      "slug": "deadlift-trap-bar",
+      "names": {
+        "en": "Deadlift (Trap Bar)",
+        "pt": "Peso morto com barra hexagonal",
+        "es": "Peso muerto con barra hexagonal",
+        "fr": "Soulevé de terre à la trap bar"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes",
+        "traps"
+      ],
+      "equipment": "trap_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Trap_Bar_Deadlift/0.jpg",
+      "source_exercise_id": 821
+    },
+    {
+      "slug": "deadlift-dumbbell",
+      "names": {
+        "en": "Deadlift (Dumbbell)",
+        "pt": "Peso morto com halteres",
+        "es": "Peso muerto con mancuernas",
+        "fr": "Soulevé de terre aux haltères"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "hamstrings",
+        "glutes",
+        "traps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "sumo-deadlift-barbell",
+      "names": {
+        "en": "Sumo Deadlift (Barbell)",
+        "pt": "Peso morto sumo com barra",
+        "es": "Peso muerto sumo con barra",
+        "fr": "Soulevé de terre sumo à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back",
+        "adductors"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Sumo_Deadlift/0.jpg",
+      "source_exercise_id": 799
+    },
+    {
+      "slug": "rack-pull-barbell",
+      "names": {
+        "en": "Rack Pull (Barbell)",
+        "pt": "Rack pull com barra",
+        "es": "Rack pull con barra",
+        "fr": "Rack pull à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Rack_Pulls/0.jpg",
+      "source_exercise_id": 576
+    },
+    {
+      "slug": "bent-over-row-barbell",
+      "names": {
+        "en": "Bent Over Row (Barbell)",
+        "pt": "Remada curvada com barra",
+        "es": "Remo inclinado con barra",
+        "fr": "Rowing buste penché à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Barbell_Row/0.jpg",
+      "source_exercise_id": 80
+    },
+    {
+      "slug": "bent-over-row-dumbbell",
+      "names": {
+        "en": "Bent Over Row (Dumbbell)",
+        "pt": "Remada curvada com halteres",
+        "es": "Remo inclinado con mancuernas",
+        "fr": "Rowing buste penché aux haltères"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Two-Dumbbell_Row/0.jpg",
+      "source_exercise_id": 85
+    },
+    {
+      "slug": "bent-over-row-smith",
+      "names": {
+        "en": "Bent Over Row (Smith Machine)",
+        "pt": "Remada curvada na Smith",
+        "es": "Remo inclinado en multipower",
+        "fr": "Rowing buste penché à la Smith"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Bent_Over_Row/0.jpg",
+      "source_exercise_id": 700
+    },
+    {
+      "slug": "pendlay-row-barbell",
+      "names": {
+        "en": "Pendlay Row (Barbell)",
+        "pt": "Remada Pendlay com barra",
+        "es": "Remo Pendlay con barra",
+        "fr": "Rowing Pendlay à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Barbell_Row/0.jpg",
+      "source_exercise_id": 80
+    },
+    {
+      "slug": "one-arm-row-dumbbell",
+      "names": {
+        "en": "One Arm Row (Dumbbell)",
+        "pt": "Remada unilateral com halteres",
+        "es": "Remo a una mano con mancuernas",
+        "fr": "Rowing unilatéral aux haltères"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Dumbbell_Row/0.jpg",
+      "source_exercise_id": 483
+    },
+    {
+      "slug": "one-arm-row-cable",
+      "names": {
+        "en": "One Arm Row (Cable)",
+        "pt": "Remada unilateral na polia",
+        "es": "Remo a una mano en polea",
+        "fr": "Rowing unilatéral à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_One-arm_Cable_Pulley_Rows/0.jpg",
+      "source_exercise_id": 648
+    },
+    {
+      "slug": "t-bar-row-barbell",
+      "names": {
+        "en": "T Bar Row (Barbell)",
+        "pt": "Remada em T com barra",
+        "es": "Remo en T con barra",
+        "fr": "Rowing T-bar à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/T-Bar_Row_with_Handle/0.jpg",
+      "source_exercise_id": 812
+    },
+    {
+      "slug": "t-bar-row-machine",
+      "names": {
+        "en": "T Bar Row (Machine)",
+        "pt": "Remada em T na máquina",
+        "es": "Remo en T en máquina",
+        "fr": "Rowing T-bar à la machine"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_T-Bar_Row/0.jpg",
+      "source_exercise_id": 454
+    },
+    {
+      "slug": "seated-row-cable",
+      "names": {
+        "en": "Seated Row (Cable)",
+        "pt": "Remada sentada na polia",
+        "es": "Remo sentado en polea",
+        "fr": "Rowing assis à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg",
+      "source_exercise_id": 626
+    },
+    {
+      "slug": "seated-row-machine",
+      "names": {
+        "en": "Seated Row (Machine)",
+        "pt": "Remada sentada na máquina",
+        "es": "Remo sentado en máquina",
+        "fr": "Rowing assis à la machine"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leverage_Iso_Row/0.jpg",
+      "source_exercise_id": 419
+    },
+    {
+      "slug": "chest-supported-row-dumbbell",
+      "names": {
+        "en": "Chest Supported Row (Dumbbell)",
+        "pt": "Remada com apoio no peito com halteres",
+        "es": "Remo con apoyo en el pecho con mancuernas",
+        "fr": "Rowing poitrine appuyée aux haltères"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Incline_Row/0.jpg",
+      "source_exercise_id": 228
+    },
+    {
+      "slug": "chest-supported-row-machine",
+      "names": {
+        "en": "Chest Supported Row (Machine)",
+        "pt": "Remada com apoio no peito na máquina",
+        "es": "Remo con apoyo en el pecho en máquina",
+        "fr": "Rowing poitrine appuyée à la machine"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leverage_High_Row/0.jpg",
+      "source_exercise_id": 417
+    },
+    {
+      "slug": "inverted-row",
+      "names": {
+        "en": "Inverted Row",
+        "pt": "Remada invertida",
+        "es": "Remo invertido",
+        "fr": "Rowing inversé"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "middle back"
+      ],
+      "secondary_muscles": [
+        "lats",
+        "biceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Inverted_Row/0.jpg",
+      "source_exercise_id": 356
+    },
+    {
+      "slug": "lat-pulldown-cable",
+      "names": {
+        "en": "Lat Pulldown (Cable)",
+        "pt": "Puxada à frente na polia",
+        "es": "Jalón al pecho en polea",
+        "fr": "Tirage vertical à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "middle back"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Wide-Grip_Lat_Pulldown/0.jpg",
+      "source_exercise_id": 858
+    },
+    {
+      "slug": "lat-pulldown-machine",
+      "names": {
+        "en": "Lat Pulldown (Machine)",
+        "pt": "Puxada à frente na máquina",
+        "es": "Jalón al pecho en máquina",
+        "fr": "Tirage vertical à la machine"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "middle back"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Full_Range-Of-Motion_Lat_Pulldown/0.jpg",
+      "source_exercise_id": 298
+    },
+    {
+      "slug": "lat-pulldown-close-grip-cable",
+      "names": {
+        "en": "Lat Pulldown - Close Grip (Cable)",
+        "pt": "Puxada à frente pega fechada na polia",
+        "es": "Jalón al pecho agarre estrecho en polea",
+        "fr": "Tirage vertical prise serrée à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Front_Lat_Pulldown/0.jpg",
+      "source_exercise_id": 176
+    },
+    {
+      "slug": "pull-up-bodyweight",
+      "names": {
+        "en": "Pull Up (Bodyweight)",
+        "pt": "Elevações sem peso",
+        "es": "Dominadas sin peso",
+        "fr": "Tractions au poids du corps"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "middle back"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pullups/0.jpg",
+      "source_exercise_id": 560
+    },
+    {
+      "slug": "pull-up-assisted",
+      "names": {
+        "en": "Pull Up (Assisted)",
+        "pt": "Elevações com assistência",
+        "es": "Dominadas con asistencia",
+        "fr": "Tractions avec assistance"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "middle back"
+      ],
+      "equipment": "bodyweight",
+      "type": "assisted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Band_Assisted_Pull-Up/0.jpg",
+      "source_exercise_id": 36
+    },
+    {
+      "slug": "pull-up-weighted",
+      "names": {
+        "en": "Pull Up (Weighted)",
+        "pt": "Elevações com peso",
+        "es": "Dominadas con lastre",
+        "fr": "Tractions avec lest"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps",
+        "middle back"
+      ],
+      "equipment": "bodyweight",
+      "type": "weighted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Weighted_Pull_Ups/0.jpg",
+      "source_exercise_id": 851
+    },
+    {
+      "slug": "chin-up-bodyweight",
+      "names": {
+        "en": "Chin Up (Bodyweight)",
+        "pt": "Elevações em supinação sem peso",
+        "es": "Dominadas supinas sin peso",
+        "fr": "Tractions en supination au poids du corps"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Chin-Up/0.jpg",
+      "source_exercise_id": 160
+    },
+    {
+      "slug": "chin-up-assisted",
+      "names": {
+        "en": "Chin Up (Assisted)",
+        "pt": "Elevações em supinação com assistência",
+        "es": "Dominadas supinas con asistencia",
+        "fr": "Tractions en supination avec assistance"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "assisted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Band_Assisted_Pull-Up/0.jpg",
+      "source_exercise_id": 36
+    },
+    {
+      "slug": "chin-up-weighted",
+      "names": {
+        "en": "Chin Up (Weighted)",
+        "pt": "Elevações em supinação com peso",
+        "es": "Dominadas supinas con lastre",
+        "fr": "Tractions en supination avec lest"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "weighted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Chin-Up/0.jpg",
+      "source_exercise_id": 160
+    },
+    {
+      "slug": "straight-arm-pulldown",
+      "names": {
+        "en": "Straight Arm Pulldown",
+        "pt": "Pullover na polia",
+        "es": "Pullover en polea",
+        "fr": "Pull-over à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lats"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Straight-Arm_Pulldown/0.jpg",
+      "source_exercise_id": 795
+    },
+    {
+      "slug": "back-extension-bodyweight",
+      "names": {
+        "en": "Back Extension (Bodyweight)",
+        "pt": "Extensão lombar sem peso",
+        "es": "Hiperextensiones sin peso",
+        "fr": "Extension lombaire au poids du corps"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hyperextensions_Back_Extensions/0.jpg",
+      "source_exercise_id": 331
+    },
+    {
+      "slug": "back-extension-weighted",
+      "names": {
+        "en": "Back Extension (Weighted)",
+        "pt": "Extensão lombar com peso",
+        "es": "Hiperextensiones con lastre",
+        "fr": "Extension lombaire avec lest"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "weighted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Weighted_Ball_Hyperextension/0.jpg",
+      "source_exercise_id": 846
+    },
+    {
+      "slug": "back-extension-machine",
+      "names": {
+        "en": "Back Extension (Machine)",
+        "pt": "Extensão lombar na máquina",
+        "es": "Hiperextensiones en máquina",
+        "fr": "Extension lombaire à la machine"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "lower back"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hyperextensions_Back_Extensions/0.jpg",
+      "source_exercise_id": 331
+    },
+    {
+      "slug": "good-morning-barbell",
+      "names": {
+        "en": "Good Morning (Barbell)",
+        "pt": "Good morning com barra",
+        "es": "Buenos días con barra",
+        "fr": "Good morning à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "lower back",
+        "glutes"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Good_Morning/0.jpg",
+      "source_exercise_id": 303
+    },
+    {
+      "slug": "shrug-barbell",
+      "names": {
+        "en": "Shrug (Barbell)",
+        "pt": "Encolhimento de ombros com barra",
+        "es": "Encogimientos con barra",
+        "fr": "Shrug à la barre"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Shrug/0.jpg",
+      "source_exercise_id": 60
+    },
+    {
+      "slug": "shrug-dumbbell",
+      "names": {
+        "en": "Shrug (Dumbbell)",
+        "pt": "Encolhimento de ombros com halteres",
+        "es": "Encogimientos con mancuernas",
+        "fr": "Shrug aux haltères"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Shrug/0.jpg",
+      "source_exercise_id": 245
+    },
+    {
+      "slug": "shrug-cable",
+      "names": {
+        "en": "Shrug (Cable)",
+        "pt": "Encolhimento de ombros na polia",
+        "es": "Encogimientos en polea",
+        "fr": "Shrug à la poulie"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Shrugs/0.jpg",
+      "source_exercise_id": 132
+    },
+    {
+      "slug": "shrug-smith",
+      "names": {
+        "en": "Shrug (Smith Machine)",
+        "pt": "Encolhimento de ombros na Smith",
+        "es": "Encogimientos en multipower",
+        "fr": "Shrug à la Smith"
+      },
+      "body_part": "back",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Behind_the_Back_Shrug/0.jpg",
+      "source_exercise_id": 698
+    },
+    {
+      "slug": "overhead-press-barbell",
+      "names": {
+        "en": "Overhead Press (Barbell)",
+        "pt": "Press militar com barra",
+        "es": "Press militar con barra",
+        "fr": "Développé militaire à la barre"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Military_Press/0.jpg",
+      "source_exercise_id": 772
+    },
+    {
+      "slug": "overhead-press-dumbbell",
+      "names": {
+        "en": "Overhead Press (Dumbbell)",
+        "pt": "Press militar com halteres",
+        "es": "Press militar con mancuernas",
+        "fr": "Développé militaire aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Dumbbell_Press/0.jpg",
+      "source_exercise_id": 755
+    },
+    {
+      "slug": "overhead-press-smith",
+      "names": {
+        "en": "Overhead Press (Smith Machine)",
+        "pt": "Press militar na Smith",
+        "es": "Press militar en multipower",
+        "fr": "Développé militaire à la Smith"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Overhead_Shoulder_Press/0.jpg",
+      "source_exercise_id": 709
+    },
+    {
+      "slug": "overhead-press-machine",
+      "names": {
+        "en": "Overhead Press (Machine)",
+        "pt": "Press militar na máquina",
+        "es": "Press militar en máquina",
+        "fr": "Développé militaire à la machine"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Shoulder_Military_Press/0.jpg",
+      "source_exercise_id": 459
+    },
+    {
+      "slug": "seated-overhead-press-dumbbell",
+      "names": {
+        "en": "Seated Overhead Press (Dumbbell)",
+        "pt": "Press de ombros sentado com halteres",
+        "es": "Press de hombros sentado con mancuernas",
+        "fr": "Développé épaules assis aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Press/0.jpg",
+      "source_exercise_id": 635
+    },
+    {
+      "slug": "seated-overhead-press-barbell",
+      "names": {
+        "en": "Seated Overhead Press (Barbell)",
+        "pt": "Press de ombros sentado com barra",
+        "es": "Press de hombros sentado con barra",
+        "fr": "Développé épaules assis à la barre"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Barbell_Military_Press/0.jpg",
+      "source_exercise_id": 620
+    },
+    {
+      "slug": "arnold-press-dumbbell",
+      "names": {
+        "en": "Arnold Press (Dumbbell)",
+        "pt": "Press Arnold com halteres",
+        "es": "Press Arnold con mancuernas",
+        "fr": "Développé Arnold aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Arnold_Dumbbell_Press/0.jpg",
+      "source_exercise_id": 26
+    },
+    {
+      "slug": "push-press-barbell",
+      "names": {
+        "en": "Push Press (Barbell)",
+        "pt": "Push press com barra",
+        "es": "Push press con barra",
+        "fr": "Push press à la barre"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "triceps",
+        "quadriceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Push_Press/0.jpg",
+      "source_exercise_id": 565
+    },
+    {
+      "slug": "lateral-raise-dumbbell",
+      "names": {
+        "en": "Lateral Raise (Dumbbell)",
+        "pt": "Elevação lateral com halteres",
+        "es": "Elevación lateral con mancuernas",
+        "fr": "Élévation latérale aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/0.jpg",
+      "source_exercise_id": 665
+    },
+    {
+      "slug": "lateral-raise-cable",
+      "names": {
+        "en": "Lateral Raise (Cable)",
+        "pt": "Elevação lateral na polia",
+        "es": "Elevación lateral en polea",
+        "fr": "Élévation latérale à la poulie"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Seated_Lateral_Raise/0.jpg",
+      "source_exercise_id": 130
+    },
+    {
+      "slug": "lateral-raise-machine",
+      "names": {
+        "en": "Lateral Raise (Machine)",
+        "pt": "Elevação lateral na máquina",
+        "es": "Elevación lateral en máquina",
+        "fr": "Élévation latérale à la machine"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "front-raise-dumbbell",
+      "names": {
+        "en": "Front Raise (Dumbbell)",
+        "pt": "Elevação frontal com halteres",
+        "es": "Elevación frontal con mancuernas",
+        "fr": "Élévation frontale aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Dumbbell_Raise/0.jpg",
+      "source_exercise_id": 290
+    },
+    {
+      "slug": "front-raise-cable",
+      "names": {
+        "en": "Front Raise (Cable)",
+        "pt": "Elevação frontal na polia",
+        "es": "Elevación frontal en polea",
+        "fr": "Élévation frontale à la poulie"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Cable_Raise/0.jpg",
+      "source_exercise_id": 288
+    },
+    {
+      "slug": "front-raise-plate",
+      "names": {
+        "en": "Front Raise (Plate)",
+        "pt": "Elevação frontal com disco",
+        "es": "Elevación frontal con disco",
+        "fr": "Élévation frontale avec disque"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "plate",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Plate_Raise/0.jpg",
+      "source_exercise_id": 293
+    },
+    {
+      "slug": "front-raise-barbell",
+      "names": {
+        "en": "Front Raise (Barbell)",
+        "pt": "Elevação frontal com barra",
+        "es": "Elevación frontal con barra",
+        "fr": "Élévation frontale à la barre"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Front_Barbell_Raise_Over_Head/0.jpg",
+      "source_exercise_id": 761
+    },
+    {
+      "slug": "reverse-fly-dumbbell",
+      "names": {
+        "en": "Reverse Fly (Dumbbell)",
+        "pt": "Aberturas invertidas com halteres",
+        "es": "Aperturas inversas con mancuernas",
+        "fr": "Oiseau aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "middle back"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Flyes/0.jpg",
+      "source_exercise_id": 589
+    },
+    {
+      "slug": "reverse-fly-machine",
+      "names": {
+        "en": "Reverse Fly (Machine)",
+        "pt": "Aberturas invertidas na máquina",
+        "es": "Aperturas inversas en máquina",
+        "fr": "Oiseau à la machine"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "middle back"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Machine_Flyes/0.jpg",
+      "source_exercise_id": 594
+    },
+    {
+      "slug": "reverse-fly-cable",
+      "names": {
+        "en": "Reverse Fly (Cable)",
+        "pt": "Aberturas invertidas na polia",
+        "es": "Aperturas inversas en polea",
+        "fr": "Oiseau à la poulie"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "middle back"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Rear_Delt_Fly/0.jpg",
+      "source_exercise_id": 124
+    },
+    {
+      "slug": "face-pull",
+      "names": {
+        "en": "Face Pull",
+        "pt": "Face pull",
+        "es": "Face pull",
+        "fr": "Face pull"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "middle back",
+        "traps"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Face_Pull/0.jpg",
+      "source_exercise_id": 267
+    },
+    {
+      "slug": "upright-row-barbell",
+      "names": {
+        "en": "Upright Row (Barbell)",
+        "pt": "Remada alta com barra",
+        "es": "Remo al mentón con barra",
+        "fr": "Rowing menton à la barre"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Upright_Barbell_Row/0.jpg",
+      "source_exercise_id": 838
+    },
+    {
+      "slug": "upright-row-dumbbell",
+      "names": {
+        "en": "Upright Row (Dumbbell)",
+        "pt": "Remada alta com halteres",
+        "es": "Remo al mentón con mancuernas",
+        "fr": "Rowing menton aux haltères"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Dumbbell_Upright_Row/0.jpg",
+      "source_exercise_id": 759
+    },
+    {
+      "slug": "upright-row-cable",
+      "names": {
+        "en": "Upright Row (Cable)",
+        "pt": "Remada alta na polia",
+        "es": "Remo al mentón en polea",
+        "fr": "Rowing menton à la poulie"
+      },
+      "body_part": "shoulders",
+      "primary_muscles": [
+        "traps"
+      ],
+      "secondary_muscles": [
+        "shoulders"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Upright_Cable_Row/0.jpg",
+      "source_exercise_id": 839
+    },
+    {
+      "slug": "bicep-curl-barbell",
+      "names": {
+        "en": "Bicep Curl (Barbell)",
+        "pt": "Curl de bíceps com barra",
+        "es": "Curl de bíceps con barra",
+        "fr": "Curl biceps à la barre"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Curl/0.jpg",
+      "source_exercise_id": 45
+    },
+    {
+      "slug": "bicep-curl-dumbbell",
+      "names": {
+        "en": "Bicep Curl (Dumbbell)",
+        "pt": "Curl de bíceps com halteres",
+        "es": "Curl de bíceps con mancuernas",
+        "fr": "Curl biceps aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg",
+      "source_exercise_id": 224
+    },
+    {
+      "slug": "bicep-curl-ez-bar",
+      "names": {
+        "en": "Bicep Curl (EZ Bar)",
+        "pt": "Curl de bíceps com barra EZ",
+        "es": "Curl de bíceps con barra Z",
+        "fr": "Curl biceps à la barre EZ"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "ez_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/EZ-Bar_Curl/0.jpg",
+      "source_exercise_id": 253
+    },
+    {
+      "slug": "bicep-curl-cable",
+      "names": {
+        "en": "Bicep Curl (Cable)",
+        "pt": "Curl de bíceps na polia",
+        "es": "Curl de bíceps en polea",
+        "fr": "Curl biceps à la poulie"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Biceps_Cable_Curl/0.jpg",
+      "source_exercise_id": 746
+    },
+    {
+      "slug": "bicep-curl-machine",
+      "names": {
+        "en": "Bicep Curl (Machine)",
+        "pt": "Curl de bíceps na máquina",
+        "es": "Curl de bíceps en máquina",
+        "fr": "Curl biceps à la machine"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Bicep_Curl/0.jpg",
+      "source_exercise_id": 457
+    },
+    {
+      "slug": "hammer-curl-dumbbell",
+      "names": {
+        "en": "Hammer Curl (Dumbbell)",
+        "pt": "Curl martelo com halteres",
+        "es": "Curl martillo con mancuernas",
+        "fr": "Curl marteau aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hammer_Curls/0.jpg",
+      "source_exercise_id": 309
+    },
+    {
+      "slug": "hammer-curl-rope",
+      "names": {
+        "en": "Hammer Curl (Rope)",
+        "pt": "Curl martelo com corda",
+        "es": "Curl martillo con cuerda",
+        "fr": "Curl marteau à la corde"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [
+        "forearms"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Hammer_Curls_-_Rope_Attachment/0.jpg",
+      "source_exercise_id": 114
+    },
+    {
+      "slug": "preacher-curl-ez-bar",
+      "names": {
+        "en": "Preacher Curl (EZ Bar)",
+        "pt": "Curl no banco Scott com barra EZ",
+        "es": "Curl predicador con barra Z",
+        "fr": "Curl pupitre à la barre EZ"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "ez_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Preacher_Curl/0.jpg",
+      "source_exercise_id": 554
+    },
+    {
+      "slug": "preacher-curl-dumbbell",
+      "names": {
+        "en": "Preacher Curl (Dumbbell)",
+        "pt": "Curl no banco Scott com halteres",
+        "es": "Curl predicador con mancuernas",
+        "fr": "Curl pupitre aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One_Arm_Dumbbell_Preacher_Curl/0.jpg",
+      "source_exercise_id": 509
+    },
+    {
+      "slug": "preacher-curl-machine",
+      "names": {
+        "en": "Preacher Curl (Machine)",
+        "pt": "Curl no banco Scott na máquina",
+        "es": "Curl predicador en máquina",
+        "fr": "Curl pupitre à la machine"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Preacher_Curls/0.jpg",
+      "source_exercise_id": 458
+    },
+    {
+      "slug": "incline-curl-dumbbell",
+      "names": {
+        "en": "Incline Curl (Dumbbell)",
+        "pt": "Curl inclinado com halteres",
+        "es": "Curl inclinado con mancuernas",
+        "fr": "Curl incliné aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Curl/0.jpg",
+      "source_exercise_id": 341
+    },
+    {
+      "slug": "concentration-curl-dumbbell",
+      "names": {
+        "en": "Concentration Curl (Dumbbell)",
+        "pt": "Curl concentrado com halteres",
+        "es": "Curl concentrado con mancuernas",
+        "fr": "Curl concentré aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "biceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Concentration_Curls/0.jpg",
+      "source_exercise_id": 181
+    },
+    {
+      "slug": "reverse-curl-barbell",
+      "names": {
+        "en": "Reverse Curl (Barbell)",
+        "pt": "Curl invertido com barra",
+        "es": "Curl inverso con barra",
+        "fr": "Curl inversé à la barre"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Barbell_Curl/0.jpg",
+      "source_exercise_id": 585
+    },
+    {
+      "slug": "reverse-curl-ez-bar",
+      "names": {
+        "en": "Reverse Curl (EZ Bar)",
+        "pt": "Curl invertido com barra EZ",
+        "es": "Curl inverso con barra Z",
+        "fr": "Curl inversé à la barre EZ"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "biceps"
+      ],
+      "equipment": "ez_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Barbell_Curl/0.jpg",
+      "source_exercise_id": 585
+    },
+    {
+      "slug": "triceps-pushdown-cable",
+      "names": {
+        "en": "Triceps Pushdown (Cable)",
+        "pt": "Extensão de tríceps na polia",
+        "es": "Extensión de tríceps en polea",
+        "fr": "Extension triceps à la poulie"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg",
+      "source_exercise_id": 825
+    },
+    {
+      "slug": "triceps-pushdown-rope",
+      "names": {
+        "en": "Triceps Pushdown (Rope)",
+        "pt": "Extensão de tríceps com corda",
+        "es": "Extensión de tríceps con cuerda",
+        "fr": "Extension triceps à la corde"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown_-_Rope_Attachment/0.jpg",
+      "source_exercise_id": 826
+    },
+    {
+      "slug": "overhead-triceps-extension-dumbbell",
+      "names": {
+        "en": "Overhead Triceps Extension (Dumbbell)",
+        "pt": "Extensão de tríceps acima da cabeça com halteres",
+        "es": "Extensión de tríceps sobre la cabeza con mancuernas",
+        "fr": "Extension triceps au-dessus de la tête aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Dumbbell_Triceps_Extension/0.jpg",
+      "source_exercise_id": 758
+    },
+    {
+      "slug": "overhead-triceps-extension-rope",
+      "names": {
+        "en": "Overhead Triceps Extension (Rope)",
+        "pt": "Extensão de tríceps acima da cabeça com corda",
+        "es": "Extensión de tríceps sobre la cabeza con cuerda",
+        "fr": "Extension triceps au-dessus de la tête à la corde"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Overhead_Extension_with_Rope/0.jpg",
+      "source_exercise_id": 824
+    },
+    {
+      "slug": "overhead-triceps-extension-ez-bar",
+      "names": {
+        "en": "Overhead Triceps Extension (EZ Bar)",
+        "pt": "Extensão de tríceps acima da cabeça com barra EZ",
+        "es": "Extensión de tríceps sobre la cabeza con barra Z",
+        "fr": "Extension triceps au-dessus de la tête à la barre EZ"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "ez_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Overhead_Barbell_Triceps_Extension/0.jpg",
+      "source_exercise_id": 777
+    },
+    {
+      "slug": "skullcrusher-ez-bar",
+      "names": {
+        "en": "Skullcrusher (EZ Bar)",
+        "pt": "Tríceps francês com barra EZ",
+        "es": "Press francés con barra Z",
+        "fr": "Barre au front à la barre EZ"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "ez_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/EZ-Bar_Skullcrusher/0.jpg",
+      "source_exercise_id": 254
+    },
+    {
+      "slug": "skullcrusher-barbell",
+      "names": {
+        "en": "Skullcrusher (Barbell)",
+        "pt": "Tríceps francês com barra",
+        "es": "Press francés con barra",
+        "fr": "Barre au front à la barre"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Triceps_Press/0.jpg",
+      "source_exercise_id": 455
+    },
+    {
+      "slug": "skullcrusher-dumbbell",
+      "names": {
+        "en": "Skullcrusher (Dumbbell)",
+        "pt": "Tríceps francês com halteres",
+        "es": "Press francés con mancuernas",
+        "fr": "Barre au front aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Dumbbell_Tricep_Extension/0.jpg",
+      "source_exercise_id": 442
+    },
+    {
+      "slug": "close-grip-bench-press-barbell",
+      "names": {
+        "en": "Close Grip Bench Press (Barbell)",
+        "pt": "Supino pega fechada com barra",
+        "es": "Press de banca agarre cerrado con barra",
+        "fr": "Développé couché prise serrée à la barre"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Barbell_Bench_Press/0.jpg",
+      "source_exercise_id": 171
+    },
+    {
+      "slug": "close-grip-bench-press-smith",
+      "names": {
+        "en": "Close Grip Bench Press (Smith Machine)",
+        "pt": "Supino pega fechada na Smith",
+        "es": "Press de banca agarre cerrado en multipower",
+        "fr": "Développé couché prise serrée à la Smith"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Close-Grip_Bench_Press/0.jpg",
+      "source_exercise_id": 702
+    },
+    {
+      "slug": "triceps-kickback-dumbbell",
+      "names": {
+        "en": "Triceps Kickback (Dumbbell)",
+        "pt": "Coice de tríceps com halteres",
+        "es": "Patada de tríceps con mancuernas",
+        "fr": "Kickback triceps aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Tricep_Dumbbell_Kickback/0.jpg",
+      "source_exercise_id": 822
+    },
+    {
+      "slug": "triceps-kickback-cable",
+      "names": {
+        "en": "Triceps Kickback (Cable)",
+        "pt": "Coice de tríceps na polia",
+        "es": "Patada de tríceps en polea",
+        "fr": "Kickback triceps à la poulie"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "triceps-dip-bodyweight",
+      "names": {
+        "en": "Triceps Dip (Bodyweight)",
+        "pt": "Fundos para tríceps sem peso",
+        "es": "Fondos para tríceps sin peso",
+        "fr": "Dips triceps au poids du corps"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Triceps_Version/0.jpg",
+      "source_exercise_id": 210
+    },
+    {
+      "slug": "triceps-dip-assisted",
+      "names": {
+        "en": "Triceps Dip (Assisted)",
+        "pt": "Fundos para tríceps com assistência",
+        "es": "Fondos para tríceps con asistencia",
+        "fr": "Dips triceps avec assistance"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "assisted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dip_Machine/0.jpg",
+      "source_exercise_id": 208
+    },
+    {
+      "slug": "triceps-dip-weighted",
+      "names": {
+        "en": "Triceps Dip (Weighted)",
+        "pt": "Fundos para tríceps com peso",
+        "es": "Fondos para tríceps con lastre",
+        "fr": "Dips triceps avec lest"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "weighted_bodyweight",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dips_-_Triceps_Version/0.jpg",
+      "source_exercise_id": 210
+    },
+    {
+      "slug": "bench-dip",
+      "names": {
+        "en": "Bench Dip",
+        "pt": "Fundos no banco",
+        "es": "Fondos en banco",
+        "fr": "Dips sur banc"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [
+        "chest"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bench_Dips/0.jpg",
+      "source_exercise_id": 71
+    },
+    {
+      "slug": "triceps-extension-machine",
+      "names": {
+        "en": "Triceps Extension (Machine)",
+        "pt": "Extensão de tríceps na máquina",
+        "es": "Extensión de tríceps en máquina",
+        "fr": "Extension triceps à la machine"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "triceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Machine_Triceps_Extension/0.jpg",
+      "source_exercise_id": 460
+    },
+    {
+      "slug": "wrist-curl-barbell",
+      "names": {
+        "en": "Wrist Curl (Barbell)",
+        "pt": "Flexão de punho com barra",
+        "es": "Curl de muñeca con barra",
+        "fr": "Curl poignet à la barre"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench/0.jpg",
+      "source_exercise_id": 530
+    },
+    {
+      "slug": "wrist-curl-dumbbell",
+      "names": {
+        "en": "Wrist Curl (Dumbbell)",
+        "pt": "Flexão de punho com halteres",
+        "es": "Curl de muñeca con mancuernas",
+        "fr": "Curl poignet aux haltères"
+      },
+      "body_part": "arms",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Palms-Up_Dumbbell_Wrist_Curl_Over_A_Bench/0.jpg",
+      "source_exercise_id": 531
+    },
+    {
+      "slug": "farmers-walk-dumbbell",
+      "names": {
+        "en": "Farmer's Walk (Dumbbell)",
+        "pt": "Caminhada do agricultor com halteres",
+        "es": "Paseo del granjero con mancuernas",
+        "fr": "Marche du fermier aux haltères"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "quadriceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Farmers_Walk/0.jpg",
+      "source_exercise_id": 268
+    },
+    {
+      "slug": "farmers-walk-trap-bar",
+      "names": {
+        "en": "Farmer's Walk (Trap Bar)",
+        "pt": "Caminhada do agricultor com barra hexagonal",
+        "es": "Paseo del granjero con barra hexagonal",
+        "fr": "Marche du fermier à la trap bar"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "forearms"
+      ],
+      "secondary_muscles": [
+        "traps",
+        "quadriceps"
+      ],
+      "equipment": "trap_bar",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Farmers_Walk/0.jpg",
+      "source_exercise_id": 268
+    },
+    {
+      "slug": "squat-barbell",
+      "names": {
+        "en": "Squat (Barbell)",
+        "pt": "Agachamento com barra",
+        "es": "Sentadilla con barra",
+        "fr": "Squat à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Squat/0.jpg",
+      "source_exercise_id": 64
+    },
+    {
+      "slug": "squat-dumbbell",
+      "names": {
+        "en": "Squat (Dumbbell)",
+        "pt": "Agachamento com halteres",
+        "es": "Sentadilla con mancuernas",
+        "fr": "Squat aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Squat/0.jpg",
+      "source_exercise_id": 247
+    },
+    {
+      "slug": "squat-smith",
+      "names": {
+        "en": "Squat (Smith Machine)",
+        "pt": "Agachamento na Smith",
+        "es": "Sentadilla en multipower",
+        "fr": "Squat à la Smith"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Squat/0.jpg",
+      "source_exercise_id": 712
+    },
+    {
+      "slug": "squat-bodyweight",
+      "names": {
+        "en": "Squat (Bodyweight)",
+        "pt": "Agachamento sem peso",
+        "es": "Sentadilla sin peso",
+        "fr": "Squat au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Squat/0.jpg",
+      "source_exercise_id": 95
+    },
+    {
+      "slug": "front-squat-barbell",
+      "names": {
+        "en": "Front Squat (Barbell)",
+        "pt": "Agachamento frontal com barra",
+        "es": "Sentadilla frontal con barra",
+        "fr": "Squat avant à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Barbell_Squat/0.jpg",
+      "source_exercise_id": 285
+    },
+    {
+      "slug": "goblet-squat-dumbbell",
+      "names": {
+        "en": "Goblet Squat (Dumbbell)",
+        "pt": "Agachamento goblet com halteres",
+        "es": "Sentadilla goblet con mancuernas",
+        "fr": "Squat goblet aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg",
+      "source_exercise_id": 302
+    },
+    {
+      "slug": "goblet-squat-kettlebell",
+      "names": {
+        "en": "Goblet Squat (Kettlebell)",
+        "pt": "Agachamento goblet com kettlebell",
+        "es": "Sentadilla goblet con kettlebell",
+        "fr": "Squat goblet au kettlebell"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "kettlebell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Goblet_Squat/0.jpg",
+      "source_exercise_id": 302
+    },
+    {
+      "slug": "hack-squat",
+      "names": {
+        "en": "Hack Squat",
+        "pt": "Hack squat",
+        "es": "Sentadilla hack",
+        "fr": "Hack squat"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hack_Squat/0.jpg",
+      "source_exercise_id": 308
+    },
+    {
+      "slug": "leg-press",
+      "names": {
+        "en": "Leg Press",
+        "pt": "Leg press",
+        "es": "Prensa de piernas",
+        "fr": "Presse à cuisses"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg",
+      "source_exercise_id": 412
+    },
+    {
+      "slug": "lunge-barbell",
+      "names": {
+        "en": "Lunge (Barbell)",
+        "pt": "Afundo com barra",
+        "es": "Zancada con barra",
+        "fr": "Fente à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Lunge/0.jpg",
+      "source_exercise_id": 55
+    },
+    {
+      "slug": "lunge-dumbbell",
+      "names": {
+        "en": "Lunge (Dumbbell)",
+        "pt": "Afundo com halteres",
+        "es": "Zancada con mancuernas",
+        "fr": "Fente aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg",
+      "source_exercise_id": 230
+    },
+    {
+      "slug": "lunge-bodyweight",
+      "names": {
+        "en": "Lunge (Bodyweight)",
+        "pt": "Afundo sem peso",
+        "es": "Zancada sin peso",
+        "fr": "Fente au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Walking_Lunge/0.jpg",
+      "source_exercise_id": 96
+    },
+    {
+      "slug": "walking-lunge-dumbbell",
+      "names": {
+        "en": "Walking Lunge (Dumbbell)",
+        "pt": "Afundo a caminhar com halteres",
+        "es": "Zancada caminando con mancuernas",
+        "fr": "Fentes marchées aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Lunges/0.jpg",
+      "source_exercise_id": 230
+    },
+    {
+      "slug": "walking-lunge-barbell",
+      "names": {
+        "en": "Walking Lunge (Barbell)",
+        "pt": "Afundo a caminhar com barra",
+        "es": "Zancada caminando con barra",
+        "fr": "Fentes marchées à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Walking_Lunge/0.jpg",
+      "source_exercise_id": 67
+    },
+    {
+      "slug": "walking-lunge-bodyweight",
+      "names": {
+        "en": "Walking Lunge (Bodyweight)",
+        "pt": "Afundo a caminhar sem peso",
+        "es": "Zancada caminando sin peso",
+        "fr": "Fentes marchées au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bodyweight_Walking_Lunge/0.jpg",
+      "source_exercise_id": 96
+    },
+    {
+      "slug": "bulgarian-split-squat-dumbbell",
+      "names": {
+        "en": "Bulgarian Split Squat (Dumbbell)",
+        "pt": "Agachamento búlgaro com halteres",
+        "es": "Sentadilla búlgara con mancuernas",
+        "fr": "Squat bulgare aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Split_Squat_with_Dumbbells/0.jpg",
+      "source_exercise_id": 733
+    },
+    {
+      "slug": "bulgarian-split-squat-barbell",
+      "names": {
+        "en": "Bulgarian Split Squat (Barbell)",
+        "pt": "Agachamento búlgaro com barra",
+        "es": "Sentadilla búlgara con barra",
+        "fr": "Squat bulgare à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Split_Squats/0.jpg",
+      "source_exercise_id": 734
+    },
+    {
+      "slug": "bulgarian-split-squat-bodyweight",
+      "names": {
+        "en": "Bulgarian Split Squat (Bodyweight)",
+        "pt": "Agachamento búlgaro sem peso",
+        "es": "Sentadilla búlgara sin peso",
+        "fr": "Squat bulgare au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Split_Squats/0.jpg",
+      "source_exercise_id": 734
+    },
+    {
+      "slug": "step-up-dumbbell",
+      "names": {
+        "en": "Step Up (Dumbbell)",
+        "pt": "Step-up com halteres",
+        "es": "Subida al cajón con mancuernas",
+        "fr": "Step-up aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Step_Ups/0.jpg",
+      "source_exercise_id": 249
+    },
+    {
+      "slug": "step-up-barbell",
+      "names": {
+        "en": "Step Up (Barbell)",
+        "pt": "Step-up com barra",
+        "es": "Subida al cajón con barra",
+        "fr": "Step-up à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Step_Ups/0.jpg",
+      "source_exercise_id": 66
+    },
+    {
+      "slug": "step-up-bodyweight",
+      "names": {
+        "en": "Step Up (Bodyweight)",
+        "pt": "Step-up sem peso",
+        "es": "Subida al cajón sin peso",
+        "fr": "Step-up au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Step_Ups/0.jpg",
+      "source_exercise_id": 249
+    },
+    {
+      "slug": "leg-extension",
+      "names": {
+        "en": "Leg Extension",
+        "pt": "Extensão de pernas",
+        "es": "Extensión de cuádriceps",
+        "fr": "Leg extension"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg",
+      "source_exercise_id": 410
+    },
+    {
+      "slug": "romanian-deadlift-barbell",
+      "names": {
+        "en": "Romanian Deadlift (Barbell)",
+        "pt": "Peso morto romeno com barra",
+        "es": "Peso muerto rumano con barra",
+        "fr": "Soulevé de terre roumain à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg",
+      "source_exercise_id": 604
+    },
+    {
+      "slug": "romanian-deadlift-dumbbell",
+      "names": {
+        "en": "Romanian Deadlift (Dumbbell)",
+        "pt": "Peso morto romeno com halteres",
+        "es": "Peso muerto rumano con mancuernas",
+        "fr": "Soulevé de terre roumain aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stiff-Legged_Dumbbell_Deadlift/0.jpg",
+      "source_exercise_id": 791
+    },
+    {
+      "slug": "stiff-leg-deadlift-barbell",
+      "names": {
+        "en": "Stiff Leg Deadlift (Barbell)",
+        "pt": "Peso morto pernas rígidas com barra",
+        "es": "Peso muerto piernas rígidas con barra",
+        "fr": "Soulevé de terre jambes tendues à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stiff-Legged_Barbell_Deadlift/0.jpg",
+      "source_exercise_id": 790
+    },
+    {
+      "slug": "stiff-leg-deadlift-dumbbell",
+      "names": {
+        "en": "Stiff Leg Deadlift (Dumbbell)",
+        "pt": "Peso morto pernas rígidas com halteres",
+        "es": "Peso muerto piernas rígidas con mancuernas",
+        "fr": "Soulevé de terre jambes tendues aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stiff-Legged_Dumbbell_Deadlift/0.jpg",
+      "source_exercise_id": 791
+    },
+    {
+      "slug": "lying-leg-curl",
+      "names": {
+        "en": "Lying Leg Curl",
+        "pt": "Curl femoral deitado",
+        "es": "Curl femoral tumbado",
+        "fr": "Leg curl allongé"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Leg_Curls/0.jpg",
+      "source_exercise_id": 448
+    },
+    {
+      "slug": "seated-leg-curl",
+      "names": {
+        "en": "Seated Leg Curl",
+        "pt": "Curl femoral sentado",
+        "es": "Curl femoral sentado",
+        "fr": "Leg curl assis"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Leg_Curl/0.jpg",
+      "source_exercise_id": 644
+    },
+    {
+      "slug": "nordic-curl",
+      "names": {
+        "en": "Nordic Hamstring Curl",
+        "pt": "Curl nórdico",
+        "es": "Curl nórdico",
+        "fr": "Nordic curl"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Natural_Glute_Ham_Raise/0.jpg",
+      "source_exercise_id": 475
+    },
+    {
+      "slug": "hip-thrust-barbell",
+      "names": {
+        "en": "Hip Thrust (Barbell)",
+        "pt": "Hip thrust com barra",
+        "es": "Hip thrust con barra",
+        "fr": "Hip thrust à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/0.jpg",
+      "source_exercise_id": 52
+    },
+    {
+      "slug": "hip-thrust-machine",
+      "names": {
+        "en": "Hip Thrust (Machine)",
+        "pt": "Hip thrust na máquina",
+        "es": "Hip thrust en máquina",
+        "fr": "Hip thrust à la machine"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/0.jpg",
+      "source_exercise_id": 52
+    },
+    {
+      "slug": "hip-thrust-smith",
+      "names": {
+        "en": "Hip Thrust (Smith Machine)",
+        "pt": "Hip thrust na Smith",
+        "es": "Hip thrust en multipower",
+        "fr": "Hip thrust à la Smith"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Hip_Thrust/0.jpg",
+      "source_exercise_id": 52
+    },
+    {
+      "slug": "hip-thrust-bodyweight",
+      "names": {
+        "en": "Hip Thrust (Bodyweight)",
+        "pt": "Hip thrust sem peso",
+        "es": "Hip thrust sin peso",
+        "fr": "Hip thrust au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Single_Leg_Glute_Bridge/0.jpg",
+      "source_exercise_id": 685
+    },
+    {
+      "slug": "glute-bridge-barbell",
+      "names": {
+        "en": "Glute Bridge (Barbell)",
+        "pt": "Ponte de glúteos com barra",
+        "es": "Puente de glúteos con barra",
+        "fr": "Pont fessier à la barre"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Barbell_Glute_Bridge/0.jpg",
+      "source_exercise_id": 49
+    },
+    {
+      "slug": "glute-bridge-bodyweight",
+      "names": {
+        "en": "Glute Bridge (Bodyweight)",
+        "pt": "Ponte de glúteos sem peso",
+        "es": "Puente de glúteos sin peso",
+        "fr": "Pont fessier au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Butt_Lift_Bridge/0.jpg",
+      "source_exercise_id": 108
+    },
+    {
+      "slug": "glute-kickback-cable",
+      "names": {
+        "en": "Glute Kickback (Cable)",
+        "pt": "Coice de glúteo na polia",
+        "es": "Patada de glúteo en polea",
+        "fr": "Kickback fessier à la poulie"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Legged_Cable_Kickback/0.jpg",
+      "source_exercise_id": 505
+    },
+    {
+      "slug": "glute-kickback-machine",
+      "names": {
+        "en": "Glute Kickback (Machine)",
+        "pt": "Coice de glúteo na máquina",
+        "es": "Patada de glúteo en máquina",
+        "fr": "Kickback fessier à la machine"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "glutes"
+      ],
+      "secondary_muscles": [
+        "hamstrings"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Glute_Kickback/0.jpg",
+      "source_exercise_id": 301
+    },
+    {
+      "slug": "hip-abduction",
+      "names": {
+        "en": "Hip Abduction",
+        "pt": "Abdução de anca",
+        "es": "Abducción de cadera",
+        "fr": "Abduction de hanche"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "abductors"
+      ],
+      "secondary_muscles": [
+        "glutes"
+      ],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg",
+      "source_exercise_id": 815
+    },
+    {
+      "slug": "hip-adduction",
+      "names": {
+        "en": "Hip Adduction",
+        "pt": "Adução de anca",
+        "es": "Aducción de cadera",
+        "fr": "Adduction de hanche"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "adductors"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Adductor/0.jpg",
+      "source_exercise_id": 816
+    },
+    {
+      "slug": "standing-calf-raise-machine",
+      "names": {
+        "en": "Standing Calf Raise (Machine)",
+        "pt": "Elevação de gémeos em pé na máquina",
+        "es": "Elevación de talones de pie en máquina",
+        "fr": "Mollets debout à la machine"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/0.jpg",
+      "source_exercise_id": 752
+    },
+    {
+      "slug": "standing-calf-raise-smith",
+      "names": {
+        "en": "Standing Calf Raise (Smith Machine)",
+        "pt": "Elevação de gémeos em pé na Smith",
+        "es": "Elevación de talones de pie en multipower",
+        "fr": "Mollets debout à la Smith"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "smith_machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Smith_Machine_Calf_Raise/0.jpg",
+      "source_exercise_id": 701
+    },
+    {
+      "slug": "standing-calf-raise-dumbbell",
+      "names": {
+        "en": "Standing Calf Raise (Dumbbell)",
+        "pt": "Elevação de gémeos em pé com halteres",
+        "es": "Elevación de talones de pie con mancuernas",
+        "fr": "Mollets debout aux haltères"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Dumbbell_Calf_Raise/0.jpg",
+      "source_exercise_id": 754
+    },
+    {
+      "slug": "standing-calf-raise-bodyweight",
+      "names": {
+        "en": "Standing Calf Raise (Bodyweight)",
+        "pt": "Elevação de gémeos em pé sem peso",
+        "es": "Elevación de talones de pie sin peso",
+        "fr": "Mollets debout au poids du corps"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Calf_Raises/0.jpg",
+      "source_exercise_id": 752
+    },
+    {
+      "slug": "seated-calf-raise",
+      "names": {
+        "en": "Seated Calf Raise",
+        "pt": "Elevação de gémeos sentado",
+        "es": "Elevación de talones sentado",
+        "fr": "Mollets assis"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Calf_Raise/0.jpg",
+      "source_exercise_id": 628
+    },
+    {
+      "slug": "calf-press",
+      "names": {
+        "en": "Calf Press on Leg Press",
+        "pt": "Gémeos no leg press",
+        "es": "Gemelos en prensa",
+        "fr": "Mollets à la presse"
+      },
+      "body_part": "legs",
+      "primary_muscles": [
+        "calves"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Calf_Press_On_The_Leg_Press_Machine/0.jpg",
+      "source_exercise_id": 136
+    },
+    {
+      "slug": "plank",
+      "names": {
+        "en": "Plank",
+        "pt": "Prancha",
+        "es": "Plancha",
+        "fr": "Gainage"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "duration",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg",
+      "source_exercise_id": 539
+    },
+    {
+      "slug": "side-plank",
+      "names": {
+        "en": "Side Plank",
+        "pt": "Prancha lateral",
+        "es": "Plancha lateral",
+        "fr": "Gainage latéral"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "duration",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Bridge/0.jpg",
+      "source_exercise_id": 662
+    },
+    {
+      "slug": "crunch-bodyweight",
+      "names": {
+        "en": "Crunch (Bodyweight)",
+        "pt": "Abdominal crunch sem peso",
+        "es": "Crunch sin peso",
+        "fr": "Crunch au poids du corps"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Crunches/0.jpg",
+      "source_exercise_id": 189
+    },
+    {
+      "slug": "crunch-machine",
+      "names": {
+        "en": "Crunch (Machine)",
+        "pt": "Abdominal crunch na máquina",
+        "es": "Crunch en máquina",
+        "fr": "Crunch à la machine"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "machine",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Ab_Crunch_Machine/0.jpg",
+      "source_exercise_id": 3
+    },
+    {
+      "slug": "crunch-cable",
+      "names": {
+        "en": "Crunch (Cable)",
+        "pt": "Abdominal crunch na polia",
+        "es": "Crunch en polea",
+        "fr": "Crunch à la poulie"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crunch/0.jpg",
+      "source_exercise_id": 112
+    },
+    {
+      "slug": "reverse-crunch",
+      "names": {
+        "en": "Reverse Crunch",
+        "pt": "Abdominal invertido",
+        "es": "Crunch inverso",
+        "fr": "Crunch inversé"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Reverse_Crunch/0.jpg",
+      "source_exercise_id": 588
+    },
+    {
+      "slug": "sit-up",
+      "names": {
+        "en": "Sit Up",
+        "pt": "Abdominal completo",
+        "es": "Abdominal completo",
+        "fr": "Sit-up"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Sit-Up/0.jpg",
+      "source_exercise_id": 687
+    },
+    {
+      "slug": "hanging-leg-raise",
+      "names": {
+        "en": "Hanging Leg Raise",
+        "pt": "Elevação de pernas suspenso",
+        "es": "Elevación de piernas colgado",
+        "fr": "Relevé de jambes suspendu"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hanging_Leg_Raise/0.jpg",
+      "source_exercise_id": 319
+    },
+    {
+      "slug": "hanging-knee-raise",
+      "names": {
+        "en": "Hanging Knee Raise",
+        "pt": "Elevação de joelhos suspenso",
+        "es": "Elevación de rodillas colgado",
+        "fr": "Relevé de genoux suspendu"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Knee_Hip_Raise_On_Parallel_Bars/0.jpg",
+      "source_exercise_id": 390
+    },
+    {
+      "slug": "lying-leg-raise",
+      "names": {
+        "en": "Lying Leg Raise",
+        "pt": "Elevação de pernas deitado",
+        "es": "Elevación de piernas tumbado",
+        "fr": "Relevé de jambes allongé"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Flat_Bench_Lying_Leg_Raise/0.jpg",
+      "source_exercise_id": 273
+    },
+    {
+      "slug": "ab-wheel",
+      "names": {
+        "en": "Ab Wheel Rollout",
+        "pt": "Roda abdominal",
+        "es": "Rueda abdominal",
+        "fr": "Roulette abdominale"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Ab_Roller/0.jpg",
+      "source_exercise_id": 4
+    },
+    {
+      "slug": "russian-twist-bodyweight",
+      "names": {
+        "en": "Russian Twist (Bodyweight)",
+        "pt": "Russian twist sem peso",
+        "es": "Giro ruso sin peso",
+        "fr": "Russian twist au poids du corps"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Russian_Twist/0.jpg",
+      "source_exercise_id": 614
+    },
+    {
+      "slug": "russian-twist-plate",
+      "names": {
+        "en": "Russian Twist (Plate)",
+        "pt": "Russian twist com disco",
+        "es": "Giro ruso con disco",
+        "fr": "Russian twist avec disque"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "plate",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plate_Twist/0.jpg",
+      "source_exercise_id": 541
+    },
+    {
+      "slug": "cable-woodchop",
+      "names": {
+        "en": "Cable Woodchop",
+        "pt": "Lenhador na polia",
+        "es": "Leñador en polea",
+        "fr": "Bûcheron à la poulie"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Standing_Cable_Wood_Chop/0.jpg",
+      "source_exercise_id": 751
+    },
+    {
+      "slug": "pallof-press",
+      "names": {
+        "en": "Pallof Press",
+        "pt": "Pallof press",
+        "es": "Press Pallof",
+        "fr": "Pallof press"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "cable",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Pallof_Press/0.jpg",
+      "source_exercise_id": 526
+    },
+    {
+      "slug": "dead-bug",
+      "names": {
+        "en": "Dead Bug",
+        "pt": "Dead bug",
+        "es": "Bicho muerto",
+        "fr": "Dead bug"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dead_Bug/0.jpg",
+      "source_exercise_id": 192
+    },
+    {
+      "slug": "mountain-climber",
+      "names": {
+        "en": "Mountain Climber",
+        "pt": "Escalador",
+        "es": "Escalador",
+        "fr": "Mountain climber"
+      },
+      "body_part": "core",
+      "primary_muscles": [
+        "abdominals"
+      ],
+      "secondary_muscles": [
+        "quadriceps"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Mountain_Climbers/0.jpg",
+      "source_exercise_id": 468
+    },
+    {
+      "slug": "power-clean",
+      "names": {
+        "en": "Power Clean",
+        "pt": "Power clean",
+        "es": "Cargada de potencia",
+        "fr": "Épaulé en puissance"
+      },
+      "body_part": "olympic",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "traps",
+        "glutes"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Power_Clean/0.jpg",
+      "source_exercise_id": 547
+    },
+    {
+      "slug": "clean-and-jerk",
+      "names": {
+        "en": "Clean and Jerk",
+        "pt": "Arremesso",
+        "es": "Dos tiempos",
+        "fr": "Épaulé-jeté"
+      },
+      "body_part": "olympic",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "quadriceps",
+        "hamstrings",
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Clean_and_Jerk/0.jpg",
+      "source_exercise_id": 167
+    },
+    {
+      "slug": "snatch",
+      "names": {
+        "en": "Snatch",
+        "pt": "Arranque",
+        "es": "Arrancada",
+        "fr": "Arraché"
+      },
+      "body_part": "olympic",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "hamstrings",
+        "traps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Snatch/0.jpg",
+      "source_exercise_id": 716
+    },
+    {
+      "slug": "thruster-barbell",
+      "names": {
+        "en": "Thruster (Barbell)",
+        "pt": "Thruster com barra",
+        "es": "Thruster con barra",
+        "fr": "Thruster à la barre"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "barbell",
+      "type": "weight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "thruster-dumbbell",
+      "names": {
+        "en": "Thruster (Dumbbell)",
+        "pt": "Thruster com halteres",
+        "es": "Thruster con mancuernas",
+        "fr": "Thruster aux haltères"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "dumbbell",
+      "type": "weight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "thruster-kettlebell",
+      "names": {
+        "en": "Thruster (Kettlebell)",
+        "pt": "Thruster com kettlebell",
+        "es": "Thruster con kettlebell",
+        "fr": "Thruster au kettlebell"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "shoulders",
+        "triceps"
+      ],
+      "equipment": "kettlebell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Kettlebell_Thruster/0.jpg",
+      "source_exercise_id": 383
+    },
+    {
+      "slug": "kettlebell-swing",
+      "names": {
+        "en": "Kettlebell Swing",
+        "pt": "Swing com kettlebell",
+        "es": "Swing con kettlebell",
+        "fr": "Swing kettlebell"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "hamstrings"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "lower back"
+      ],
+      "equipment": "kettlebell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/One-Arm_Kettlebell_Swings/0.jpg",
+      "source_exercise_id": 498
+    },
+    {
+      "slug": "turkish-get-up",
+      "names": {
+        "en": "Turkish Get Up",
+        "pt": "Levantamento turco",
+        "es": "Levantamiento turco",
+        "fr": "Relevé turc"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "shoulders"
+      ],
+      "secondary_muscles": [
+        "abdominals",
+        "glutes"
+      ],
+      "equipment": "kettlebell",
+      "type": "weight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Kettlebell_Turkish_Get-Up_Squat_style/0.jpg",
+      "source_exercise_id": 385
+    },
+    {
+      "slug": "burpee",
+      "names": {
+        "en": "Burpee",
+        "pt": "Burpee",
+        "es": "Burpee",
+        "fr": "Burpee"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "chest",
+        "shoulders"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": null,
+      "source_exercise_id": null
+    },
+    {
+      "slug": "box-jump",
+      "names": {
+        "en": "Box Jump",
+        "pt": "Salto à caixa",
+        "es": "Salto al cajón",
+        "fr": "Saut sur box"
+      },
+      "body_part": "full_body",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "glutes",
+        "calves"
+      ],
+      "equipment": "bodyweight",
+      "type": "bodyweight_reps",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Front_Box_Jump/0.jpg",
+      "source_exercise_id": 287
+    },
+    {
+      "slug": "running",
+      "names": {
+        "en": "Running",
+        "pt": "Corrida",
+        "es": "Correr",
+        "fr": "Course"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Running_Treadmill/0.jpg",
+      "source_exercise_id": 613
+    },
+    {
+      "slug": "walking",
+      "names": {
+        "en": "Walking",
+        "pt": "Caminhada",
+        "es": "Caminar",
+        "fr": "Marche"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Walking_Treadmill/0.jpg",
+      "source_exercise_id": 845
+    },
+    {
+      "slug": "cycling",
+      "names": {
+        "en": "Cycling",
+        "pt": "Bicicleta",
+        "es": "Bicicleta",
+        "fr": "Vélo"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bicycling_Stationary/0.jpg",
+      "source_exercise_id": 89
+    },
+    {
+      "slug": "rowing-machine",
+      "names": {
+        "en": "Rowing Machine",
+        "pt": "Remo (máquina)",
+        "es": "Remo (máquina)",
+        "fr": "Rameur"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Rowing_Stationary/0.jpg",
+      "source_exercise_id": 611
+    },
+    {
+      "slug": "elliptical",
+      "names": {
+        "en": "Elliptical",
+        "pt": "Elíptica",
+        "es": "Elíptica",
+        "fr": "Elliptique"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Elliptical_Trainer/0.jpg",
+      "source_exercise_id": 260
+    },
+    {
+      "slug": "stair-climber",
+      "names": {
+        "en": "Stair Climber",
+        "pt": "Máquina de escadas",
+        "es": "Escaladora",
+        "fr": "Stepper"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Stairmaster/0.jpg",
+      "source_exercise_id": 740
+    },
+    {
+      "slug": "jump-rope",
+      "names": {
+        "en": "Jump Rope",
+        "pt": "Saltar à corda",
+        "es": "Saltar a la comba",
+        "fr": "Corde à sauter"
+      },
+      "body_part": "cardio",
+      "primary_muscles": [
+        "quadriceps"
+      ],
+      "secondary_muscles": [
+        "calves"
+      ],
+      "equipment": "cardio",
+      "type": "cardio",
+      "image": "https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Rope_Jumping/0.jpg",
+      "source_exercise_id": 608
+    }
+  ]
+}
