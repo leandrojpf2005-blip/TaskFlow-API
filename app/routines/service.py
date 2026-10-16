@@ -16,3 +16,11 @@ def get_routine(id, user_id):
 
 def delete_routine(user_id, id):
     return routine_repo.delete_routine(user_id, id)
+
+def update_routine(user_id, id, routine: NewRoutine):
+    return routine_repo.update_routine(
+        user_id,
+        id,
+        routine.name,
+        routine.items
+    )

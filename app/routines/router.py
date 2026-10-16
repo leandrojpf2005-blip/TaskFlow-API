@@ -28,3 +28,10 @@ def delete_routine(id, user=Depends(get_current_user)):
     if not routine:
         raise HTTPException(status_code=404, detail="Routine not found")
     return {"deleted": routine}
+
+@router.put("/{id}")
+def update_routine(id: int, routine: NewRoutine, user=Depends(get_current_user)):
+     routine_id = routine_service.update_routine(user["id"], id, routine)
+     if not routine_id:
+             raise HTTPException(status_code=404, detail="Routine not found")
+     return {"id": routine_id}
