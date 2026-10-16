@@ -7,9 +7,21 @@ export interface Exercise {
   secondary_muscles?: string[] | null;
   instructions?: string[] | null;
   images?: string[] | null;
+  slug?: string | null;
+  names?: Partial<Record<"en" | "pt" | "es" | "fr", string>> | null;
+  body_part?: string | null; // chest, back, shoulders, arms, legs, core, olympic, full_body, cardio
+  equipment?: string | null;
+  type?: string; // weight_reps, bodyweight_reps, assisted_bodyweight, weighted_bodyweight, duration, cardio
 }
 
 export interface Routine {
+  id: number;
+  name: string;
+  folder_id?: number | null; // null/absent: not in a folder
+}
+
+// A folder ("space") that groups routines, e.g. Push / Pull / Legs.
+export interface Folder {
   id: number;
   name: string;
 }
@@ -57,6 +69,7 @@ export interface NewWorkoutSet {
 export interface NewRoutine {
   name: string;
   items: { exercise_id: number; sets: number }[];
+  folder_id?: number | null;
 }
 
 export interface NewWorkout {

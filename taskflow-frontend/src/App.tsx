@@ -9,6 +9,7 @@ import { useLang } from "./lib/langHooks";
 import { PrefsProvider } from "./lib/prefs";
 import { AppDataProvider, useApp } from "./lib/appData";
 import { loadRecents } from "./lib/recents";
+import { loadCatalogue } from "./lib/exercises";
 import { SessionProvider, useSession, useTick } from "./lib/session";
 import { NavProvider, useNav } from "./lib/nav";
 import { TabBar } from "./components/TabBar";
@@ -87,6 +88,12 @@ function Shell() {
     const id = window.setTimeout(() => void loadRecents(version.diary), 1500);
     return () => window.clearTimeout(id);
   }, [version.diary]);
+
+  // Same for the exercise library (translated names, picker).
+  useEffect(() => {
+    const id = window.setTimeout(() => void loadCatalogue().catch(() => undefined), 2000);
+    return () => window.clearTimeout(id);
+  }, []);
 
   const top = nav.stack[nav.stack.length - 1];
   const showTabs = !top || top.chrome === "tabs";

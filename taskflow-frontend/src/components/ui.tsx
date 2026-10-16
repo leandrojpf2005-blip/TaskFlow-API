@@ -416,7 +416,17 @@ export function MenuButton({
   items: { label: string; icon: LucideIcon; onClick: () => void; danger?: boolean }[];
 }) {
   const [open, setOpen] = useState(false);
+  const [up, setUp] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  // Open upwards when the list wouldn't fit above the bottom tab bar.
+  const toggle = () => {
+    if (!open && ref.current) {
+      const below = window.innerHeight - ref.current.getBoundingClientRect().bottom;
+      setUp(below < items.length * 42 + 110);
+    }
+    setOpen((o) => !o);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -429,11 +439,11 @@ export function MenuButton({
 
   return (
     <div className="menu-anchor" ref={ref}>
-      <button className="round-btn sm" onClick={() => setOpen((o) => !o)} aria-label={label} aria-expanded={open}>
+      <button className="round-btn sm" onClick={toggle} aria-label={label} aria-expanded={open}>
         <Ellipsis />
       </button>
       {open && (
-        <div className="menu-pop" role="menu">
+        <div className={`menu-pop${up ? " up" : ""}`} role="menu">
           {items.map((it) => (
             <button
               key={it.label}

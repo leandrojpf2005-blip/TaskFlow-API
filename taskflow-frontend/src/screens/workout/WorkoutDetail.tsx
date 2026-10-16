@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
-import { Clock, Dumbbell, Layers, Repeat, Trash2, Weight } from "lucide-react";
+import { Clock, Layers, Repeat, Trash2, Weight } from "lucide-react";
 import * as api from "../../api/workouts";
 import { useApp } from "../../lib/appData";
 import { useNav } from "../../lib/nav";
 import { useLang } from "../../lib/langHooks";
 import { useFmt } from "../../lib/useFmt";
+import { useExercises } from "../../lib/exercises";
+import { ExerciseArt } from "../../components/ExerciseArt";
 import { kgTo } from "../../lib/units";
-import { ErrorBanner, ITile, ScreenHeader, StatTile, errText, useConfirm } from "../../components/ui";
+import { ErrorBanner, ScreenHeader, StatTile, errText, useConfirm } from "../../components/ui";
 import { workoutToSession } from "./start";
 import { useStarter } from "./useStarter";
 import type { WorkoutDetail as Detail, WorkoutSet, WorkoutSummary } from "../../types/workouts";
@@ -18,6 +20,7 @@ export function WorkoutDetail({ workout }: { workout: WorkoutSummary }) {
   const nav = useNav();
   const { bump, toast } = useApp();
   const starter = useStarter();
+  const exs = useExercises();
   const [detail, setDetail] = useState<Detail | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [confirmNode, ask] = useConfirm();
@@ -32,14 +35,14 @@ export function WorkoutDetail({ workout }: { workout: WorkoutSummary }) {
   }, [workout.id]);
 
   const blocks = useMemo(() => {
-    const m = new Map<number, { name: string; sets: WorkoutSet[] }>();
+    const m = new Map<number, { id: number; name: string; sets: WorkoutSet[] }>();
     for (const st of [...(detail?.sets ?? [])].sort((a, b) => a.id - b.id)) {
-      const b = m.get(st.exercise_id) ?? { name: st.name ?? "—", sets: [] };
+      const b = m.get(st.exercise_id) ?? { id: st.exercise_id, name: exs.name(st.exercise_id, st.name ?? "—"), sets: [] };
       b.sets.push(st);
       m.set(st.exercise_id, b);
     }
     return [...m.values()];
-  }, [detail]);
+  }, [detail, exs]);
 
   const remove = async () => {
     const ok = await ask({ title: t("wdetail.confirmDelete"), confirm: t("common.delete"), cancel: t("common.cancel"), danger: true });
@@ -74,7 +77,7 @@ export function WorkoutDetail({ workout }: { workout: WorkoutSummary }) {
       {blocks.map((b, i) => (
         <section className="card" key={i}>
           <div className="ex-head">
-            <ITile icon={Dumbbell} />
+            <ExerciseArt ex={exs.get(b.id)} />
             <div className="grow">
               <b>{b.name}</b>
               <small>{t("workout.setsCount", { n: b.sets.length })}</small>

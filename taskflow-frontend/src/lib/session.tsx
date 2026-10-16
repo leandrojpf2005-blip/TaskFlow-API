@@ -20,7 +20,6 @@ export interface SExercise {
   uid: string;
   exerciseId: number;
   name: string;
-  image?: string | null;
   plannedSets?: number;
   sets: SSet[];
 }
@@ -40,7 +39,6 @@ export interface SessionInit {
   exercises: {
     exerciseId: number;
     name: string;
-    image?: string | null;
     plannedSets?: number;
     sets: { reps: number; weight: number }[];
   }[];
@@ -50,10 +48,16 @@ interface SessionValue {
   session: Session | null;
   start: (init: SessionInit) => void;
   rename: (name: string) => void;
-  addExercise: (ex: { exerciseId: number; name: string; image?: string | null }) => void;
+  addExercise: (ex: { exerciseId: number; name: string }) => void;
   removeExercise: (uid: string) => void;
+  /** Swap an exercise for another (machine taken). Sets already done stay with the old one. */
+  replaceExercise: (uid: string, ex: { exerciseId: number; name: string }) => void;
+  /** Move an exercise to another position (drag to reorder). */
+  moveExercise: (from: number, to: number) => void;
   addSet: (uid: string) => void;
   removeSet: (uid: string) => void;
+  /** Remove one particular set (swipe left). An exercise keeps at least one. */
+  removeSetAt: (uid: string, index: number) => void;
   updateSet: (uid: string, index: number, patch: Partial<SSet>) => void;
   toggleSet: (uid: string, index: number, restSeconds: number) => void;
   startRest: (seconds: number) => void;
@@ -112,7 +116,6 @@ export function SessionProvider({ userId, children }: { userId: number; children
         uid: uid(),
         exerciseId: e.exerciseId,
         name: e.name,
-        image: e.image ?? null,
         plannedSets: e.plannedSets,
         sets: (e.sets.length ? e.sets : [DEFAULT_SET]).map((s) => ({ ...s, done: false })),
       })),
@@ -129,10 +132,32 @@ export function SessionProvider({ userId, children }: { userId: number; children
           ...s,
           exercises: [
             ...s.exercises,
-            { uid: uid(), exerciseId: ex.exerciseId, name: ex.name, image: ex.image ?? null, sets: [{ ...DEFAULT_SET }] },
+            { uid: uid(), exerciseId: ex.exerciseId, name: ex.name, sets: [{ ...DEFAULT_SET }] },
           ],
         })),
       removeExercise: (id) => mutate((s) => ({ ...s, exercises: s.exercises.filter((e) => e.uid !== id) })),
+      replaceExercise: (id, next) =>
+        mutate((s) => ({
+          ...s,
+          exercises: s.exercises.flatMap((cur) => {
+            if (cur.uid !== id) return [cur];
+            const done = cur.sets.filter((st) => st.done);
+            const left = cur.sets.filter((st) => !st.done);
+            // The sets still to do move over, untouched, so the new exercise's
+            // last performance can fill them in.
+            const swapped: SExercise = {
+              uid: uid(),
+              exerciseId: next.exerciseId,
+              name: next.name,
+              plannedSets: cur.plannedSets === undefined ? undefined : Math.max(1, left.length),
+              sets: (left.length ? left : [DEFAULT_SET]).map((st) => ({ reps: st.reps, weight: st.weight, done: false })),
+            };
+            // Sets already done were done on the old exercise: they stay there.
+            if (done.length === 0) return [swapped];
+            const kept = { ...cur, sets: done, plannedSets: cur.plannedSets === undefined ? undefined : done.length };
+            return [kept, swapped];
+          }),
+        })),
       addSet: (id) =>
         mapExercise(id, (ex) => {
           const last = ex.sets[ex.sets.length - 1] ?? DEFAULT_SET;
@@ -140,6 +165,16 @@ export function SessionProvider({ userId, children }: { userId: number; children
         }),
       removeSet: (id) =>
         mapExercise(id, (ex) => (ex.sets.length > 1 ? { ...ex, sets: ex.sets.slice(0, -1) } : ex)),
+      removeSetAt: (id, index) =>
+        mapExercise(id, (ex) => (ex.sets.length > 1 ? { ...ex, sets: ex.sets.filter((_, i) => i !== index) } : ex)),
+      moveExercise: (from, to) =>
+        mutate((s) => {
+          const exercises = [...s.exercises];
+          const [moved] = exercises.splice(from, 1);
+          if (!moved) return s;
+          exercises.splice(to, 0, moved);
+          return { ...s, exercises };
+        }),
       updateSet: (id, index, patch) =>
         mapExercise(id, (ex) => ({
           ...ex,

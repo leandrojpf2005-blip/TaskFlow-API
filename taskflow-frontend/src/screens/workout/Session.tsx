@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Activity,
+  ArrowLeftRight,
   Check,
   ChevronDown,
   Clock,
-  Dumbbell,
+  GripVertical,
   Layers,
   Minus,
   Pause,
@@ -14,7 +15,7 @@ import {
   Trash2,
   Weight,
 } from "lucide-react";
-import { getLastPerformance } from "../../api/workouts";
+import { getLastPerformance, routineEditMissing, updateRoutine } from "../../api/workouts";
 import { useApp } from "../../lib/appData";
 import { useNav } from "../../lib/nav";
 import { useLang } from "../../lib/langHooks";
@@ -22,10 +23,15 @@ import { usePrefs } from "../../lib/prefs";
 import { useFmt } from "../../lib/useFmt";
 import { useSession, useTick, type SExercise } from "../../lib/session";
 import { parseNum } from "../../lib/locale";
+import { useExercises } from "../../lib/exercises";
+import { ExerciseArt } from "../../components/ExerciseArt";
 import { kgTo, toKg } from "../../lib/units";
-import { Chip, ErrorBanner, ITile, MenuButton, PBar, StatTile, errText, useConfirm } from "../../components/ui";
+import { Chip, ErrorBanner, ITile, MenuButton, PBar, Sheet, StatTile, errText, useConfirm } from "../../components/ui";
+import { SortableList } from "../../components/Sortable";
+import { SwipeRow } from "../../components/Swipe";
 import { ExercisePicker } from "./ExercisePicker";
-import type { LastPerformanceMap } from "../../types/workouts";
+import { routineChanges } from "./start";
+import type { Exercise, LastPerformanceMap } from "../../types/workouts";
 
 const REST_CHOICES = [60, 90, 120, 180];
 
@@ -45,9 +51,12 @@ export function Session() {
   const { bump, toast } = useApp();
   const { prefs, setPrefs } = usePrefs();
   const s = useSession();
+  const exs = useExercises();
   const session = s.session;
   const now = useTick(!!session);
   const [picking, setPicking] = useState(false);
+  const [replacing, setReplacing] = useState<string | null>(null); // uid of the exercise being swapped
+  const [reordering, setReordering] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastPerf, setLastPerf] = useState<LastPerformanceMap>({});
@@ -95,15 +104,38 @@ export function Session() {
     if (doneSets.length === 0) return setError(t("session.needOneSet"));
     setSaving(true);
     setError(null);
+    // Started from a routine and changed along the way (swapped, added or
+    // removed exercises, different set counts)? Offer to keep the changes.
+    const changes = await routineChanges(session).catch(() => null);
+    const update =
+      changes !== null &&
+      (await ask({
+        title: t("session.updateRoutineTitle", { name: changes.routine.name }),
+        text: t("session.updateRoutineText"),
+        confirm: t("session.updateRoutine"),
+        cancel: t("session.keepRoutine"),
+      }));
     try {
       await s.finish();
-      bump("workouts");
-      toast(t("session.saved"));
-      nav.goTab("workouts");
     } catch (e) {
       setError(errText(e, t));
       setSaving(false);
+      return;
     }
+    bump("workouts");
+    if (update && changes) {
+      try {
+        await updateRoutine(changes.routine.id, changes.body);
+        bump("routines");
+        toast(t("routine.updated"));
+      } catch (e) {
+        // The workout is saved either way; only the routine stayed as it was.
+        toast(routineEditMissing(e) ? t("routine.editUnavailable") : errText(e, t));
+      }
+    } else {
+      toast(t("session.saved"));
+    }
+    nav.goTab("workouts");
   };
 
   const discard = async () => {
@@ -159,11 +191,15 @@ export function Session() {
         <ExerciseCard
           key={ex.uid}
           ex={ex}
+          name={exs.name(ex.exerciseId, ex.name)}
+          info={exs.get(ex.exerciseId)}
           last={lastPerf[String(ex.exerciseId)]}
+          onReplace={() => setReplacing(ex.uid)}
+          onReorder={() => setReordering(true)}
           onRemove={async () => {
             const ok = await ask({
               title: t("session.removeExercise"),
-              text: ex.name,
+              text: exs.name(ex.exerciseId, ex.name),
               confirm: t("session.removeExercise"),
               cancel: t("common.cancel"),
               danger: true,
@@ -247,8 +283,39 @@ export function Session() {
         <ExercisePicker
           onClose={() => setPicking(false)}
           onPick={(ex) => {
-            s.addExercise({ exerciseId: ex.id, name: ex.name, image: ex.images?.[0] ?? null });
+            s.addExercise({ exerciseId: ex.id, name: ex.name });
             setPicking(false);
+          }}
+        />
+      )}
+      {reordering && (
+        <Sheet onClose={() => setReordering(false)} title={t("session.reorder")} subtitle={t("session.reorderHint")}>
+          <SortableList items={session.exercises} idOf={(e) => e.uid} onMove={s.moveExercise} holdMs={140} className="reorder">
+            {(ex, handle) => (
+              <div className="reorder-row" ref={handle.ref} {...handle.props}>
+                <ExerciseArt ex={exs.get(ex.exerciseId)} />
+                <b>{exs.name(ex.exerciseId, ex.name)}</b>
+                <GripVertical />
+              </div>
+            )}
+          </SortableList>
+          <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => setReordering(false)}>
+            {t("common.done")}
+          </button>
+        </Sheet>
+      )}
+      {replacing && (
+        <ExercisePicker
+          title={t("session.replaceExercise")}
+          initialPart={exs.get(session.exercises.find((e) => e.uid === replacing)?.exerciseId ?? -1)?.body_part}
+          onClose={() => setReplacing(null)}
+          onPick={(ex) => {
+            s.replaceExercise(replacing, { exerciseId: ex.id, name: ex.name });
+            // Already looked up this session? Fill the moved sets from it now;
+            // otherwise the last-performance effect does it when it arrives.
+            const known = lastPerf[String(ex.id)];
+            if (known) s.prefill({ [String(ex.id)]: known });
+            setReplacing(null);
           }}
         />
       )}
@@ -259,26 +326,64 @@ export function Session() {
 
 function ExerciseCard({
   ex,
+  name,
+  info,
   last,
+  onReplace,
+  onReorder,
   onRemove,
 }: {
   ex: SExercise;
+  name: string;
+  info?: Exercise;
   last?: LastPerformanceMap[string];
+  onReplace: () => void;
+  onReorder: () => void;
   onRemove: () => void;
 }) {
   const { t } = useLang();
   const f = useFmt();
   const { prefs } = usePrefs();
   const s = useSession();
+  // Holding the exercise (picture or name) opens the reorder list, like Strong.
+  const hold = useRef<{ timer: number; x: number; y: number } | null>(null);
+  const held = useRef(false); // the hold fired: swallow the tap the finger makes when it lifts
+  const cancelHold = () => {
+    if (hold.current) window.clearTimeout(hold.current.timer);
+    hold.current = null;
+  };
   const firstReps = ex.sets[0]?.reps ?? 0;
   const sameReps = ex.sets.every((x) => x.reps === firstReps);
 
   return (
     <section className="card ex-card">
-      <div className="ex-head">
-        {ex.image ? <img className="ex-thumb" src={ex.image} alt="" loading="lazy" /> : <ITile icon={Dumbbell} size="lg" />}
+      <div
+        className="ex-head hold"
+        onPointerDown={(e) => {
+          if (e.pointerType === "mouse" || (e.target as HTMLElement).closest("button")) return;
+          held.current = false;
+          const timer = window.setTimeout(() => {
+            held.current = true;
+            navigator.vibrate?.(12);
+            onReorder();
+          }, 450);
+          hold.current = { timer, x: e.clientX, y: e.clientY };
+        }}
+        onPointerMove={(e) => {
+          if (hold.current && Math.hypot(e.clientX - hold.current.x, e.clientY - hold.current.y) > 8) cancelHold();
+        }}
+        onPointerUp={cancelHold}
+        onPointerCancel={cancelHold}
+        onTouchEnd={(e) => {
+          // Otherwise the lift lands as a click on the sheet's backdrop and closes it.
+          if (held.current) e.preventDefault();
+          held.current = false;
+        }}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <ExerciseArt ex={info} size="lg" />
         <div className="grow">
-          <b>{ex.name}</b>
+          <b>{name}</b>
           <small>
             {sameReps
               ? t("session.plan", { s: ex.sets.length, r: firstReps })
@@ -288,6 +393,8 @@ function ExerciseCard({
         <MenuButton
           label={t("session.exerciseMenu")}
           items={[
+            { label: t("session.replaceExercise"), icon: ArrowLeftRight, onClick: onReplace },
+            { label: t("session.reorder"), icon: GripVertical, onClick: onReorder },
             { label: t("session.removeSet"), icon: Minus, onClick: () => s.removeSet(ex.uid) },
             { label: t("session.removeExercise"), icon: Trash2, onClick: onRemove, danger: true },
           ]}
@@ -309,32 +416,43 @@ function ExerciseCard({
         <span />
       </div>
       {ex.sets.map((st, i) => (
-        <div className={`set-grid set-row${st.done ? " done" : ""}`} key={i}>
-          <span className="set-num">{i + 1}</span>
-          <NumberCell
-            value={kgTo(st.weight, prefs.weightUnit)}
-            unit={prefs.weightUnit}
-            decimals={2}
-            label={`${t("session.weight")} ${i + 1}`}
-            onCommit={(v) => s.updateSet(ex.uid, i, { weight: toKg(v, prefs.weightUnit), touched: true })}
-            fmt={(v) => f.num(v, 2)}
-          />
-          <NumberCell
-            value={st.reps}
-            decimals={0}
-            label={`${t("session.reps")} ${i + 1}`}
-            onCommit={(v) => s.updateSet(ex.uid, i, { reps: Math.round(v), touched: true })}
-            fmt={(v) => String(Math.round(v))}
-          />
-          <button
-            className="set-check"
-            onClick={() => s.toggleSet(ex.uid, i, prefs.restSeconds)}
-            aria-label={st.done ? t("session.uncheck") : t("session.check")}
-            aria-pressed={st.done}
-          >
-            <Check />
-          </button>
-        </div>
+        <SwipeRow
+          key={i}
+          className="set"
+          label={t("common.delete")}
+          onSwipe={() => {
+            if (ex.sets.length < 2) return false; // an exercise keeps at least one set
+            s.removeSetAt(ex.uid, i);
+            return true;
+          }}
+        >
+          <div className={`set-grid set-row${st.done ? " done" : ""}`}>
+            <span className="set-num">{i + 1}</span>
+            <NumberCell
+              value={kgTo(st.weight, prefs.weightUnit)}
+              unit={prefs.weightUnit}
+              decimals={2}
+              label={`${t("session.weight")} ${i + 1}`}
+              onCommit={(v) => s.updateSet(ex.uid, i, { weight: toKg(v, prefs.weightUnit), touched: true })}
+              fmt={(v) => f.num(v, 2)}
+            />
+            <NumberCell
+              value={st.reps}
+              decimals={0}
+              label={`${t("session.reps")} ${i + 1}`}
+              onCommit={(v) => s.updateSet(ex.uid, i, { reps: Math.round(v), touched: true })}
+              fmt={(v) => String(Math.round(v))}
+            />
+            <button
+              className="set-check"
+              onClick={() => s.toggleSet(ex.uid, i, prefs.restSeconds)}
+              aria-label={st.done ? t("session.uncheck") : t("session.check")}
+              aria-pressed={st.done}
+            >
+              <Check />
+            </button>
+          </div>
+        </SwipeRow>
       ))}
 
       <button className="btn btn-dashed" onClick={() => s.addSet(ex.uid)}>

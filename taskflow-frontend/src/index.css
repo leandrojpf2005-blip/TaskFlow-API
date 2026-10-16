@@ -2344,13 +2344,229 @@ input[type="range"].slider::-moz-range-thumb {
   margin: -2px 0 12px;
   font-weight: 600;
 }
-.ex-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  object-fit: cover;
-  background: var(--accent-soft);
+/* routine folders (screens/workout/RoutinesPane) */
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+.btn-row .btn {
+  flex: 1;
+}
+.btn-row .btn-outline {
+  flex: 0 0 auto;
+  width: auto;
+  padding-inline: 16px;
+}
+.folder {
+  margin-top: 18px;
+}
+.folder-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 2px 10px;
+}
+.folder-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  text-align: left;
+}
+.folder-toggle > svg {
+  width: 19px;
+  height: 19px;
   flex: none;
+  color: var(--muted);
+}
+.folder-toggle > svg:first-child {
+  color: var(--accent);
+}
+.folder-toggle > svg:last-child {
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+.folder-toggle > svg.shut {
+  transform: rotate(-90deg);
+}
+.folder-toggle b {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.folder-toggle .count {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--beige);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.folder-empty {
+  width: 100%;
+}
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.choice-list button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  text-align: left;
+  font-weight: 600;
+}
+.choice-list button span {
+  flex: 1;
+}
+.choice-list button svg {
+  width: 19px;
+  height: 19px;
+  color: var(--muted);
+}
+.choice-list button.on {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.choice-list button.on svg {
+  color: var(--accent);
+}
+
+/* swipe left to delete (components/Swipe) */
+.swipe {
+  position: relative;
+}
+.swipe-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding-right: 18px;
+  border-radius: 18px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+.swipe-bg svg {
+  width: 18px;
+  height: 18px;
+}
+.swipe-fg {
+  position: relative;
+  touch-action: pan-y;
+}
+.swipe.rec {
+  margin-top: 8px;
+}
+.swipe.set .swipe-bg {
+  border-radius: 12px;
+}
+.swipe.set .swipe-fg {
+  background: var(--card);
+}
+.swipe.set + .swipe.set {
+  margin-top: 8px;
+}
+
+/* hold and drag to reorder (components/Sortable) */
+.sortable {
+  position: relative;
+}
+.sortable.dragging {
+  z-index: 5;
+}
+.sortable.dragging > .card,
+.sortable.dragging > .reorder-row {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.16);
+}
+.sortable.stack + .sortable.stack {
+  margin-top: 12px;
+}
+.sortable.reorder + .sortable.reorder {
+  margin-top: 8px;
+}
+.drag-handle,
+.ex-head.hold,
+.reorder-row {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.drag-handle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  touch-action: manipulation;
+  cursor: grab;
+}
+.drag-hint {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: -4px 2px 10px;
+}
+.reorder-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  touch-action: manipulation;
+  cursor: grab;
+}
+.reorder-row b {
+  flex: 1;
+  min-width: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.reorder-row > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--muted);
+  flex: none;
+}
+
+/* exercise line drawings (components/ExerciseArt) */
+.ex-art {
+  --art-bg: var(--accent-soft);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--art-bg);
+  color: var(--accent);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.ex-art.lg {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+}
+.ex-art > svg {
+  width: 90%;
+  height: 90%;
+}
+.ex-art > svg.lucide {
+  width: 22px;
+  height: 22px;
 }
 .set-grid {
   display: grid;
@@ -2522,6 +2738,10 @@ input[type="range"].slider::-moz-range-thumb {
 .menu-pop button.danger {
   color: var(--danger);
 }
+.menu-pop.up {
+  top: auto;
+  bottom: 40px;
+}
 .menu-anchor {
   position: relative;
 }
@@ -2538,15 +2758,6 @@ input[type="range"].slider::-moz-range-thumb {
 .ex-pick + .ex-pick {
   border-top: 1px solid var(--line);
 }
-.ex-pick img,
-.ex-pick .ph {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  object-fit: cover;
-  background: var(--accent-soft);
-  flex: none;
-}
 .ex-pick .grow {
   flex: 1;
   min-width: 0;
@@ -2559,7 +2770,6 @@ input[type="range"].slider::-moz-range-thumb {
 .ex-pick small {
   font-size: 12.5px;
   color: var(--muted);
-  text-transform: capitalize;
 }
 .ex-pick > svg {
   width: 20px;
@@ -2725,6 +2935,20 @@ input[type="range"].slider::-moz-range-thumb {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+/* exercise picker: body parts, then a smaller equipment row under them */
+.metric-chips.tight {
+  margin-bottom: 8px;
+}
+.metric-chips.sm button {
+  height: 30px;
+  padding: 0 11px;
+  font-size: 12.5px;
+}
+.metric-chips.sm button.on {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* ---------- log weight ---------- */
@@ -2905,8 +3129,9 @@ input[type="range"].slider::-moz-range-thumb {
   width: 17px;
   height: 17px;
 }
-.icon-del {
-  width: 38px;
+.icon-del,
+.icon-act {
+  width: 34px;
   height: 38px;
   border-radius: 11px;
   display: grid;
@@ -2914,7 +3139,11 @@ input[type="range"].slider::-moz-range-thumb {
   color: var(--danger);
   flex: none;
 }
-.icon-del svg {
+.icon-act {
+  color: var(--accent);
+}
+.icon-del svg,
+.icon-act svg {
   width: 18px;
   height: 18px;
 }

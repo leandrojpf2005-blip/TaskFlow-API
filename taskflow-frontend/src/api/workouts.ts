@@ -2,6 +2,8 @@
 //   GET  /routines            -> Routine[]
 //   GET  /routines/{id}       -> RoutineExercise[]
 //   POST /routines            -> { id }
+//   PUT  /routines/{id}       -> { id }      (name + items, replaces the list)
+//   GET  /folders             -> Folder[]    (POST/PUT { name } -> { id }, DELETE -> { deleted })
 //   DELETE /routines/{id}     -> { deleted }
 //   GET  /exercises?q=        -> Exercise[]
 //   GET  /workouts            -> WorkoutSummary[]
@@ -11,7 +13,7 @@
 //   GET  /workouts/last-performance?exercise_ids=1&exercise_ids=2
 //                             -> { "1": LastPerformance, ... }
 
-import { request } from "./client";
+import { ApiError, request } from "./client";
 import type {
   Exercise,
   Routine,
@@ -21,6 +23,7 @@ import type {
   NewWorkout,
   LastPerformanceMap,
   NewRoutine,
+  Folder,
 } from "../types/workouts";
 
 export const getRoutines = () => request<Routine[]>("/routines");
@@ -50,6 +53,31 @@ export const getLastPerformance = (exerciseIds: number[]) => {
 
 export const createRoutine = (r: NewRoutine) =>
   request<{ id: number }>("/routines", { method: "POST", body: JSON.stringify(r) });
+
+// Replaces the name and the whole exercise list, in the order sent.
+export const updateRoutine = (id: number, r: NewRoutine) =>
+  request<{ id: number }>(`/routines/${id}`, { method: "PUT", body: JSON.stringify(r) });
+
+/** Folders, or null while the server has no /folders yet (the UI then hides them). */
+export async function getFolders(): Promise<Folder[] | null> {
+  try {
+    return await request<Folder[]>("/folders");
+  } catch (e) {
+    if (e instanceof ApiError && (e.status === 404 || e.status === 405)) return null;
+    throw e;
+  }
+}
+
+export const createFolder = (name: string) =>
+  request<{ id: number }>("/folders", { method: "POST", body: JSON.stringify({ name }) });
+
+export const renameFolder = (id: number, name: string) =>
+  request<{ id: number }>(`/folders/${id}`, { method: "PUT", body: JSON.stringify({ name }) });
+
+export const deleteFolder = (id: number) => request<{ deleted: number }>(`/folders/${id}`, { method: "DELETE" });
+
+/** True when the server has no PUT /routines/{id} yet (405 Method Not Allowed). */
+export const routineEditMissing = (e: unknown) => e instanceof ApiError && e.status === 405;
 
 export const deleteRoutine = (id: number) =>
   request<{ deleted: number }>(`/routines/${id}`, { method: "DELETE" });

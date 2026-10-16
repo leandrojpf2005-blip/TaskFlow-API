@@ -16,6 +16,7 @@ import { useApp } from "../../lib/appData";
 import { useNav } from "../../lib/nav";
 import { useLang } from "../../lib/langHooks";
 import { useFmt, type Fmt } from "../../lib/useFmt";
+import { useExerciseName } from "../../lib/exercises";
 import { daysBetween, parseDay } from "../../lib/dates";
 import { Chip, EmptyState, ErrorBanner, ITile, PBar, Pills, SectionHead, Segmented, StatTile, TabHeader, errText } from "../../components/ui";
 import { LineChart, type Pt } from "./LineChart";
@@ -494,8 +495,11 @@ function ExercisesPane() {
   const { t } = useLang();
   const f = useFmt();
   const { version } = useApp();
-  const [series, setSeries] = useState<Map<string, LiftPoint[]> | null>(null);
-  const [picked, setPicked] = useState<string | null>(null);
+  const exName = useExerciseName();
+  // keyed by exercise id; apiNames keeps the stored name for exercises no longer in the library
+  const [series, setSeries] = useState<Map<number, LiftPoint[]> | null>(null);
+  const [apiNames, setApiNames] = useState<Map<number, string>>(new Map());
+  const [picked, setPicked] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -508,28 +512,33 @@ function ExercisesPane() {
         const details = await Promise.all(
           list.slice(0, 40).map((w) => workoutsApi.getWorkout(w.id).catch(() => null as WorkoutDetail | null)),
         );
-        const map = new Map<string, LiftPoint[]>();
+        const map = new Map<number, LiftPoint[]>();
+        const labels = new Map<number, string>();
         details.forEach((d, i) => {
           if (!d) return;
           const at = new Date(list[i].date).getTime();
-          const best = new Map<string, LiftPoint>();
+          const best = new Map<number, LiftPoint>();
           for (const st of d.sets) {
-            const name = st.name ?? `#${st.exercise_id}`;
+            const id = st.exercise_id;
+            if (st.name) labels.set(id, st.name);
             const weight = Number(st.weight);
             const e1rm = weight * (1 + st.reps / 30);
-            const cur = best.get(name);
+            const cur = best.get(id);
             // The heaviest set and the best estimated 1RM can come from different sets.
             const topE1rm = Math.max(e1rm, cur?.e1rm ?? 0);
             if (!cur || weight > cur.weight || (weight === cur.weight && st.reps > cur.reps)) {
-              best.set(name, { t: at, weight, reps: st.reps, e1rm: topE1rm });
+              best.set(id, { t: at, weight, reps: st.reps, e1rm: topE1rm });
             } else {
               cur.e1rm = topE1rm;
             }
           }
-          best.forEach((p, name) => map.set(name, [...(map.get(name) ?? []), p]));
+          best.forEach((p, id) => map.set(id, [...(map.get(id) ?? []), p]));
         });
         map.forEach((pts) => pts.sort((a, b) => a.t - b.t));
-        if (live) setSeries(map);
+        if (live) {
+          setApiNames(labels);
+          setSeries(map);
+        }
       } catch (e) {
         if (live) {
           setError(errText(e, t));
@@ -552,9 +561,9 @@ function ExercisesPane() {
       </>
     );
 
-  const names = [...series.keys()].sort((a, b) => series.get(b)!.length - series.get(a)!.length);
-  const name = picked && series.has(picked) ? picked : names[0];
-  const pts = series.get(name)!;
+  const ids = [...series.keys()].sort((a, b) => series.get(b)!.length - series.get(a)!.length);
+  const id = picked !== null && series.has(picked) ? picked : ids[0];
+  const pts = series.get(id)!;
   const top = pts.reduce((a, p) => (p.weight > a.weight || (p.weight === a.weight && p.reps > a.reps) ? p : a), pts[0]);
   const best1rm = Math.max(...pts.map((p) => p.e1rm));
   const first = pts[0];
@@ -563,9 +572,9 @@ function ExercisesPane() {
   return (
     <>
       <div className="metric-chips">
-        {names.slice(0, 15).map((n) => (
-          <button key={n} className={n === name ? "on" : ""} onClick={() => setPicked(n)}>
-            {n}
+        {ids.slice(0, 15).map((n) => (
+          <button key={n} className={n === id ? "on" : ""} onClick={() => setPicked(n)}>
+            {exName(n, apiNames.get(n) ?? `#${n}`)}
           </button>
         ))}
       </div>

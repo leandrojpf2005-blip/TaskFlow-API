@@ -9,10 +9,8 @@ import {
   History,
   LayoutTemplate,
   Play,
-  Plus,
   Repeat,
   Sparkles,
-  Trash2,
   Zap,
 } from "lucide-react";
 import * as api from "../../api/workouts";
@@ -29,7 +27,6 @@ import {
   EmptyState,
   ErrorBanner,
   ITile,
-  MenuButton,
   PBar,
   SectionHead,
   Segmented,
@@ -39,6 +36,8 @@ import {
   useConfirm,
 } from "../../components/ui";
 import { RoutineBuilder } from "./RoutineBuilder";
+import { RoutinesPane } from "./RoutinesPane";
+import { SwipeRow } from "../../components/Swipe";
 import { WorkoutDetail } from "./WorkoutDetail";
 import { routineToSession, workoutToSession } from "./start";
 import { useStarter } from "./useStarter";
@@ -72,6 +71,7 @@ export function WorkoutTab() {
   const [routines, setRoutines] = useState<Routine[] | null>(null);
   const [details, setDetails] = useState<Record<number, RoutineExercise[]>>({});
   const [history, setHistory] = useState<WorkoutSummary[] | null>(null);
+  const [removed, setRemoved] = useState<Set<number>>(() => new Set()); // swiped away, waiting for the refetch
   const [error, setError] = useState<string | null>(null);
   const [confirmNode, ask] = useConfirm();
 
@@ -165,6 +165,33 @@ export function WorkoutTab() {
       toast(t("workout.routineDeleted"));
     } catch (e) {
       setError(errText(e, t));
+    }
+  };
+
+  // Swipe left on a past workout: confirm, hide it at once, then delete it.
+  const swipeWorkout = async (w: WorkoutSummary) => {
+    const ok = await ask({
+      title: t("wdetail.confirmDelete"),
+      text: w.name ?? t("workout.free"),
+      confirm: t("common.delete"),
+      cancel: t("common.cancel"),
+      danger: true,
+    });
+    if (!ok) return false;
+    setRemoved((prev) => new Set(prev).add(w.id));
+    try {
+      await api.deleteWorkout(w.id);
+      bump("workouts");
+      toast(t("wdetail.deleted"));
+      return true;
+    } catch (e) {
+      setRemoved((prev) => {
+        const next = new Set(prev);
+        next.delete(w.id);
+        return next;
+      });
+      setError(errText(e, t));
+      return false;
     }
   };
 
@@ -321,77 +348,7 @@ export function WorkoutTab() {
         </>
       )}
 
-      {pane === "routines" && (
-        <>
-          <button className="btn btn-primary" onClick={() => nav.push(<RoutineBuilder />)}>
-            <Plus />
-            {t("workout.newRoutine")}
-          </button>
-          {routines === null ? (
-            <p className="splash">{t("common.loading")}</p>
-          ) : routines.length === 0 ? (
-            <EmptyState icon={LayoutTemplate} title={t("workout.noRoutines")} text={t("workout.noRoutinesHint")} />
-          ) : (
-            <div style={{ marginTop: 12 }}>
-              {routines.map((r) => {
-                const exs = details[r.id];
-                const sets = exs?.reduce((a, e) => a + e.sets, 0) ?? 0;
-                return (
-                  <section className="card" key={r.id}>
-                    <div className="routine-row">
-                      <ITile icon={LayoutTemplate} />
-                      <button
-                        className="grow"
-                        onClick={() => starter.start(() => routineToSession(r))}
-                        disabled={starter.starting}
-                      >
-                        <b>{r.name}</b>
-                        <small>
-                          {exs
-                            ? `${t("workout.exercisesCount", { n: exs.length })} · ${t("workout.setsCount", { n: sets })}`
-                            : t("common.loading")}
-                        </small>
-                      </button>
-                      <MenuButton
-                        label={t("workout.routineMenu")}
-                        items={[
-                          { label: t("workout.startRoutine"), icon: Play, onClick: () => starter.start(() => routineToSession(r)) },
-                          { label: t("workout.deleteRoutine"), icon: Trash2, onClick: () => deleteRoutine(r), danger: true },
-                        ]}
-                      />
-                    </div>
-                    {exs && exs.length > 0 && (
-                      <div className="routine-row" style={{ marginTop: 10 }}>
-                        <div className="chips" style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                          {exs.slice(0, 4).map((e, i) => (
-                            <Chip key={i} tone="neutral" size="sm">
-                              {e.sets}× {e.name}
-                            </Chip>
-                          ))}
-                          {exs.length > 4 && (
-                            <Chip tone="neutral" size="sm">
-                              +{exs.length - 4}
-                            </Chip>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                    <button
-                      className="btn btn-secondary"
-                      style={{ marginTop: 12, minHeight: 44 }}
-                      onClick={() => starter.start(() => routineToSession(r))}
-                      disabled={starter.starting}
-                    >
-                      <Play />
-                      {t("workout.startRoutine")}
-                    </button>
-                  </section>
-                );
-              })}
-            </div>
-          )}
-        </>
-      )}
+      {pane === "routines" && <RoutinesPane routines={routines} details={details} starter={starter} onDelete={deleteRoutine} />}
 
       {pane === "history" &&
         (history === null ? (
@@ -399,23 +356,26 @@ export function WorkoutTab() {
         ) : history.length === 0 ? (
           <EmptyState icon={History} title={t("workout.noHistory")} text={t("workout.noHistoryHint")} />
         ) : (
-          history.map((w) => (
-            <button
-              className="card record"
-              key={w.id}
-              style={{ width: "100%", textAlign: "left", marginTop: 8 }}
-              onClick={() => nav.push(<WorkoutDetail workout={w} />)}
-            >
-              <ITile icon={Activity} tone={w.routine_id ? "green" : "beige"} />
-              <span className="grow">
-                <b>{w.name ?? t("workout.free")}</b>
-                <small className="tnum">
-                  {relDay(w.date)} · {dur(w.duration)} · {t("workout.setsCount", { n: w.set_count })} · {vol(w.volume)} {f.wUnit}
-                </small>
-              </span>
-              <ChevronRight size={19} />
-            </button>
-          ))
+          history
+            .filter((w) => !removed.has(w.id))
+            .map((w) => (
+              <SwipeRow key={w.id} className="rec" label={t("common.delete")} onSwipe={() => swipeWorkout(w)}>
+                <button
+                  className="card record"
+                  style={{ width: "100%", textAlign: "left" }}
+                  onClick={() => nav.push(<WorkoutDetail workout={w} />)}
+                >
+                  <ITile icon={Activity} tone={w.routine_id ? "green" : "beige"} />
+                  <span className="grow">
+                    <b>{w.name ?? t("workout.free")}</b>
+                    <small className="tnum">
+                      {relDay(w.date)} · {dur(w.duration)} · {t("workout.setsCount", { n: w.set_count })} · {vol(w.volume)} {f.wUnit}
+                    </small>
+                  </span>
+                  <ChevronRight size={19} />
+                </button>
+              </SwipeRow>
+            ))
         ))}
 
       {starter.confirmNode}
