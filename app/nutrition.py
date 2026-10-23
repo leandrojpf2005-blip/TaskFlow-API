@@ -38,9 +38,9 @@ def make_plan(weight, height, age, sex, activity, weekly_change):
     target = target_calories(t, weekly_change)
     macros = macro_split(target, weight)
     return {
-    "calories": target,
-    "protein_g": macros["protein_g"],
-    "carbs_g": macros["carbs_g"],
-    "fat_g": macros["fat_g"],
-}
+        "calories": round(target),
+        "protein_g": round(macros["protein_g"], 1),
+        "carbs_g": round(macros["carbs_g"], 1),
+        "fat_g": round(macros["fat_g"], 1),
+    }
     
