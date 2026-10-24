@@ -63,7 +63,7 @@ def get_macros(user_id, entry_date: date):
     with get_cursor() as cur:
         cur.execute("""
             SELECT f.id, f.date, f.meal_id, m.name AS meal_name,
-            f.food_name, f.calories, f.protein, f.carbs, f.fat
+            f.food_name, f.calories, f.protein, f.carbs, f.fat, f.food_id, f.amount_g
             FROM food_log_entry f
             JOIN meal m ON m.id = f.meal_id
             WHERE f.user_id = %s AND f.date = %s
@@ -72,20 +72,20 @@ def get_macros(user_id, entry_date: date):
         return cur.fetchall()
 
 
-def new_food_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, entry_date=None):
+def new_food_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, food_id, amount_g, entry_date=None):
     with get_cursor() as cur:
         if entry_date is None:
             cur.execute("""
-                INSERT INTO food_log_entry(user_id, meal_id, food_name, calories, protein, carbs, fat)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO food_log_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, food_id, amount_g)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING id, date
-            """, (user_id, meal_id, food_name, calories, protein, carbs, fat))
+            """, (user_id, meal_id, food_name, calories, protein, carbs, fat, food_id, amount_g))
         else:
             cur.execute("""
-                INSERT INTO food_log_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, date)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO food_log_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, food_id, amount_g, date)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING id, date
-            """, (user_id, meal_id, food_name, calories, protein, carbs, fat, entry_date))
+            """, (user_id, meal_id, food_name, calories, protein, carbs, fat, food_id, amount_g, entry_date))
 
         row = cur.fetchone()
         return {
@@ -97,6 +97,8 @@ def new_food_entry(user_id, meal_id, food_name, calories, protein, carbs, fat, e
             "protein": protein,
             "carbs": carbs,
             "fat": fat,
+            "food_id": food_id,
+            "amount_g": amount_g,
         }
 
 

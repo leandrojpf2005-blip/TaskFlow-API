@@ -28,6 +28,8 @@ class NewFoodEntry(BaseModel):
     carbs: float | None = None
     fat: float | None = None
     date: datetime.date | None = None
+    food_id: int | None = None
+    amount_g: float | None = None
 
 class UpdateFoodEntry(BaseModel):
     meal_id: int | None = None
@@ -46,3 +48,5 @@ class FoodEntryOut(BaseModel):
     protein: float | None
     carbs: float | None
     fat: float | None
+    food_id: int | None
+    amount_g: float | None
