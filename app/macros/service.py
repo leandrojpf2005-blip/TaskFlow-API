@@ -46,6 +46,8 @@ def create_food_entry(entry: NewFoodEntry, user_id):
         entry.protein,
         entry.carbs,
         entry.fat,
+        entry.food_id,
+        entry.amount_g,
         entry_date=entry.date,
     )
 
