@@ -1,41 +1,45 @@
-import { IconHome, IconDiary, IconDumbbell, IconUser, IconPlus } from "./icons";
+import { Dumbbell, Ellipsis, House, Plus, TrendingUp, type LucideIcon } from "lucide-react";
+import { useNav, type Tab } from "../lib/nav";
+import { useLang } from "../lib/langHooks";
+import type { Key } from "../lib/i18n";
 
-export type Tab = "home" | "diary" | "workouts" | "profile";
+const LEFT: { key: Tab; label: Key; icon: LucideIcon }[] = [
+  { key: "workouts", label: "tab.workout", icon: Dumbbell },
+  { key: "home", label: "tab.home", icon: House },
+];
+const RIGHT: { key: Tab; label: Key; icon: LucideIcon }[] = [
+  { key: "progress", label: "tab.progress", icon: TrendingUp },
+  { key: "more", label: "tab.more", icon: Ellipsis },
+];
 
-export function TabBar({
-  tab,
-  onTab,
-  onAdd,
-}: {
-  tab: Tab;
-  onTab: (t: Tab) => void;
-  onAdd: () => void;
-}) {
+/** Workout · Home · (+ Log) · Progress · More — the mockup's bottom bar. */
+export function TabBar({ onLog }: { onLog: () => void }) {
+  const { t } = useLang();
+  const nav = useNav();
+
+  const item = ({ key, label, icon: Icon }: (typeof LEFT)[number]) => (
+    <button
+      key={key}
+      className={nav.tab === key ? "on" : ""}
+      onClick={() => nav.goTab(key)}
+      aria-current={nav.tab === key ? "page" : undefined}
+    >
+      <Icon />
+      {t(label)}
+      <span className="dot" />
+    </button>
+  );
+
   return (
-    <nav className="tabbar">
-      <button className={tab === "home" ? "on" : ""} onClick={() => onTab("home")} aria-label="Home">
-        <IconHome />
+    <nav className="tabbar" aria-label="Main">
+      {LEFT.map(item)}
+      <button className="fab-wrap" onClick={onLog} aria-label={t("tab.log")}>
+        <span className="fab">
+          <Plus />
+        </span>
+        {t("tab.log")}
       </button>
-      <button className={tab === "diary" ? "on" : ""} onClick={() => onTab("diary")} aria-label="Diary">
-        <IconDiary />
-      </button>
-      <button className="fab" onClick={onAdd} aria-label="Add food">
-        <IconPlus />
-      </button>
-      <button
-        className={tab === "workouts" ? "on" : ""}
-        onClick={() => onTab("workouts")}
-        aria-label="Workouts"
-      >
-        <IconDumbbell />
-      </button>
-      <button
-        className={tab === "profile" ? "on" : ""}
-        onClick={() => onTab("profile")}
-        aria-label="Profile"
-      >
-        <IconUser />
-      </button>
+      {RIGHT.map(item)}
     </nav>
   );
 }

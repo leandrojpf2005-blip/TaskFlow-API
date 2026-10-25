@@ -4,6 +4,7 @@
 export interface Measurement {
   id: number;
   date: string; // ISO date, e.g. "2026-07-27"
+  note?: string | null; // backend ticket: column not there yet
   weight_kg: number | null;
   chest_cm: number | null;
   waist_cm: number | null;
@@ -13,6 +14,8 @@ export interface Measurement {
 
 // POST body — send only the fields that were filled in.
 export interface NewMeasurement {
+  date?: string | null;
+  note?: string | null;
   weight_kg?: number | null;
   chest_cm?: number | null;
   waist_cm?: number | null;
