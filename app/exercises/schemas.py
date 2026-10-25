@@ -12,3 +12,8 @@ class ExerciseOut(BaseModel):
     secondary_muscles: list[str] | None = None
     instructions: list[str] | None = None
     images: list[str] | None = None
+    slug: str | None = None
+    names: dict[str, str] | None = None  # {"en": ..., "pt": ..., "es": ..., "fr": ...}
+    body_part: str | None = None
+    equipment: str | None = None
+    type: str = "weight_reps"

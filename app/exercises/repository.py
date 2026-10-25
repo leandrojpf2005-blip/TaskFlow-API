@@ -2,14 +2,20 @@ from app.db.database import get_cursor
 
 def get_exercises(q=None):
     with get_cursor() as cur:
+        # inactive rows are the old catalogue: kept for workout history, hidden here
         if q:
             cur.execute("""
                 SELECT * FROM exercise
-                WHERE name ILIKE %s ORDER BY name
-            """, (f"%{q}%", ))
+                WHERE is_active AND (
+                    name ILIKE %s
+                    OR EXISTS (SELECT 1 FROM jsonb_each_text(names) n WHERE n.value ILIKE %s)
+                )
+                ORDER BY name
+            """, (f"%{q}%", f"%{q}%"))
         else:
             cur.execute("""
                 SELECT * FROM exercise
+                WHERE is_active
                 ORDER BY name
             """)
         return cur.fetchall()
