@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Literal
 
 Sex = Literal["male", "female"]
@@ -29,3 +29,9 @@ class PlanOut ( BaseModel ):
     protein_g: float
     carbs_g: float
     fat_g: float
+
+class TargetsIn ( BaseModel ):
+    target_calories: int = Field(gt=0)
+    target_protein_g: float = Field(gt=0)
+    target_carbs_g: float = Field(ge=0)
+    target_fat_g: float = Field(gt=0)
