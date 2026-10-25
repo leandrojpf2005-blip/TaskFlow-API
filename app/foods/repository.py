@@ -5,8 +5,8 @@ def search_foods(q):
     with get_cursor() as cur:
       cur.execute("""
         SELECT * FROM food
-        WHERE name ILIKE %s LIMIT 30
-      """, (f"%{q}%",))
+        WHERE name ILIKE %s ORDER BY lower(name) = lower(%s) DESC, length(name) LIMIT 30
+      """, (f"%{q}%", q))
       return cur.fetchall()
 
 def search_foods_barcode(barcode):
