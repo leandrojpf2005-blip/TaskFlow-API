@@ -1,10 +1,14 @@
-# Runs two containers together: your Postgres DB and your FastAPI app.
+# Runs three containers together: your Postgres DB, your FastAPI app and the web app (nginx).
 # Compose auto-reads a .env file in this folder for the ${...} values below,
 # so your existing .env (DB_PASSWORD, JWT_SECRET) is reused — no duplication.
 
 services:
   db:
     image: postgres:18
+    # 1 GB of cache (default 128 MB) so the whole food table and its search
+    # index stay in memory — the first search of the day is as fast as the rest.
+    command: postgres -c shared_buffers=1GB
+    shm_size: 256mb          # Docker's default (64 MB) is too small for bigger Postgres queries
     environment:
       POSTGRES_DB: taskflow
       POSTGRES_USER: postgres
@@ -36,6 +40,13 @@ services:
     depends_on:
       db:
         condition: service_healthy   # waits for the healthcheck above to pass
+
+  web:
+    build: ./taskflow-frontend   # React app built and served by nginx (see its Dockerfile)
+    ports:
+      - "8080:80"            # the app at http://<server>:8080 — its /api/... is forwarded to "app"
+    depends_on:
+      - app
 
 volumes:
   pgdata:
