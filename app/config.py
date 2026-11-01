@@ -1,6 +1,6 @@
 import os
 
-SECRET_KEY = os.environ.get("JWT_SECRET", "dev-only-change-me-in-production")
+SECRET_KEY = os.environ["JWT_SECRET"]
 
 ALGORITHM = "HS256"
 
